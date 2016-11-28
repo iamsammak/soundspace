@@ -1,22 +1,22 @@
-const Circle = function (x, y) {
-  this.x = x;
-  this.y = y;
-  this.alpha = 1;
-  this.radius = 0;
-  this.lineWidth = 6;
-  this.color = '#FFF';
-};
-
-Circle.prototype.draw = function (ctx) {
-  ctx.globalAlpha = this.alpha;
-  ctx.beginPath();
-  ctx.arc(this.x, this.y, this.radius, 0, 2 * Math.PI, true);
-  ctx.lindeWidth = this.lineWidth;
-  ctx.strokeStyle = this.color;
-  ctx.stroke();
-};
-
-module.exports = Circle;
+// const Circle = function (x, y) {
+//   this.x = x;
+//   this.y = y;
+//   this.alpha = 1;
+//   this.radius = 0;
+//   this.lineWidth = 6;
+//   this.color = '#FFF';
+// };
+//
+// Circle.prototype.draw = function (ctx) {
+//   ctx.globalAlpha = this.alpha;
+//   ctx.beginPath();
+//   ctx.arc(this.x, this.y, this.radius, 0, 2 * Math.PI, true);
+//   ctx.lindeWidth = this.lineWidth;
+//   ctx.strokeStyle = this.color;
+//   ctx.stroke();
+// };
+//
+// module.exports = Circle;
 
 // const createCircle = function (x, y) {
 //   const p = {};
@@ -36,3 +36,25 @@ module.exports = Circle;
 //   };
 //   return p;
 // };
+
+class Circle {
+  constructor(x, y) {
+    this.x = x;
+    this.y = y;
+    this.alpha = 1;
+    this.radius = 0;
+    this.lineWidth = 6;
+    this.color = '#FFF';
+  }
+
+  draw(ctx) {
+    ctx.globalAlpha = this.alpha;
+    ctx.beginPath();
+    ctx.arc(this.x, this.y, this.radius, 0, 2 * Math.PI, true);
+    ctx.lindeWidth = this.lineWidth;
+    ctx.strokeStyle = this.color;
+    ctx.stroke();
+  }
+}
+
+export default Circle;

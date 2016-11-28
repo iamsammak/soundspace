@@ -1,4 +1,5 @@
-module.exports = {
+// module.exports = {
+const dotOptions = {
   // big
   z: {
     color: '#baecf0',
@@ -131,3 +132,5 @@ module.exports = {
   //   numDots: 5,
   // },
 };
+
+export default dotOptions;

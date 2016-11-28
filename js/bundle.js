@@ -44,7 +44,7 @@
 /* 0 */
 /***/ function(module, exports, __webpack_require__) {
 
-	'use strict';
+	"use strict";
 	
 	__webpack_require__(1);
 	
@@ -52,8 +52,8 @@
 	// require('howler');
 	
 	var Explosions = __webpack_require__(3);
-	
-	var canvas = document.querySelector('.dots');
+	// import Explosions from './dots.js';
+	var canvas = document.getElementById("my-canvas");
 	var ctx = canvas.getContext('2d');
 	
 	var explosion = new Explosions(canvas, ctx);
@@ -71,12 +71,32 @@
 
 	'use strict';
 	
-	function _toConsumableArray(arr) { if (Array.isArray(arr)) { for (var i = 0, arr2 = Array(arr.length); i < arr.length; i++) { arr2[i] = arr[i]; } return arr2; } else { return Array.from(arr); } }
+	var _animejs = __webpack_require__(4);
 	
-	var anime = __webpack_require__(4);
-	var Circle = __webpack_require__(5);
-	var Dot = __webpack_require__(6);
-	var dotOptions = __webpack_require__(7);
+	var _animejs2 = _interopRequireDefault(_animejs);
+	
+	var _circle = __webpack_require__(5);
+	
+	var _circle2 = _interopRequireDefault(_circle);
+	
+	var _dot = __webpack_require__(6);
+	
+	var _dot2 = _interopRequireDefault(_dot);
+	
+	var _util = __webpack_require__(7);
+	
+	var _util2 = _interopRequireDefault(_util);
+	
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+	
+	function _toConsumableArray(arr) { if (Array.isArray(arr)) { for (var i = 0, arr2 = Array(arr.length); i < arr.length; i++) { arr2[i] = arr[i]; } return arr2; } else { return Array.from(arr); } } // const anime = require('animejs');
+	
+	// const Circle = require('./circle.js');
+	
+	// const Dot = require('./dot.js');
+	
+	// const dotOptions = require('./util.js');
+	
 	
 	var Explosions = function Explosions(canvas, ctx) {
 	  var animations = [];
@@ -91,7 +111,7 @@
 	  var createDots = function createDots(x, y, options) {
 	    var dots = [];
 	    for (var i = 0; i < options.numDots; i++) {
-	      var p = new Dot(x, y, options);
+	      var p = new _dot2.default(x, y, options);
 	      dots.push(p);
 	    }
 	    return dots;
@@ -109,23 +129,23 @@
 	    var x = Math.random() * canvas.width;
 	    var y = Math.random() * canvas.height;
 	    var dots = createDots(x, y, options);
-	    var circle = new Circle(x, y);
-	    var dotsAnimation = anime({
+	    var circle = new _circle2.default(x, y);
+	    var dotsAnimation = (0, _animejs2.default)({
 	      targets: dots,
 	      x: function x(p) {
-	        return p.x + anime.random(-distance, distance);
+	        return p.x + _animejs2.default.random(-distance, distance);
 	      },
 	      y: function y(p) {
-	        return p.y + anime.random(-distance, distance);
+	        return p.y + _animejs2.default.random(-distance, distance);
 	      },
 	      radius: options.endRadius,
 	      duration: function duration() {
-	        return anime.random.apply(anime, _toConsumableArray(options.duration));
+	        return _animejs2.default.random.apply(_animejs2.default, _toConsumableArray(options.duration));
 	      },
 	      easing: 'easeOutExpo',
 	      complete: removeAnimation
 	    });
-	    var circleAnimation = anime({
+	    var circleAnimation = (0, _animejs2.default)({
 	      targets: circle,
 	      radius: function radius() {
 	        return canvas.width + 200;
@@ -139,7 +159,7 @@
 	        }
 	      },
 	      duration: function duration() {
-	        return anime.random(5000, 8000);
+	        return _animejs2.default.random(5000, 8000);
 	      },
 	      easing: 'easeOutExpo',
 	      complete: removeAnimation
@@ -148,7 +168,7 @@
 	    animations.push(circleAnimation);
 	  };
 	
-	  var mainLoop = anime({
+	  var mainLoop = (0, _animejs2.default)({
 	    duration: Infinity,
 	    update: function update() {
 	      ctx.clearRect(0, 0, canvas.width, canvas.height);
@@ -162,8 +182,8 @@
 	
 	  document.addEventListener('keydown', function (e) {
 	    var key = e.key;
-	    if (Object.keys(dotOptions).indexOf(key) > -1) {
-	      animateDots(dotOptions[key]);
+	    if (Object.keys(_util2.default).indexOf(key) > -1) {
+	      animateDots(_util2.default[key]);
 	    }
 	  }, false);
 	
@@ -171,6 +191,94 @@
 	};
 	
 	module.exports = Explosions;
+	
+	// class Explosions {
+	// constructor(canvas, ctx) {
+	//   this.canvas = canvas;
+	//   this.ctx = ctx;
+	//   this.canvas.width = window.innerWidth;
+	//   this.canvas.height = window.innerHeight;
+	//   this.distance = this.canvas.width;
+	//
+	//   this.animations = [];
+	// }
+	//
+	//   setCanvasSize() {
+	//     this.canvas.width = window.innerWidth;
+	//     this.canvas.height = window.innerHeight;
+	//   }
+	//
+	//   createDots(x, y, options) {
+	//     let dots = [];
+	//     for (let i = 0; i < options.numDots; i++) {
+	//       let p = new Dot(x, y, options);
+	//       dots.push(p);
+	//     }
+	//     return dots;
+	//   }
+	//
+	//   removeAnimation(animation) {
+	//     const index = animations.indexOf(animation);
+	//     if (index > -1) {
+	//       animations.splice(index, 1);
+	//     }
+	//   }
+	//
+	//   animateDots(options) {
+	//     const x = Math.random() * this.canvas.width;
+	//     const y = Math.random() * this.canvas.height;
+	//     const dots = createDots(x, y, options);
+	//     const circle = new Circle(x, y);
+	//     const dotsAnimation = anime({
+	//       targets: dots,
+	//       x: function(p) { return p.x + anime.random(-this.distance, this.distance); },
+	//       y: function(p) { return p.y + anime.random(-this.distance, this.distance); },
+	//       radius: options.endRadius,
+	//       duration: function() { return anime.random(...options.duration); },
+	//       easing: 'easeOutExpo',
+	//       complete: removeAnimation()
+	//     });
+	//
+	//     const circleAnimation = anime({
+	//       targets: circle,
+	//       radius: function() { return this.canvas.width + 200; },
+	//       lineWidth: 0,
+	//       alpha: {
+	//         value: 0,
+	//         easing: 'linear',
+	//         duration: function() { return 80000; }
+	//       },
+	//       duration: function() { return anime.random(5000, 8000); },
+	//       easing: 'easeOutExpo',
+	//       complete: removeAnimation()
+	//     });
+	//     this.animations.push(dotsAnimation);
+	//     this.animations.push(circleAnimation);
+	//   }
+	//
+	//   const mainLoop = anime({
+	//     duration: Infinity,
+	//     update: function() {
+	//       this.ctx.clearRect(0, 0, this.canvas.width, this.canvas.height);
+	//       this.animations.forEach(function(anim) {
+	//         anim.animatables.forEach(function (animatable) {
+	//           animatable.target.draw(this.ctx);
+	//         });
+	//       });
+	//     }
+	//   });
+	//
+	//   document.addEventListener('keydown', function(e) {
+	//     const key = (e.key);
+	//     if (Object.keys(dotOptions).indexOf(key) > -1) {
+	//       animateDots(dotOptions[key]);
+	//     }
+	//   }, false);
+	//
+	//   window.addEventListener('resize', setCanvasSize(), false);
+	// }
+	//
+	// export default Explosions;
 
 /***/ },
 /* 4 */
@@ -816,25 +924,33 @@
 
 	'use strict';
 	
-	var Circle = function Circle(x, y) {
-	  this.x = x;
-	  this.y = y;
-	  this.alpha = 1;
-	  this.radius = 0;
-	  this.lineWidth = 6;
-	  this.color = '#FFF';
-	};
+	Object.defineProperty(exports, "__esModule", {
+	  value: true
+	});
 	
-	Circle.prototype.draw = function (ctx) {
-	  ctx.globalAlpha = this.alpha;
-	  ctx.beginPath();
-	  ctx.arc(this.x, this.y, this.radius, 0, 2 * Math.PI, true);
-	  ctx.lindeWidth = this.lineWidth;
-	  ctx.strokeStyle = this.color;
-	  ctx.stroke();
-	};
+	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
 	
-	module.exports = Circle;
+	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+	
+	// const Circle = function (x, y) {
+	//   this.x = x;
+	//   this.y = y;
+	//   this.alpha = 1;
+	//   this.radius = 0;
+	//   this.lineWidth = 6;
+	//   this.color = '#FFF';
+	// };
+	//
+	// Circle.prototype.draw = function (ctx) {
+	//   ctx.globalAlpha = this.alpha;
+	//   ctx.beginPath();
+	//   ctx.arc(this.x, this.y, this.radius, 0, 2 * Math.PI, true);
+	//   ctx.lindeWidth = this.lineWidth;
+	//   ctx.strokeStyle = this.color;
+	//   ctx.stroke();
+	// };
+	//
+	// module.exports = Circle;
 	
 	// const createCircle = function (x, y) {
 	//   const p = {};
@@ -854,6 +970,35 @@
 	//   };
 	//   return p;
 	// };
+	
+	var Circle = function () {
+	  function Circle(x, y) {
+	    _classCallCheck(this, Circle);
+	
+	    this.x = x;
+	    this.y = y;
+	    this.alpha = 1;
+	    this.radius = 0;
+	    this.lineWidth = 6;
+	    this.color = '#FFF';
+	  }
+	
+	  _createClass(Circle, [{
+	    key: 'draw',
+	    value: function draw(ctx) {
+	      ctx.globalAlpha = this.alpha;
+	      ctx.beginPath();
+	      ctx.arc(this.x, this.y, this.radius, 0, 2 * Math.PI, true);
+	      ctx.lindeWidth = this.lineWidth;
+	      ctx.strokeStyle = this.color;
+	      ctx.stroke();
+	    }
+	  }]);
+	
+	  return Circle;
+	}();
+	
+	exports.default = Circle;
 
 /***/ },
 /* 6 */
@@ -861,25 +1006,27 @@
 
 	'use strict';
 	
-	function _toConsumableArray(arr) { if (Array.isArray(arr)) { for (var i = 0, arr2 = Array(arr.length); i < arr.length; i++) { arr2[i] = arr[i]; } return arr2; } else { return Array.from(arr); } }
+	Object.defineProperty(exports, "__esModule", {
+	  value: true
+	});
 	
-	var anime = __webpack_require__(4);
-	
-	var Dot = function Dot(x, y, options) {
-	  this.x = x;
-	  this.y = y;
-	  this.color = options.color; // TODO: This gets customized later
-	  this.radius = anime.random.apply(anime, _toConsumableArray(options.radius)); // TODO: This gets customized later
-	};
-	
-	Dot.prototype.draw = function (ctx) {
-	  ctx.beginPath();
-	  ctx.arc(this.x, this.y, this.radius, 0, 2 * Math.PI, true);
-	  ctx.fillStyle = this.color;
-	  ctx.fill();
-	};
-	
-	module.exports = Dot;
+	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }(); // const anime = require('animejs');
+	//
+	// const Dot = function (x, y, options) {
+	//   this.x = x;
+	//   this.y = y;
+	//   this.color = options.color; // TODO: This gets customized later
+	//   this.radius = anime.random(...options.radius); // TODO: This gets customized later
+	// };
+	//
+	// Dot.prototype.draw = function (ctx) {
+	//   ctx.beginPath();
+	//   ctx.arc(this.x, this.y, this.radius, 0, 2 * Math.PI, true);
+	//   ctx.fillStyle = this.color;
+	//   ctx.fill();
+	// };
+	//
+	// module.exports = Dot;
 	
 	// const createDot = function (x, y) {
 	//   const p = {};
@@ -895,6 +1042,41 @@
 	//   };
 	//   return p;
 	// };
+	
+	var _animejs = __webpack_require__(4);
+	
+	var _animejs2 = _interopRequireDefault(_animejs);
+	
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+	
+	function _toConsumableArray(arr) { if (Array.isArray(arr)) { for (var i = 0, arr2 = Array(arr.length); i < arr.length; i++) { arr2[i] = arr[i]; } return arr2; } else { return Array.from(arr); } }
+	
+	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+	
+	var Dot = function () {
+	  function Dot(x, y, options) {
+	    _classCallCheck(this, Dot);
+	
+	    this.x = x;
+	    this.y = y;
+	    this.color = options.color;
+	    this.radius = _animejs2.default.random.apply(_animejs2.default, _toConsumableArray(options.radius));
+	  }
+	
+	  _createClass(Dot, [{
+	    key: 'draw',
+	    value: function draw(ctx) {
+	      ctx.beginPath();
+	      ctx.arc(this.x, this.y, this.radius, 0, 2 * Math.PI, true);
+	      ctx.fillStyle = this.color;
+	      ctx.fill();
+	    }
+	  }]);
+	
+	  return Dot;
+	}();
+	
+	exports.default = Dot;
 
 /***/ },
 /* 7 */
@@ -902,7 +1084,11 @@
 
 	'use strict';
 	
-	module.exports = {
+	Object.defineProperty(exports, "__esModule", {
+	  value: true
+	});
+	// module.exports = {
+	var dotOptions = {
 	  // big
 	  z: {
 	    color: '#baecf0',
@@ -1020,6 +1206,8 @@
 	    numDots: 30
 	  }
 	};
+	
+	exports.default = dotOptions;
 
 /***/ }
 /******/ ]);

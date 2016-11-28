@@ -44,12 +44,6 @@ body, html {
   overflow-x: hidden;
   overflow-y: hidden; }
 
-#game-canvas {
-  display: block;
-  background-color: black;
-  margin: 0 auto;
-  vertical-align: middle; }
-
 body {
   background-color: #636770; }
 
