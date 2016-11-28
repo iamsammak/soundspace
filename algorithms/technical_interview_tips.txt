@@ -1,0 +1,93 @@
+Frame of Mind - moving with music
+
+Re  - restate the problem
+S   - sample Inputs and Outputs
+E   - english approaches
+T   - test
+
+A   - analyze (O complexity)
+
+Pe  - pseudocode
+T   - test
+
+Co  - code
+T   - test
+
+
+You have a linked list and want to find the kth to last node
+Write a function kth_to_last_node() that takes an integer k and the head_node of a linked list, and returns the kth to last node in the list
+
+Restate the problem
+  Missing question
+  - ask if its a singly linked list or doubly linked list
+
+Sample inputs and outputs
+  S1 think 0, 1 - think small
+  S2 Break it
+    what if k is negative (through an error if k is negative)
+    last node is k = 0
+    0       k = 0
+    0       k = 1
+    0 1 2   k = 1 - return is 1
+    0 1 2   k = 2 - return is 0
+    0 1 2   k is negative, raise errors
+      if k is greater than the length - 1
+
+english approaches
+
+go through the full list, track the items you are going through in an array, if the array length - 1 is greater than or equal to shift a ff the front before pushing the new one in
+
+go through the full list generating a hash map of them with indexes, and return the length - kth index
+
+analyze
+  linear time, constant spaces
+  linker time, linear spaces
+  2x + linear time
+
+Pseudo code
+run k through the break cases first
+get the length(count) of the nodes
+then
+
+RUBY
+def kth_to_last_node(node, k)
+  arrow1 = node
+  arrow2 = node
+
+  k.times do
+    arrow1 = arrow1.next
+  end
+
+  until arrow1.next == NULL
+    arrow1 = arrow1.next
+    arrow2 = arrow2.next
+  end
+
+  return arrow2 (implicitly return in ruby)
+end
+
+JAVASCRIPT
+function kthToLastNode(node, k) {
+  let arrow1 = node;
+  let arrow2 = node;
+
+  for (i = 0; i < k; i++) {
+    arrow1 = next(arrow1)
+  }
+
+  while (next(arrow1) !== NULL) {
+    arrow1 = next(arrow1);
+    arrow2 = next(arrow2);
+  }
+
+  return arrow2;
+}
+
+
+
+
+Imposter Syndrome - During Interview
+1. Admit what you don't know
+2. By demonstrating what you do know
+  Your circle of knowledge is expanding, by admitting what you don't know but you have an idea and demonstrating how you will reach out for that and expand
+3. Make a comfortable physical space
