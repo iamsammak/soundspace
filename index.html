@@ -3,9 +3,66 @@
   <head>
     <meta charset="utf-8">
     <title>Sound Space</title>
+    <link rel="stylesheet" href="css/style.css"></link>
+    <link href='https://fonts.googleapis.com/css?family=Montserrat' rel='stylesheet' type='text/css'>
   </head>
   <body>
-    <h1>Hello world this is the new world</h1>
+    <canvas class="dots"></canvas>
+    <div class="start-description">
+      <h1>Press the keys to begin and turn up your speakers</h1>
+    </div>
 
+    <!-- <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/howler/1.1.29/howler.js"></script> -->
+    <script type="text/javascript" src="https://cdn.jsdelivr.net/howler.js/2.0.1/howler.js"></script>
+    <!-- <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/howler/2.0.1/howler.js"></script> -->
+    <script type="application/javascript" src="vendor/keymaster.js"></script>
+    <script type="application/javascript" src="js/bundle.js" charset="utf-8"></script>
+    <script> <!-- TODO: add .wav, .mp3, .ogg  -->
+      const sounds = {
+        q: new Howl({ src: ['assets/sounds/water_drop_high.mp3'] }),
+        w: new Howl({ src: ['assets/sounds/water_drop_low.mp3'] }),
+        e: new Howl({ src: ['assets/sounds/hatpedal.wav'] }),
+        r: new Howl({ src: ['assets/sounds/malletdrum.wav'] }),
+        t: new Howl({ src: ['assets/sounds/bottle_pop_1.wav'] }),
+        // u: new Howl({ src: ['assets/sounds/chinese_gong.mp3'], sprite: { gong: [0, 1000]} }),
+        y: new Howl({ src: ['assets/sounds/bottle_pop_3.wav'] }),
+        u: new Howl({ src: ['assets/sounds/kickclosetcrushed.wav'] }),
+        i: new Howl({ src: ['assets/sounds/twang.wav'] }),
+        o: new Howl({ src: ['assets/sounds/gulp.wav'] }),
+        p: new Howl({ src: ['assets/sounds/beatboxsnare.wav'] }),
+        a: new Howl({ src: ['assets/sounds/closedhatphrase.wav'] }),
+        s: new Howl({ src: ['assets/sounds/mario_jumping.mp3'] }),
+        d: new Howl({ src: ['assets/sounds/bd2.ogg', 'assets/sounds/bd2.wav'] }),
+        f: new Howl({ src: ['assets/sounds/snareparty.wav'] }),
+        g: new Howl({ src: ['assets/sounds/huh.wav'], volume: 0.5 }),
+        h: new Howl({ src: ['assets/sounds/camera-click-1.wav'] }),
+        j: new Howl({ src: ['assets/sounds/vestsnare.wav'] }),
+        k: new Howl({ src: ['assets/sounds/clap.mp3'] }),
+        l: new Howl({ src: ['assets/sounds/stomachsnare.wav'] }),
+        z: new Howl({ src: ['assets/sounds/can-to-table-1.wav'] }),
+        x: new Howl({ src: ['assets/sounds/snarebottom.wav'], volume: 0.5 }),
+        c: new Howl({ src: ['assets/sounds/kickbass.wav'] }),
+        v: new Howl({ src: ['assets/sounds/yes.wav'] }),
+        b: new Howl({ src: ['assets/sounds/hitom.wav'] }),
+        n: new Howl({ src: ['assets/sounds/kickclosetcrushed2.wav'] }),
+        m: new Howl({ src: ['assets/sounds/hmm.wav'] }),
+      }
+
+      document.addEventListener('keydown', function (e) {
+        const key = (e.key);
+        // if (key === "u") {
+        //   sounds[key].play('gong')
+        // }
+        if (Object.keys(sounds).indexOf(key) > -1) {
+          sounds[key].play();
+        }
+      }, false);
+    </script>
+    <!-- <div id="container">
+      <div id="mug"></div>
+      <div id="handle"></div>
+      <div class="shadow"></div>
+    </div>
+    <div class="rotater"><span>\<span>\<span>\<span>\<span>\<span>\<span>\<span>\<span>\<span>\<span>\<span>\<span>\<span>\<span>\</span></span></span></span></span></span></span></span></span></span></span></span></span></span></span></div> -->
   </body>
 </html>

@@ -1,0 +1,305 @@
+/* Reset */
+
+html, body, header, nav, h1, a,
+ul, li, strong, main, button, i,
+section, img, div, h2, p, form,
+fieldset, label, input, textarea,
+span, article, footer, time, small {
+  margin: 0;
+  padding: 0;
+  border: 0;
+  outline: 0;
+  font: inherit;
+  color: inherit;
+  text-align: inherit;
+  text-decoration: inherit;
+  vertical-align: inherit;
+  box-sizing: inherit;
+  background: transparent;
+  font-family: 'Quicksand', sans-serif;
+}
+
+ul {
+  list-style: none;
+}
+
+li {
+  list-style: none;
+}
+
+img {
+    display: block;
+    margin: auto;
+}
+
+input[type="password"],
+input[type="email"],
+input[type="text"],
+input[type="submit"],
+textarea,
+button {
+  -webkit-appearance: none;
+  -moz-appearance: none;
+}
+
+button,
+input[type="submit"] {
+  cursor: pointer;
+}
+
+body, html {
+  overflow-x: hidden;
+  overflow-y: hidden;
+}
+
+
+// styling below
+
+#game-canvas {
+  display: block;
+  background-color: black;
+  margin: 0 auto;
+  vertical-align: middle;
+}
+
+body {
+  background-color: #636770;
+}
+
+.start-description {
+  margin-left: auto;
+  margin-right: auto;
+}
+
+h1 {
+  font-family: 'Montserrat', sans-serif;
+  color: white;
+  text-align: center;
+}
+
+
+
+// coffee mug
+//
+// $bgDark: #0B1A21;
+// $bgMid: #4FC3F7;
+// $bgLight: #81D4FA;
+//
+// $mugColor: #FFF;
+// $handleColor: #FF1744;
+// $coffeeColor: #4E342E;
+// $innerColor: #CCC;
+//
+// $animationTime: 6s;
+//
+// @mixin mugSide($color, $innerDistance) {
+//     box-shadow: 0 2px 0 $color,
+//                 0 5px 0 $color,
+//                 0 7px 0 $color,
+//                 0 10px 0 $color,
+//                 0 12px 0 $color,
+//                 0 15px 0 $color,
+//                 0 17px 0 $color,
+//                 0 20px 0 $color,
+//                 0 22px 0 $color,
+//                 0 25px 0 $color,
+//                 0 27px 0 $color,
+//                 0 30px 0 $color,
+//                 0 32px 0 $color,
+//                 0 35px 0 $color,
+//                 0 37px 0 $color,
+//                 0 40px 0 $color,
+//                 0 42px 0 $color,
+//                 0 45px 0 $color,
+//                 0 47px 0 $color,
+//                 0 50px 0 $color,
+//                 0 $innerDistance 0 $innerColor inset;
+// }
+//
+// body {
+// 	height: 100%;
+// 	width: 100%;
+// 	background-color: $bgDark;
+//   font-family: 'Amatic SC', cursive;
+//   overflow: hidden;
+//
+//   animation: colors $animationTime linear normal infinite;
+// }
+//
+// #container{
+// 	width: 100px;
+// 	height: 100px;
+// 	margin: 50vh auto 0 auto;
+//   transform: translate(0, -50%);
+// }
+//
+// #handle{
+// 	position: relative;
+// 	width: 15px;
+// 	height: 15px;
+// 	border-radius: 50%;
+//   margin-left: 50%;
+// 	border: 8px solid $handleColor;
+// 	opacity: 0;
+// 	z-index: 1;
+//
+//   animation: handle-show $animationTime cubic-bezier(0.68, -0.55, 0.265, 1.55) normal infinite;
+// }
+//
+// #mug{
+//   box-shadow: 0 0 0 $mugColor;
+// 	position: relative;
+// 	width: 0px;
+// 	height: 0px;
+// 	border-radius: 50%;
+// 	border: 0px solid $mugColor;
+// 	background-color: $bgDark;
+//   margin-left: 50%;
+// 	transform: translate(-50%, -50%);
+// 	z-index: 2;
+//   opacity: 0;
+//
+//   animation: mug-show $animationTime cubic-bezier(0.68, -0.55, 0.265, 1.55) normal infinite;
+// }
+//
+// .shadow {
+//     width: 100px;
+//     height: 40px;
+//     z-index: -1;
+//     opacity: 0;
+//     margin: -5px auto 0 auto;
+//     background: radial-gradient(ellipse at center, rgba(0,0,0,0.45) 0%,rgba(0,0,0,0) 70%);
+//     transform: translate(0, -50%);
+//
+//     animation: show $animationTime ease normal infinite;
+// }
+//
+// .rotater {
+//   position: absolute;
+//   width: 420px;
+//   height: 420px;
+//   top:0;left:0;bottom:0;right:0;
+//   margin: auto;
+//   border-radius: 50%;
+//   animation: spin 10s infinite linear;
+// }
+//
+// div > span:first-child {
+//   transform: translatex(210px);
+// }
+//
+// span {
+//   width: 0;
+//   height: 420px;
+//   position: absolute;
+//   top: 0; left: 0;
+//   font-size: 0;
+//   color: $mugColor;
+//   line-height: 0;
+//   transform: rotate(24deg);
+//   transform-style: preserve-3d;
+//
+//   animation: show $animationTime ease normal infinite;
+// }
+//
+//
+// @keyframes show {
+//   25% {
+//     font-size: 0px;
+//     opacity: 0;
+//   }
+//   30% {
+//     font-size: 0px;
+//     opacity: 1;
+//   }
+//   35%{
+//     font-size: 96px;
+//     opacity: 1;
+//   }
+//   95% {
+//     opacity: 1;
+//   }
+//   100%{
+//     font-size: 96px;
+//     opacity: 0;
+//   }
+// }
+//
+// @keyframes colors {
+//   27% {
+//     background-color: $bgDark;
+//   }
+//   30% {
+//     background-color: $bgLight;
+//   }
+//   95% {
+//     background-color: $bgMid;
+//   }
+//   100% {
+//     background-color: $bgDark;
+//   }
+// }
+//
+// @keyframes handle-show {
+// 	15%{
+// 		opacity: 0;
+// 	}
+// 	17% {
+// 		transform: translate(0, -22px);
+// 		opacity: 1;
+// 	}
+// 	22% {
+// 		transform: translate(20px, -22px);
+// 	}
+// 	95% {
+// 		opacity: 1;
+// 	}
+//   100%{
+//     transform: translate(20px, -22px);
+//     opacity: 0;
+//   }
+// }
+//
+// @keyframes mug-show {
+//   8% {
+//     opacity: 1;
+//     border: 5px solid $mugColor;
+//     width: 60px;
+//     height: 60px;
+//     box-shadow: 0 0 0 $mugColor;
+//   }
+//   17% {
+//    	width: 60px;
+//   	height: 20px;
+//     @include mugSide($mugColor, 0px);
+//   }
+//   25%{
+//     background-color: $bgDark;
+//   }
+//   30%{
+//     background-color: $coffeeColor;
+//   }
+//   40%{
+//     @include mugSide($mugColor, 8px);
+//   }
+//   85%{
+//     @include mugSide($mugColor, 8px);
+//   }
+//   95% {
+//     opacity: 1;
+//   }
+//   100%{
+//     border: 5px solid $mugColor;
+//     width: 60px;
+//     height: 20px;
+//     background-color: $coffeeColor;
+//     @include mugSide($mugColor, 30px);
+//     opacity: 0;
+//   }
+// }
+//
+// @keyframes spin {
+//   100% {
+//     transform: rotate(360deg)
+//   }
+// }
