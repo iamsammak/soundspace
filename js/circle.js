@@ -1,19 +1,17 @@
-// const Circle = function (x, y) {
+// const anime = require('animejs');
+//
+// const Circle = function (x, y, options) {
 //   this.x = x;
 //   this.y = y;
-//   this.alpha = 1;
-//   this.radius = 0;
-//   this.lineWidth = 6;
-//   this.color = '#FFF';
+//   this.color = options.color; // TODO: This gets customized later
+//   this.radius = anime.random(...options.radius); // TODO: This gets customized later
 // };
 //
 // Circle.prototype.draw = function (ctx) {
-//   ctx.globalAlpha = this.alpha;
 //   ctx.beginPath();
 //   ctx.arc(this.x, this.y, this.radius, 0, 2 * Math.PI, true);
-//   ctx.lindeWidth = this.lineWidth;
-//   ctx.strokeStyle = this.color;
-//   ctx.stroke();
+//   ctx.fillStyle = this.color;
+//   ctx.fill();
 // };
 //
 // module.exports = Circle;
@@ -22,38 +20,32 @@
 //   const p = {};
 //   p.x = x;
 //   p.y = y;
-//   p.color = '#FFF';
-//   p.radius = 0;
-//   p.alpha = 1;
-//   p.lineWidth = 6;
+//   p.color = '#ffec6a'; // TODO: This gets customized later
+//   p.radius = 50; // TODO: This gets customized later
 //   p.draw = function () {
-//     ctx.globalAlpha = p.alpha;
 //     ctx.beginPath();
 //     ctx.arc(p.x, p.y, p.radius, 0, 2 * Math.PI, true);
-//     ctx.lindeWidth = p.lineWidth;
-//     ctx.strokeStyle = p.color;
-//     ctx.stroke();
+//     ctx.fillStyle = p.color;
+//     ctx.fill();
 //   };
 //   return p;
 // };
 
+import anime from 'animejs';
+
 class Circle {
-  constructor(x, y) {
+  constructor(x, y, options) {
     this.x = x;
     this.y = y;
-    this.alpha = 1;
-    this.radius = 0;
-    this.lineWidth = 6;
-    this.color = '#FFF';
+    this.color = options.color;
+    this.radius = anime.random(...options.radius);
   }
 
   draw(ctx) {
-    ctx.globalAlpha = this.alpha;
     ctx.beginPath();
     ctx.arc(this.x, this.y, this.radius, 0, 2 * Math.PI, true);
-    ctx.lineWidth = this.lineWidth;
-    ctx.strokeStyle = this.color;
-    ctx.stroke();
+    ctx.fillStyle = this.color;
+    ctx.fill();
   }
 }
 

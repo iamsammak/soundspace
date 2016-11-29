@@ -54,9 +54,6 @@
 	
 	__webpack_require__(5);
 	
-	// import Howl from 'howler';
-	// require('howler');
-	
 	// const GameView = require('./game_view.js');
 	
 	// import GameView from './test_game_view.js';
@@ -710,88 +707,6 @@
 
 /***/ },
 /* 3 */
-/***/ function(module, exports) {
-
-	'use strict';
-	
-	Object.defineProperty(exports, "__esModule", {
-	  value: true
-	});
-	
-	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
-	
-	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
-	
-	// const Circle = function (x, y) {
-	//   this.x = x;
-	//   this.y = y;
-	//   this.alpha = 1;
-	//   this.radius = 0;
-	//   this.lineWidth = 6;
-	//   this.color = '#FFF';
-	// };
-	//
-	// Circle.prototype.draw = function (ctx) {
-	//   ctx.globalAlpha = this.alpha;
-	//   ctx.beginPath();
-	//   ctx.arc(this.x, this.y, this.radius, 0, 2 * Math.PI, true);
-	//   ctx.lindeWidth = this.lineWidth;
-	//   ctx.strokeStyle = this.color;
-	//   ctx.stroke();
-	// };
-	//
-	// module.exports = Circle;
-	
-	// const createCircle = function (x, y) {
-	//   const p = {};
-	//   p.x = x;
-	//   p.y = y;
-	//   p.color = '#FFF';
-	//   p.radius = 0;
-	//   p.alpha = 1;
-	//   p.lineWidth = 6;
-	//   p.draw = function () {
-	//     ctx.globalAlpha = p.alpha;
-	//     ctx.beginPath();
-	//     ctx.arc(p.x, p.y, p.radius, 0, 2 * Math.PI, true);
-	//     ctx.lindeWidth = p.lineWidth;
-	//     ctx.strokeStyle = p.color;
-	//     ctx.stroke();
-	//   };
-	//   return p;
-	// };
-	
-	var Circle = function () {
-	  function Circle(x, y) {
-	    _classCallCheck(this, Circle);
-	
-	    this.x = x;
-	    this.y = y;
-	    this.alpha = 1;
-	    this.radius = 0;
-	    this.lineWidth = 6;
-	    this.color = '#FFF';
-	  }
-	
-	  _createClass(Circle, [{
-	    key: 'draw',
-	    value: function draw(ctx) {
-	      ctx.globalAlpha = this.alpha;
-	      ctx.beginPath();
-	      ctx.arc(this.x, this.y, this.radius, 0, 2 * Math.PI, true);
-	      ctx.lineWidth = this.lineWidth;
-	      ctx.strokeStyle = this.color;
-	      ctx.stroke();
-	    }
-	  }]);
-	
-	  return Circle;
-	}();
-	
-	exports.default = Circle;
-
-/***/ },
-/* 4 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -802,23 +717,23 @@
 	
 	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }(); // const anime = require('animejs');
 	//
-	// const Dot = function (x, y, options) {
+	// const Circle = function (x, y, options) {
 	//   this.x = x;
 	//   this.y = y;
 	//   this.color = options.color; // TODO: This gets customized later
 	//   this.radius = anime.random(...options.radius); // TODO: This gets customized later
 	// };
 	//
-	// Dot.prototype.draw = function (ctx) {
+	// Circle.prototype.draw = function (ctx) {
 	//   ctx.beginPath();
 	//   ctx.arc(this.x, this.y, this.radius, 0, 2 * Math.PI, true);
 	//   ctx.fillStyle = this.color;
 	//   ctx.fill();
 	// };
 	//
-	// module.exports = Dot;
+	// module.exports = Circle;
 	
-	// const createDot = function (x, y) {
+	// const createCircle = function (x, y) {
 	//   const p = {};
 	//   p.x = x;
 	//   p.y = y;
@@ -843,9 +758,9 @@
 	
 	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
 	
-	var Dot = function () {
-	  function Dot(x, y, options) {
-	    _classCallCheck(this, Dot);
+	var Circle = function () {
+	  function Circle(x, y, options) {
+	    _classCallCheck(this, Circle);
 	
 	    this.x = x;
 	    this.y = y;
@@ -853,7 +768,7 @@
 	    this.radius = _animejs2.default.random.apply(_animejs2.default, _toConsumableArray(options.radius));
 	  }
 	
-	  _createClass(Dot, [{
+	  _createClass(Circle, [{
 	    key: 'draw',
 	    value: function draw(ctx) {
 	      ctx.beginPath();
@@ -863,12 +778,13 @@
 	    }
 	  }]);
 	
-	  return Dot;
+	  return Circle;
 	}();
 	
-	exports.default = Dot;
+	exports.default = Circle;
 
 /***/ },
+/* 4 */,
 /* 5 */
 /***/ function(module, exports) {
 
@@ -884,56 +800,56 @@
 	  value: true
 	});
 	// module.exports = {
-	var dotOptions = {
+	var circleOptions = {
 	  // big
 	  z: {
 	    color: '#baecf0',
 	    radius: [175, 200],
 	    endRadius: 200,
 	    duration: [500, 1000],
-	    numDots: 1
+	    numCircles: 1
 	  },
 	  x: {
 	    color: '#ed6e2f',
 	    radius: [175, 200],
 	    endRadius: 200,
 	    duration: [500, 1000],
-	    numDots: 1
+	    numCircles: 1
 	  },
 	  c: {
 	    color: '#f6c7df',
 	    radius: [175, 200],
 	    endRadius: 200,
 	    duration: [500, 1000],
-	    numDots: 1
+	    numCircles: 1
 	  },
 	  v: {
 	    color: '#f4de70',
 	    radius: [175, 200],
 	    endRadius: 200,
 	    duration: [500, 1000],
-	    numDots: 1
+	    numCircles: 1
 	  },
 	  b: {
 	    color: '#fbfbf4',
 	    radius: [175, 200],
 	    endRadius: 200,
 	    duration: [500, 1000],
-	    numDots: 1
+	    numCircles: 1
 	  },
 	  n: {
 	    color: '#222121',
 	    radius: [175, 200],
 	    endRadius: 200,
 	    duration: [500, 1000],
-	    numDots: 1
+	    numCircles: 1
 	  },
 	  m: {
 	    color: '#baecf0',
 	    radius: [175, 200],
 	    endRadius: 200,
 	    duration: [500, 1000],
-	    numDots: 1
+	    numCircles: 1
 	  },
 	  // mid
 	  // f: {
@@ -941,7 +857,7 @@
 	  //   radius: [25, 50],
 	  //   duration: [500, 1000],
 	  //   endRadius: 35,
-	  //   numDots: 10,
+	  //   numCircles: 10,
 	  // },
 	  // medium large
 	  a: {
@@ -949,28 +865,28 @@
 	    radius: [50, 100],
 	    duration: [500, 1000],
 	    endRadius: 100,
-	    numDots: 10
+	    numCircles: 10
 	  },
 	  s: {
 	    color: '#f6c7df',
 	    radius: [50, 100],
 	    duration: [500, 1000],
 	    endRadius: 100,
-	    numDots: 10
+	    numCircles: 10
 	  },
 	  d: {
 	    color: '#ed6e2f',
 	    radius: [50, 100],
 	    duration: [500, 1000],
 	    endRadius: 100,
-	    numDots: 10
+	    numCircles: 10
 	  },
 	  f: {
 	    color: '#f4de70',
 	    radius: [50, 100],
 	    duration: [500, 1000],
 	    endRadius: 100,
-	    numDots: 10
+	    numCircles: 10
 	  },
 	  // small
 	  h: {
@@ -978,32 +894,32 @@
 	    radius: [15, 25],
 	    duration: [1000, 2000],
 	    endRadius: 0,
-	    numDots: 25
+	    numCircles: 25
 	  },
 	  j: {
 	    color: '#222121',
 	    radius: [10, 15],
 	    duration: [1000, 2000],
 	    endRadius: 0,
-	    numDots: 30
+	    numCircles: 30
 	  },
 	  k: {
 	    color: '#f6c7df',
 	    radius: [10, 15],
 	    duration: [500, 1000],
 	    endRadius: 0,
-	    numDots: 30
+	    numCircles: 30
 	  },
 	  l: {
 	    color: '#f4de70',
 	    radius: [10, 15],
 	    duration: [500, 1000],
 	    endRadius: 0,
-	    numDots: 30
+	    numCircles: 30
 	  }
 	};
 	
-	exports.default = dotOptions;
+	exports.default = circleOptions;
 
 /***/ },
 /* 7 */
@@ -1019,13 +935,13 @@
 	
 	var _animejs2 = _interopRequireDefault(_animejs);
 	
+	var _ripple = __webpack_require__(10);
+	
+	var _ripple2 = _interopRequireDefault(_ripple);
+	
 	var _circle = __webpack_require__(3);
 	
 	var _circle2 = _interopRequireDefault(_circle);
-	
-	var _dot = __webpack_require__(4);
-	
-	var _dot2 = _interopRequireDefault(_dot);
 	
 	var _util = __webpack_require__(6);
 	
@@ -1033,14 +949,7 @@
 	
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 	
-	function _toConsumableArray(arr) { if (Array.isArray(arr)) { for (var i = 0, arr2 = Array(arr.length); i < arr.length; i++) { arr2[i] = arr[i]; } return arr2; } else { return Array.from(arr); } } // const anime = require('animejs');
-	
-	// const Circle = require('./circle.js');
-	
-	// const Dot = require('./dot.js');
-	
-	// const dotOptions = require('./util.js');
-	
+	function _toConsumableArray(arr) { if (Array.isArray(arr)) { for (var i = 0, arr2 = Array(arr.length); i < arr.length; i++) { arr2[i] = arr[i]; } return arr2; } else { return Array.from(arr); } }
 	
 	var GameView = function GameView(canvas, ctx) {
 	  var animations = [];
@@ -1052,13 +961,13 @@
 	
 	  var distance = canvas.width;
 	
-	  var createDots = function createDots(x, y, options) {
-	    var dots = [];
-	    for (var i = 0; i < options.numDots; i++) {
-	      var p = new _dot2.default(x, y, options);
-	      dots.push(p);
+	  var createCircles = function createCircles(x, y, options) {
+	    var circles = [];
+	    for (var i = 0; i < options.numCircles; i++) {
+	      var p = new _circle2.default(x, y, options);
+	      circles.push(p);
 	    }
-	    return dots;
+	    return circles;
 	  };
 	
 	  var removeAnimation = function removeAnimation(animation) {
@@ -1068,14 +977,14 @@
 	    }
 	  };
 	
-	  var animateDots = function animateDots(options) {
+	  var animateCircles = function animateCircles(options) {
 	    setCanvasSize();
 	    var x = Math.random() * canvas.width;
 	    var y = Math.random() * canvas.height;
-	    var dots = createDots(x, y, options);
-	    var circle = new _circle2.default(x, y);
-	    var dotsAnimation = (0, _animejs2.default)({
-	      targets: dots,
+	    var circles = createCircles(x, y, options);
+	    var ripple = new _ripple2.default(x, y);
+	    var circlesAnimation = (0, _animejs2.default)({
+	      targets: circles,
 	      x: function x(p) {
 	        return p.x + _animejs2.default.random(-distance, distance);
 	      },
@@ -1089,8 +998,8 @@
 	      easing: 'easeOutExpo',
 	      complete: removeAnimation
 	    });
-	    var circleAnimation = (0, _animejs2.default)({
-	      targets: circle,
+	    var rippleAnimation = (0, _animejs2.default)({
+	      targets: ripple,
 	      radius: function radius() {
 	        return canvas.width + 200;
 	      },
@@ -1108,8 +1017,8 @@
 	      easing: 'easeOutExpo',
 	      complete: removeAnimation
 	    });
-	    animations.push(dotsAnimation);
-	    animations.push(circleAnimation);
+	    animations.push(circlesAnimation);
+	    animations.push(rippleAnimation);
 	  };
 	
 	  var mainLoop = (0, _animejs2.default)({
@@ -1127,7 +1036,7 @@
 	  document.addEventListener('keydown', function (e) {
 	    var key = e.key;
 	    if (Object.keys(_util2.default).indexOf(key) > -1) {
-	      animateDots(_util2.default[key]);
+	      animateCircles(_util2.default[key]);
 	    }
 	  }, false);
 	
@@ -1136,6 +1045,90 @@
 	
 	// module.exports = GameView;
 	exports.default = GameView;
+
+/***/ },
+/* 8 */,
+/* 9 */,
+/* 10 */
+/***/ function(module, exports) {
+
+	'use strict';
+	
+	Object.defineProperty(exports, "__esModule", {
+	  value: true
+	});
+	
+	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+	
+	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+	
+	// const Ripple = function (x, y) {
+	//   this.x = x;
+	//   this.y = y;
+	//   this.alpha = 1;
+	//   this.radius = 0;
+	//   this.lineWidth = 6;
+	//   this.color = '#FFF';
+	// };
+	//
+	// Ripple.prototype.draw = function (ctx) {
+	//   ctx.globalAlpha = this.alpha;
+	//   ctx.beginPath();
+	//   ctx.arc(this.x, this.y, this.radius, 0, 2 * Math.PI, true);
+	//   ctx.lindeWidth = this.lineWidth;
+	//   ctx.strokeStyle = this.color;
+	//   ctx.stroke();
+	// };
+	//
+	// module.exports = Ripple;
+	
+	// const createRipple = function (x, y) {
+	//   const p = {};
+	//   p.x = x;
+	//   p.y = y;
+	//   p.color = '#FFF';
+	//   p.radius = 0;
+	//   p.alpha = 1;
+	//   p.lineWidth = 6;
+	//   p.draw = function () {
+	//     ctx.globalAlpha = p.alpha;
+	//     ctx.beginPath();
+	//     ctx.arc(p.x, p.y, p.radius, 0, 2 * Math.PI, true);
+	//     ctx.lindeWidth = p.lineWidth;
+	//     ctx.strokeStyle = p.color;
+	//     ctx.stroke();
+	//   };
+	//   return p;
+	// };
+	
+	var Ripple = function () {
+	  function Ripple(x, y) {
+	    _classCallCheck(this, Ripple);
+	
+	    this.x = x;
+	    this.y = y;
+	    this.alpha = 1;
+	    this.radius = 0;
+	    this.lineWidth = 6;
+	    this.color = '#FFF';
+	  }
+	
+	  _createClass(Ripple, [{
+	    key: 'draw',
+	    value: function draw(ctx) {
+	      ctx.globalAlpha = this.alpha;
+	      ctx.beginPath();
+	      ctx.arc(this.x, this.y, this.radius, 0, 2 * Math.PI, true);
+	      ctx.lineWidth = this.lineWidth;
+	      ctx.strokeStyle = this.color;
+	      ctx.stroke();
+	    }
+	  }]);
+	
+	  return Ripple;
+	}();
+	
+	exports.default = Ripple;
 
 /***/ }
 /******/ ]);

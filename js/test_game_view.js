@@ -1,7 +1,7 @@
 import anime from 'animejs';
+import Ripple from './ripple.js';
 import Circle from './circle.js';
-import Dot from './dot.js';
-import dotOptions from './util.js';
+import circleOptions from './util.js';
 
 class GameView {
   constructor(canvas, ctx) {
@@ -13,7 +13,7 @@ class GameView {
     this.animations = [];
 
     this.keyHandler = this.keyHandler.bind(this);
-    this.animateDots = this.animateDots.bind(this);
+    this.animateCircles = this.animateCircles.bind(this);
     this.mainLoopUpdate = this.mainLoopUpdate.bind(this);
 
     // const mainAnimation = anime({
@@ -46,9 +46,9 @@ class GameView {
 
   keyHandler(e) {
     const key = (e.key);
-    if (Object.keys(dotOptions).indexOf(key) > -1) {
+    if (Object.keys(circleOptions).indexOf(key) > -1) {
       // debugger;
-      this.animateDots(dotOptions[key]);
+      this.animateCircles(circleOptions[key]);
     }
   }
 
@@ -59,13 +59,13 @@ class GameView {
     console.log(this.canvas.height);
   }
 
-  createDots(x, y, options) {
-    let dots = [];
-    for (let i = 0; i < options.numDots; i++) {
-      let p = new Dot(x, y, options);
-      dots.push(p);
+  createCircles(x, y, options) {
+    let circles = [];
+    for (let i = 0; i < options.numCircles; i++) {
+      let p = new Circle(x, y, options);
+      circles.push(p);
     }
-    return dots;
+    return circles;
   }
 
   removeAnimation(animation) {
@@ -75,14 +75,14 @@ class GameView {
     }
   }
 
-  animateDots(options) {
+  animateCircles(options) {
     let distance = this.canvas.width;
     const x = Math.random() * this.canvas.width;
     const y = Math.random() * this.canvas.height;
-    const dots = this.createDots(x, y, options);
-    const circle = new Circle(x, y);
-    const dotsAnimation = anime({
-      targets: dots,
+    const circles = this.createCircles(x, y, options);
+    const ripple = new Ripple(x, y);
+    const circlesAnimation = anime({
+      targets: circles,
       x: function(p) {
         return p.x + anime.random(-distance, distance);
       },
@@ -93,8 +93,8 @@ class GameView {
       complete: this.removeAnimation()
     });
 
-    const circleAnimation = anime({
-      targets: circle,
+    const rippleAnimation = anime({
+      targets: ripple,
       radius: distance + 200,
       lineWidth: 0,
       alpha: {
@@ -107,8 +107,8 @@ class GameView {
       complete: this.removeAnimation()
     });
     // debugger;
-    this.animations.push(dotsAnimation);
-    this.animations.push(circleAnimation);
+    this.animations.push(circlesAnimation);
+    this.animations.push(rippleAnimation);
   }
 
 }

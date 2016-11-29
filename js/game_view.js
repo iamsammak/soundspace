@@ -1,11 +1,7 @@
-// const anime = require('animejs');
 import anime from 'animejs';
-// const Circle = require('./circle.js');
+import Ripple from './ripple.js';
 import Circle from './circle.js';
-// const Dot = require('./dot.js');
-import Dot from './dot.js';
-// const dotOptions = require('./util.js');
-import dotOptions from './util.js';
+import circleOptions from './util.js';
 
 const GameView = (function (canvas, ctx) {
   const animations = [];
@@ -17,13 +13,13 @@ const GameView = (function (canvas, ctx) {
 
   const distance = canvas.width;
 
-  const createDots = function (x, y, options) {
-    const dots = [];
-    for (let i = 0; i < options.numDots; i++) {
-      const p = new Dot(x, y, options);
-      dots.push(p);
+  const createCircles = function (x, y, options) {
+    const circles = [];
+    for (let i = 0; i < options.numCircles; i++) {
+      const p = new Circle(x, y, options);
+      circles.push(p);
     }
-    return dots;
+    return circles;
   };
 
   const removeAnimation = function (animation) {
@@ -31,14 +27,14 @@ const GameView = (function (canvas, ctx) {
     if (index > -1) { animations.splice(index, 1); }
   };
 
-  const animateDots = function (options) {
+  const animateCircles = function (options) {
     setCanvasSize();
     const x = Math.random() * canvas.width;
     const y = Math.random() * canvas.height;
-    const dots = createDots(x, y, options);
-    const circle = new Circle(x, y);
-    const dotsAnimation = anime({
-      targets: dots,
+    const circles = createCircles(x, y, options);
+    const ripple = new Ripple(x, y);
+    const circlesAnimation = anime({
+      targets: circles,
       x: function(p) { return p.x + anime.random(-distance, distance); },
       y: function(p) { return p.y + anime.random(-distance, distance); },
       radius: options.endRadius,
@@ -46,8 +42,8 @@ const GameView = (function (canvas, ctx) {
       easing: 'easeOutExpo',
       complete: removeAnimation,
     });
-    const circleAnimation = anime({
-      targets: circle,
+    const rippleAnimation = anime({
+      targets: ripple,
       radius: function () { return canvas.width + 200; },
       lineWidth: 0,
       alpha: {
@@ -59,8 +55,8 @@ const GameView = (function (canvas, ctx) {
       easing: 'easeOutExpo',
       complete: removeAnimation,
     });
-    animations.push(dotsAnimation);
-    animations.push(circleAnimation);
+    animations.push(circlesAnimation);
+    animations.push(rippleAnimation);
   };
 
   const mainLoop = anime({
@@ -77,8 +73,8 @@ const GameView = (function (canvas, ctx) {
 
   document.addEventListener('keydown', function (e) {
     const key = (e.key);
-    if (Object.keys(dotOptions).indexOf(key) > -1) {
-      animateDots(dotOptions[key]);
+    if (Object.keys(circleOptions).indexOf(key) > -1) {
+      animateCircles(circleOptions[key]);
     }
   }, false);
 

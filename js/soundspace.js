@@ -1,8 +1,5 @@
 require("../css/application.scss");
 
-// import Howl from 'howler';
-// require('howler');
-
 // const GameView = require('./game_view.js');
 import GameView from './game_view.js';
 // import GameView from './test_game_view.js';
