@@ -3,9 +3,14 @@ require("../css/application.scss");
 // import Howl from 'howler';
 // require('howler');
 
-const Explosions = require('./dots.js');
-// import Explosions from './dots.js';
-const canvas = document.getElementById("my-canvas");
-const ctx = canvas.getContext('2d');
+// const GameView = require('./game_view.js');
+import GameView from './game_view.js';
+// import GameView from './test_game_view.js';
 
-const explosion = new Explosions(canvas, ctx);
+
+document.addEventListener('DOMContentLoaded', function(){
+  const canvas = document.getElementById("my-canvas");
+  const ctx = canvas.getContext('2d');
+
+  new GameView(canvas, ctx);
+});

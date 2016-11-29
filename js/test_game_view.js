@@ -1,0 +1,116 @@
+import anime from 'animejs';
+import Circle from './circle.js';
+import Dot from './dot.js';
+import dotOptions from './util.js';
+
+class GameView {
+  constructor(canvas, ctx) {
+    this.canvas = canvas;
+    this.ctx = ctx;
+    this.canvas.width = window.innerWidth;
+    this.canvas.height = window.innerHeight;
+
+    this.animations = [];
+
+    this.keyHandler = this.keyHandler.bind(this);
+    this.animateDots = this.animateDots.bind(this);
+    this.mainLoopUpdate = this.mainLoopUpdate.bind(this);
+
+    // const mainAnimation = anime({
+    anime({
+      duration: Infinity,
+      // testing_this: this,
+      update: this.mainLoopUpdate
+    });
+
+
+    // keydown listener on dom
+    document.addEventListener('keydown', this.keyHandler, false);
+
+    window.addEventListener('resize', this.setCanvasSize, false);
+  }
+
+  mainLoopUpdate() {
+    // debugger;
+    this.ctx.clearRect(0, 0, this.canvas.width, this.canvas.height);
+    let that = this;
+    this.animations.forEach(function(anim) {
+      // debugger;
+      // let that = this;
+      anim.animatables.forEach(function (animatable) {
+        // debugger;
+        animatable.target.draw(that.ctx);
+      });
+    });
+  }
+
+  keyHandler(e) {
+    const key = (e.key);
+    if (Object.keys(dotOptions).indexOf(key) > -1) {
+      // debugger;
+      this.animateDots(dotOptions[key]);
+    }
+  }
+
+  setCanvasSize() {
+    this.canvas.width = window.innerWidth;
+    this.canvas.height = window.innerHeight;
+    console.log(this.canvas.width);
+    console.log(this.canvas.height);
+  }
+
+  createDots(x, y, options) {
+    let dots = [];
+    for (let i = 0; i < options.numDots; i++) {
+      let p = new Dot(x, y, options);
+      dots.push(p);
+    }
+    return dots;
+  }
+
+  removeAnimation(animation) {
+    const index = this.animations.indexOf(animation);
+    if (index > -1) {
+      this.animations.splice(index, 1);
+    }
+  }
+
+  animateDots(options) {
+    let distance = this.canvas.width;
+    const x = Math.random() * this.canvas.width;
+    const y = Math.random() * this.canvas.height;
+    const dots = this.createDots(x, y, options);
+    const circle = new Circle(x, y);
+    const dotsAnimation = anime({
+      targets: dots,
+      x: function(p) {
+        return p.x + anime.random(-distance, distance);
+      },
+      y: function(p) { return p.y + anime.random(-distance, distance); },
+      radius: options.endRadius,
+      duration: function() { return anime.random(...options.duration); },
+      easing: 'easeOutExpo',
+      complete: this.removeAnimation()
+    });
+
+    const circleAnimation = anime({
+      targets: circle,
+      radius: distance + 200,
+      lineWidth: 0,
+      alpha: {
+        value: 0,
+        easing: 'linear',
+        duration: function() { return 80000; }
+      },
+      duration: function() { return anime.random(5000, 8000); },
+      easing: 'easeOutExpo',
+      complete: this.removeAnimation()
+    });
+    // debugger;
+    this.animations.push(dotsAnimation);
+    this.animations.push(circleAnimation);
+  }
+
+}
+
+export default GameView;

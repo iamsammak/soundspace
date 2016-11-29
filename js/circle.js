@@ -51,7 +51,7 @@ class Circle {
     ctx.globalAlpha = this.alpha;
     ctx.beginPath();
     ctx.arc(this.x, this.y, this.radius, 0, 2 * Math.PI, true);
-    ctx.lindeWidth = this.lineWidth;
+    ctx.lineWidth = this.lineWidth;
     ctx.strokeStyle = this.color;
     ctx.stroke();
   }

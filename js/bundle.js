@@ -44,244 +44,34 @@
 /* 0 */
 /***/ function(module, exports, __webpack_require__) {
 
-	"use strict";
+	'use strict';
 	
-	__webpack_require__(1);
+	var _game_view = __webpack_require__(7);
+	
+	var _game_view2 = _interopRequireDefault(_game_view);
+	
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+	
+	__webpack_require__(5);
 	
 	// import Howl from 'howler';
 	// require('howler');
 	
-	var Explosions = __webpack_require__(3);
-	// import Explosions from './dots.js';
-	var canvas = document.getElementById("my-canvas");
-	var ctx = canvas.getContext('2d');
+	// const GameView = require('./game_view.js');
 	
-	var explosion = new Explosions(canvas, ctx);
+	// import GameView from './test_game_view.js';
+	
+	
+	document.addEventListener('DOMContentLoaded', function () {
+	  var canvas = document.getElementById("my-canvas");
+	  var ctx = canvas.getContext('2d');
+	
+	  new _game_view2.default(canvas, ctx);
+	});
 
 /***/ },
-/* 1 */
-/***/ function(module, exports) {
-
-	// removed by extract-text-webpack-plugin
-
-/***/ },
-/* 2 */,
-/* 3 */
-/***/ function(module, exports, __webpack_require__) {
-
-	'use strict';
-	
-	var _animejs = __webpack_require__(4);
-	
-	var _animejs2 = _interopRequireDefault(_animejs);
-	
-	var _circle = __webpack_require__(5);
-	
-	var _circle2 = _interopRequireDefault(_circle);
-	
-	var _dot = __webpack_require__(6);
-	
-	var _dot2 = _interopRequireDefault(_dot);
-	
-	var _util = __webpack_require__(7);
-	
-	var _util2 = _interopRequireDefault(_util);
-	
-	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-	
-	function _toConsumableArray(arr) { if (Array.isArray(arr)) { for (var i = 0, arr2 = Array(arr.length); i < arr.length; i++) { arr2[i] = arr[i]; } return arr2; } else { return Array.from(arr); } } // const anime = require('animejs');
-	
-	// const Circle = require('./circle.js');
-	
-	// const Dot = require('./dot.js');
-	
-	// const dotOptions = require('./util.js');
-	
-	
-	var Explosions = function Explosions(canvas, ctx) {
-	  var animations = [];
-	
-	  var setCanvasSize = function setCanvasSize() {
-	    canvas.width = window.innerWidth;
-	    canvas.height = window.innerHeight;
-	  };
-	
-	  var distance = canvas.width;
-	
-	  var createDots = function createDots(x, y, options) {
-	    var dots = [];
-	    for (var i = 0; i < options.numDots; i++) {
-	      var p = new _dot2.default(x, y, options);
-	      dots.push(p);
-	    }
-	    return dots;
-	  };
-	
-	  var removeAnimation = function removeAnimation(animation) {
-	    var index = animations.indexOf(animation);
-	    if (index > -1) {
-	      animations.splice(index, 1);
-	    }
-	  };
-	
-	  var animateDots = function animateDots(options) {
-	    setCanvasSize();
-	    var x = Math.random() * canvas.width;
-	    var y = Math.random() * canvas.height;
-	    var dots = createDots(x, y, options);
-	    var circle = new _circle2.default(x, y);
-	    var dotsAnimation = (0, _animejs2.default)({
-	      targets: dots,
-	      x: function x(p) {
-	        return p.x + _animejs2.default.random(-distance, distance);
-	      },
-	      y: function y(p) {
-	        return p.y + _animejs2.default.random(-distance, distance);
-	      },
-	      radius: options.endRadius,
-	      duration: function duration() {
-	        return _animejs2.default.random.apply(_animejs2.default, _toConsumableArray(options.duration));
-	      },
-	      easing: 'easeOutExpo',
-	      complete: removeAnimation
-	    });
-	    var circleAnimation = (0, _animejs2.default)({
-	      targets: circle,
-	      radius: function radius() {
-	        return canvas.width + 200;
-	      },
-	      lineWidth: 0,
-	      alpha: {
-	        value: 0,
-	        easing: 'linear',
-	        duration: function duration() {
-	          return 80000;
-	        }
-	      },
-	      duration: function duration() {
-	        return _animejs2.default.random(5000, 8000);
-	      },
-	      easing: 'easeOutExpo',
-	      complete: removeAnimation
-	    });
-	    animations.push(dotsAnimation);
-	    animations.push(circleAnimation);
-	  };
-	
-	  var mainLoop = (0, _animejs2.default)({
-	    duration: Infinity,
-	    update: function update() {
-	      ctx.clearRect(0, 0, canvas.width, canvas.height);
-	      animations.forEach(function (anim) {
-	        anim.animatables.forEach(function (animatable) {
-	          animatable.target.draw(ctx);
-	        });
-	      });
-	    }
-	  });
-	
-	  document.addEventListener('keydown', function (e) {
-	    var key = e.key;
-	    if (Object.keys(_util2.default).indexOf(key) > -1) {
-	      animateDots(_util2.default[key]);
-	    }
-	  }, false);
-	
-	  window.addEventListener('resize', setCanvasSize, false);
-	};
-	
-	module.exports = Explosions;
-	
-	// class Explosions {
-	// constructor(canvas, ctx) {
-	//   this.canvas = canvas;
-	//   this.ctx = ctx;
-	//   this.canvas.width = window.innerWidth;
-	//   this.canvas.height = window.innerHeight;
-	//   this.distance = this.canvas.width;
-	//
-	//   this.animations = [];
-	// }
-	//
-	//   setCanvasSize() {
-	//     this.canvas.width = window.innerWidth;
-	//     this.canvas.height = window.innerHeight;
-	//   }
-	//
-	//   createDots(x, y, options) {
-	//     let dots = [];
-	//     for (let i = 0; i < options.numDots; i++) {
-	//       let p = new Dot(x, y, options);
-	//       dots.push(p);
-	//     }
-	//     return dots;
-	//   }
-	//
-	//   removeAnimation(animation) {
-	//     const index = animations.indexOf(animation);
-	//     if (index > -1) {
-	//       animations.splice(index, 1);
-	//     }
-	//   }
-	//
-	//   animateDots(options) {
-	//     const x = Math.random() * this.canvas.width;
-	//     const y = Math.random() * this.canvas.height;
-	//     const dots = createDots(x, y, options);
-	//     const circle = new Circle(x, y);
-	//     const dotsAnimation = anime({
-	//       targets: dots,
-	//       x: function(p) { return p.x + anime.random(-this.distance, this.distance); },
-	//       y: function(p) { return p.y + anime.random(-this.distance, this.distance); },
-	//       radius: options.endRadius,
-	//       duration: function() { return anime.random(...options.duration); },
-	//       easing: 'easeOutExpo',
-	//       complete: removeAnimation()
-	//     });
-	//
-	//     const circleAnimation = anime({
-	//       targets: circle,
-	//       radius: function() { return this.canvas.width + 200; },
-	//       lineWidth: 0,
-	//       alpha: {
-	//         value: 0,
-	//         easing: 'linear',
-	//         duration: function() { return 80000; }
-	//       },
-	//       duration: function() { return anime.random(5000, 8000); },
-	//       easing: 'easeOutExpo',
-	//       complete: removeAnimation()
-	//     });
-	//     this.animations.push(dotsAnimation);
-	//     this.animations.push(circleAnimation);
-	//   }
-	//
-	//   const mainLoop = anime({
-	//     duration: Infinity,
-	//     update: function() {
-	//       this.ctx.clearRect(0, 0, this.canvas.width, this.canvas.height);
-	//       this.animations.forEach(function(anim) {
-	//         anim.animatables.forEach(function (animatable) {
-	//           animatable.target.draw(this.ctx);
-	//         });
-	//       });
-	//     }
-	//   });
-	//
-	//   document.addEventListener('keydown', function(e) {
-	//     const key = (e.key);
-	//     if (Object.keys(dotOptions).indexOf(key) > -1) {
-	//       animateDots(dotOptions[key]);
-	//     }
-	//   }, false);
-	//
-	//   window.addEventListener('resize', setCanvasSize(), false);
-	// }
-	//
-	// export default Explosions;
-
-/***/ },
-/* 4 */
+/* 1 */,
+/* 2 */
 /***/ function(module, exports, __webpack_require__) {
 
 	var __WEBPACK_AMD_DEFINE_FACTORY__, __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;/*
@@ -919,7 +709,7 @@
 
 
 /***/ },
-/* 5 */
+/* 3 */
 /***/ function(module, exports) {
 
 	'use strict';
@@ -989,7 +779,7 @@
 	      ctx.globalAlpha = this.alpha;
 	      ctx.beginPath();
 	      ctx.arc(this.x, this.y, this.radius, 0, 2 * Math.PI, true);
-	      ctx.lindeWidth = this.lineWidth;
+	      ctx.lineWidth = this.lineWidth;
 	      ctx.strokeStyle = this.color;
 	      ctx.stroke();
 	    }
@@ -1001,7 +791,7 @@
 	exports.default = Circle;
 
 /***/ },
-/* 6 */
+/* 4 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -1043,7 +833,7 @@
 	//   return p;
 	// };
 	
-	var _animejs = __webpack_require__(4);
+	var _animejs = __webpack_require__(2);
 	
 	var _animejs2 = _interopRequireDefault(_animejs);
 	
@@ -1079,7 +869,13 @@
 	exports.default = Dot;
 
 /***/ },
-/* 7 */
+/* 5 */
+/***/ function(module, exports) {
+
+	// removed by extract-text-webpack-plugin
+
+/***/ },
+/* 6 */
 /***/ function(module, exports) {
 
 	'use strict';
@@ -1208,6 +1004,138 @@
 	};
 	
 	exports.default = dotOptions;
+
+/***/ },
+/* 7 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+	
+	Object.defineProperty(exports, "__esModule", {
+	  value: true
+	});
+	
+	var _animejs = __webpack_require__(2);
+	
+	var _animejs2 = _interopRequireDefault(_animejs);
+	
+	var _circle = __webpack_require__(3);
+	
+	var _circle2 = _interopRequireDefault(_circle);
+	
+	var _dot = __webpack_require__(4);
+	
+	var _dot2 = _interopRequireDefault(_dot);
+	
+	var _util = __webpack_require__(6);
+	
+	var _util2 = _interopRequireDefault(_util);
+	
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+	
+	function _toConsumableArray(arr) { if (Array.isArray(arr)) { for (var i = 0, arr2 = Array(arr.length); i < arr.length; i++) { arr2[i] = arr[i]; } return arr2; } else { return Array.from(arr); } } // const anime = require('animejs');
+	
+	// const Circle = require('./circle.js');
+	
+	// const Dot = require('./dot.js');
+	
+	// const dotOptions = require('./util.js');
+	
+	
+	var GameView = function GameView(canvas, ctx) {
+	  var animations = [];
+	
+	  var setCanvasSize = function setCanvasSize() {
+	    canvas.width = window.innerWidth;
+	    canvas.height = window.innerHeight;
+	  };
+	
+	  var distance = canvas.width;
+	
+	  var createDots = function createDots(x, y, options) {
+	    var dots = [];
+	    for (var i = 0; i < options.numDots; i++) {
+	      var p = new _dot2.default(x, y, options);
+	      dots.push(p);
+	    }
+	    return dots;
+	  };
+	
+	  var removeAnimation = function removeAnimation(animation) {
+	    var index = animations.indexOf(animation);
+	    if (index > -1) {
+	      animations.splice(index, 1);
+	    }
+	  };
+	
+	  var animateDots = function animateDots(options) {
+	    setCanvasSize();
+	    var x = Math.random() * canvas.width;
+	    var y = Math.random() * canvas.height;
+	    var dots = createDots(x, y, options);
+	    var circle = new _circle2.default(x, y);
+	    var dotsAnimation = (0, _animejs2.default)({
+	      targets: dots,
+	      x: function x(p) {
+	        return p.x + _animejs2.default.random(-distance, distance);
+	      },
+	      y: function y(p) {
+	        return p.y + _animejs2.default.random(-distance, distance);
+	      },
+	      radius: options.endRadius,
+	      duration: function duration() {
+	        return _animejs2.default.random.apply(_animejs2.default, _toConsumableArray(options.duration));
+	      },
+	      easing: 'easeOutExpo',
+	      complete: removeAnimation
+	    });
+	    var circleAnimation = (0, _animejs2.default)({
+	      targets: circle,
+	      radius: function radius() {
+	        return canvas.width + 200;
+	      },
+	      lineWidth: 0,
+	      alpha: {
+	        value: 0,
+	        easing: 'linear',
+	        duration: function duration() {
+	          return 80000;
+	        }
+	      },
+	      duration: function duration() {
+	        return _animejs2.default.random(5000, 8000);
+	      },
+	      easing: 'easeOutExpo',
+	      complete: removeAnimation
+	    });
+	    animations.push(dotsAnimation);
+	    animations.push(circleAnimation);
+	  };
+	
+	  var mainLoop = (0, _animejs2.default)({
+	    duration: Infinity,
+	    update: function update() {
+	      ctx.clearRect(0, 0, canvas.width, canvas.height);
+	      animations.forEach(function (anim) {
+	        anim.animatables.forEach(function (animatable) {
+	          animatable.target.draw(ctx);
+	        });
+	      });
+	    }
+	  });
+	
+	  document.addEventListener('keydown', function (e) {
+	    var key = e.key;
+	    if (Object.keys(_util2.default).indexOf(key) > -1) {
+	      animateDots(_util2.default[key]);
+	    }
+	  }, false);
+	
+	  window.addEventListener('resize', setCanvasSize, false);
+	};
+	
+	// module.exports = GameView;
+	exports.default = GameView;
 
 /***/ }
 /******/ ]);

@@ -152,11 +152,9 @@ console.log("Day 3");
 // returns a new array whose values are the return values of each iteration of the block
 
 // ES6
-Array.prototype.myMap = function(blockFunction){
+Array.prototype.myMap = function(passedFn){
   let result = [];
-  this.forEach((el) => {
-    result.push(blockFunction(el));
-  });
+  this.forEach((el) => { result.push(passedFn(el)); });
   return result;
 };
 
@@ -241,3 +239,9 @@ function foldingCipher(string) {
 //   folded_alphabet = Hash[('a'..'z').zip(('a'..'z').to_a.reverse)]
 //   string.chars.map { |char| folded_alphabet[char] }.join
 // end
+
+
+// google you don't need to wear a suit to make money
+// which means you are here to have fun,
+// you don't have to take yourself too seriously
+// by proving value you receive value back
