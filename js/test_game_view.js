@@ -1,7 +1,7 @@
 import anime from 'animejs';
 import Ripple from './ripple.js';
 import Circle from './circle.js';
-import circleOptions from './util.js';
+import objOptions from './util.js';
 
 class GameView {
   constructor(canvas, ctx) {
@@ -46,9 +46,9 @@ class GameView {
 
   keyHandler(e) {
     const key = (e.key);
-    if (Object.keys(circleOptions).indexOf(key) > -1) {
+    if (Object.keys(objOptions).indexOf(key) > -1) {
       // debugger;
-      this.animateCircle(circleOptions[key]);
+      this.animateCircle(objOptions[key]);
     }
   }
 

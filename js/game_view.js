@@ -1,7 +1,7 @@
 import anime from 'animejs';
 import Ripple from './ripple.js';
 import Circle from './circle.js';
-import circleOptions from './util.js';
+import objOptions from './util.js';
 import Box from './box.js';
 import TriRectangle from './tri_rectangle.js';
 import Rectangle from './rectangle.js';
@@ -160,16 +160,16 @@ const GameView = (function (canvas, ctx) {
   document.addEventListener('keydown', function (e) {
     const key = (e.key);
     if (key === "q") {
-      animateBox(circleOptions[key]);
+      animateBox(objOptions[key]);
     }
     else if (key === "r") {
-      animateTriRectangle(circleOptions[key]);
+      animateTriRectangle(objOptions[key]);
     }
     else if (key === "t") {
-      animateBigBox(circleOptions[key]);
+      animateBigBox(objOptions[key]);
     }
-    else if (Object.keys(circleOptions).indexOf(key) > -1) {
-      animateCircle(circleOptions[key]);
+    else if (Object.keys(objOptions).indexOf(key) > -1) {
+      animateCircle(objOptions[key]);
     }
   }, false);
 

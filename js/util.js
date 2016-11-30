@@ -1,4 +1,4 @@
-const circleOptions = {
+const objOptions = {
   // big
   z: {
     color: '#baecf0',
@@ -144,10 +144,10 @@ const circleOptions = {
     duration: 800,
   },
   // BigBox
-  // return anime.random(50, 100); // Will set a random value from 50 to 100 to each divs
+  // anime.random(50, 100); // Will set a random value from 50 to 100
   t: {
-    color: ['#82FFB7', '#D79BFF', '#49B276' ],
-    startX: [(1/4), (1/2), (3/4)],
+    color: ['#82FFB7', '#D79BFF' ],
+    startX: [(1/4), (3/4)],
     startY: [5],
     width: 400,
     height: 400,
@@ -158,4 +158,4 @@ const circleOptions = {
   },
 };
 
-export default circleOptions;
+export default objOptions;
