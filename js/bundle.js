@@ -907,6 +907,13 @@
 	    duration: [400, 500],
 	    numBoxes: 3
 	  },
+	  y: {
+	    color: ['#82D9FF', '#FF9BAB', '#4993B2', '#9BFFF0', '#FFE482', '#FF8D7E'],
+	    width: 20,
+	    height: 20,
+	    duration: [400, 500],
+	    numBoxes: 10
+	  },
 	  // triRectangle
 	  r: {
 	    rotate: 180,
@@ -978,19 +985,9 @@
 	  var setCanvasSize = function setCanvasSize() {
 	    canvas.width = window.innerWidth;
 	    canvas.height = window.innerHeight;
-	    // console.log(canvas.width);
-	    // console.log(canvas.height);
 	  };
 	
 	  var distance = canvas.width;
-	
-	  var removeAnimation = function removeAnimation(animation) {
-	    // debugger;
-	    var index = animations.indexOf(animation);
-	    if (index > -1) {
-	      animations.splice(index, 1);
-	    }
-	  };
 	
 	  var mainLoopAnimation = (0, _animejs2.default)({
 	    duration: Infinity,
@@ -1004,6 +1001,15 @@
 	    }
 	  });
 	
+	  var removeAnimation = function removeAnimation(animation) {
+	    // debugger;
+	    var index = animations.indexOf(animation);
+	    if (index > -1) {
+	      animations.splice(index, 1);
+	    }
+	  };
+	
+	  // Circle
 	  var createCircles = function createCircles(x, y, options) {
 	    var circles = [];
 	    for (var i = 0; i < options.numCircles; i++) {
@@ -1036,6 +1042,7 @@
 	      complete: removeAnimation
 	    });
 	
+	    // Ripple - circle that is only stroked
 	    var rippleAnimation = (0, _animejs2.default)({
 	      targets: ripple,
 	      radius: function radius() {
@@ -1060,6 +1067,7 @@
 	    animations.push(rippleAnimation);
 	  };
 	
+	  // Box
 	  var createBoxes = function createBoxes(x, yArr, options) {
 	    var boxes = [];
 	    for (var i = 0; i < options.numBoxes; i++) {
@@ -1094,6 +1102,30 @@
 	    animations.push(boxAnimation);
 	  };
 	
+	  var animateLineBox = function animateLineBox(options) {
+	    setCanvasSize();
+	    var x = canvas.width * (9 / 10);
+	    var yArr = [canvas.height * (1 / 11) - options.width / 2, canvas.height * (2 / 11) - options.width / 2, canvas.height * (3 / 11) - options.width / 2, canvas.height * (4 / 11) - options.width / 2, canvas.height * (5 / 11) - options.width / 2, canvas.height * (6 / 11) - options.width / 2, canvas.height * (7 / 11) - options.width / 2, canvas.height * (8 / 11) - options.width / 2, canvas.height * (9 / 11) - options.width / 2, canvas.height * (10 / 11) - options.width / 2];
+	    var boxes = createBoxes(x, yArr, options);
+	
+	    var lineBoxAnimation = (0, _animejs2.default)({
+	      targets: boxes,
+	      x: function x() {
+	        return canvas.width * (1 / 10);
+	      },
+	      delay: function delay(el, index) {
+	        return index * 100;
+	      },
+	      duration: function duration() {
+	        return _animejs2.default.random.apply(_animejs2.default, _toConsumableArray(options.duration));
+	      },
+	      easing: 'easeOutExpo',
+	      complete: removeAnimation
+	    });
+	
+	    animations.push(lineBoxAnimation);
+	  };
+	
 	  var animateBigBox = function animateBigBox(options) {
 	    setCanvasSize();
 	    var xIdx = Math.floor(Math.random() * options.startX.length);
@@ -1114,6 +1146,7 @@
 	    animations.push(bigBoxAnimation);
 	  };
 	
+	  // Rectangle
 	  var animateTriRectangle = function animateTriRectangle(options) {
 	    setCanvasSize();
 	    var x = canvas.width * (1 / 4) - 25;
@@ -1161,6 +1194,8 @@
 	      animateTriRectangle(_util2.default[key]);
 	    } else if (key === "t") {
 	      animateBigBox(_util2.default[key]);
+	    } else if (key === "y") {
+	      animateLineBox(_util2.default[key]);
 	    } else if (Object.keys(_util2.default).indexOf(key) > -1) {
 	      animateCircle(_util2.default[key]);
 	    }

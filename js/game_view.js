@@ -12,17 +12,9 @@ const GameView = (function (canvas, ctx) {
   const setCanvasSize = function () {
     canvas.width = window.innerWidth;
     canvas.height = window.innerHeight;
-    // console.log(canvas.width);
-    // console.log(canvas.height);
   };
 
   const distance = canvas.width;
-
-  const removeAnimation = function (animation) {
-    // debugger;
-    const index = animations.indexOf(animation);
-    if (index > -1) { animations.splice(index, 1); }
-  };
 
   const mainLoopAnimation = anime({
     duration: Infinity,
@@ -36,6 +28,13 @@ const GameView = (function (canvas, ctx) {
     },
   });
 
+  const removeAnimation = function (animation) {
+    // debugger;
+    const index = animations.indexOf(animation);
+    if (index > -1) { animations.splice(index, 1); }
+  };
+
+// Circle
   const createCircles = function (x, y, options) {
     const circles = [];
     for (let i = 0; i < options.numCircles; i++) {
@@ -62,6 +61,7 @@ const GameView = (function (canvas, ctx) {
       complete: removeAnimation,
     });
 
+// Ripple - circle that is only stroked
     const rippleAnimation = anime({
       targets: ripple,
       radius: function () { return canvas.width + 200; },
@@ -80,6 +80,7 @@ const GameView = (function (canvas, ctx) {
     animations.push(rippleAnimation);
   };
 
+// Box
   const createBoxes = function (x, yArr, options) {
     const boxes = [];
     for (let i = 0; i < options.numBoxes; i++) {
@@ -108,6 +109,34 @@ const GameView = (function (canvas, ctx) {
     animations.push(boxAnimation);
   };
 
+  const animateLineBox = function(options) {
+    setCanvasSize();
+    let x = canvas.width * (9/10);
+    let yArr = [canvas.height * (1/11) - (options.width/2),
+                canvas.height * (2/11) - (options.width/2),
+                canvas.height * (3/11) - (options.width/2),
+                canvas.height * (4/11) - (options.width/2),
+                canvas.height * (5/11) - (options.width/2),
+                canvas.height * (6/11) - (options.width/2),
+                canvas.height * (7/11) - (options.width/2),
+                canvas.height * (8/11) - (options.width/2),
+                canvas.height * (9/11) - (options.width/2),
+                canvas.height * (10/11) - (options.width/2)
+    ];
+    const boxes = createBoxes(x, yArr, options);
+
+    const lineBoxAnimation = anime({
+      targets: boxes,
+      x: function() { return canvas.width * (1/10); },
+      delay: function (el, index) { return index * 100; },
+      duration: function () { return anime.random(...options.duration); },
+      easing: 'easeOutExpo',
+      complete: removeAnimation,
+    });
+
+    animations.push(lineBoxAnimation);
+  };
+
   const animateBigBox = function(options) {
     setCanvasSize();
     let xIdx = Math.floor((Math.random()*options.startX.length));
@@ -126,6 +155,7 @@ const GameView = (function (canvas, ctx) {
     animations.push(bigBoxAnimation);
   };
 
+// Rectangle
   const animateTriRectangle = function(options) {
     setCanvasSize();
     let x = canvas.width * (1/4) - 25;
@@ -167,6 +197,9 @@ const GameView = (function (canvas, ctx) {
     }
     else if (key === "t") {
       animateBigBox(objOptions[key]);
+    }
+    else if (key === "y") {
+      animateLineBox(objOptions[key]);
     }
     else if (Object.keys(objOptions).indexOf(key) > -1) {
       animateCircle(objOptions[key]);

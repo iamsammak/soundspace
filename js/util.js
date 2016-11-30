@@ -137,6 +137,13 @@ const objOptions = {
     duration: [400, 500],
     numBoxes: 3,
   },
+  y: {
+    color: ['#82D9FF', '#FF9BAB', '#4993B2', '#9BFFF0', '#FFE482', '#FF8D7E'],
+    width: 20,
+    height: 20,
+    duration: [400, 500],
+    numBoxes: 10,
+  },
   // triRectangle
   r: {
     rotate: 180,
