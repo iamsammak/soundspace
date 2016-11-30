@@ -1087,7 +1087,7 @@
 	    var boxAnimation = (0, _animejs2.default)({
 	      targets: boxes,
 	      x: function x() {
-	        return canvas.width * (6 / 8);
+	        return canvas.width * (7 / 8);
 	      },
 	      delay: function delay(el, index) {
 	        return index * 100;

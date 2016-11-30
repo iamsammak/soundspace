@@ -99,7 +99,7 @@ const GameView = (function (canvas, ctx) {
 
     const boxAnimation = anime({
       targets: boxes,
-      x: function() { return canvas.width * (6/8); },
+      x: function() { return canvas.width * (7/8); },
       delay: function (el, index) { return index * 100; },
       duration: function () { return anime.random(...options.duration); },
       easing: 'easeOutExpo',
