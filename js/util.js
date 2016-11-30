@@ -173,8 +173,17 @@ const objOptions = {
   // screen swipe
   q: {
     color: ['#82D9FF', '#FF9BAB', '#4993B2', '#9BFFF0', '#FFE482', '#FF8D7E'],
-    delay: 200,
     duration: 50,
+  },
+  o: {
+    color: ['#9BFFF0', '#FFE482', '#FF8D7E'],
+    delay: 300,
+    duration: 600,
+  },
+  p: {
+    color: ['#82D9FF', '#FF9BAB', '#4993B2'],
+    delay: 300,
+    duration: 600,
   },
 };
 

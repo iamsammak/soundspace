@@ -943,8 +943,17 @@
 	  // screen swipe
 	  q: {
 	    color: ['#82D9FF', '#FF9BAB', '#4993B2', '#9BFFF0', '#FFE482', '#FF8D7E'],
-	    delay: 200,
 	    duration: 50
+	  },
+	  o: {
+	    color: ['#9BFFF0', '#FFE482', '#FF8D7E'],
+	    delay: 300,
+	    duration: 600
+	  },
+	  p: {
+	    color: ['#82D9FF', '#FF9BAB', '#4993B2'],
+	    delay: 300,
+	    duration: 600
 	  }
 	};
 	
@@ -1066,13 +1075,11 @@
 	        return canvas.width + 200;
 	      },
 	      lineWidth: 0,
-	      alpha: {
-	        value: 0,
-	        easing: 'linear',
-	        duration: function duration() {
-	          return 80000;
-	        }
-	      },
+	      // alpha: {
+	      //   value: 0,
+	      //   easing: 'linear',
+	      //   duration: function () { return 80000; },
+	      // },
 	      duration: function duration() {
 	        return _animejs2.default.random(5000, 7000);
 	      },
@@ -1209,11 +1216,70 @@
 	    animations.push(screenFlashAnimation);
 	  };
 	
-	  var animateScreenSwipeLeft = function animateScreenSwipeLeft(options) {
+	  var animateScreenSwipeLR = function animateScreenSwipeLR(direction, options) {
 	    setCanvasSize();
+	    var x = 0,
+	        y = 0,
+	        width = canvas.width,
+	        height = canvas.height;
+	    var screen = new _screen2.default(x, y, width, height, options);
+	
+	    if (direction === 0) {
+	      var screenSwipeLeftAnimation = (0, _animejs2.default)({
+	        targets: screen,
+	        x: canvas.width,
+	        delay: options.delay,
+	        duration: options.duration,
+	        easing: 'easeOutExpo',
+	        complete: removeAnimation
+	      });
+	      animations.push(screenSwipeLeftAnimation);
+	    } else {
+	      //right
+	      var _screenSwipeLeftAnimation = (0, _animejs2.default)({
+	        targets: screen,
+	        width: 0,
+	        delay: options.delay,
+	        duration: options.duration,
+	        easing: 'easeOutExpo',
+	        complete: removeAnimation
+	      });
+	      animations.push(_screenSwipeLeftAnimation);
+	    }
 	  };
 	
-	  var animateScreenSwipeRight = function animateScreenSwipeRight(options) {};
+	  var animateScreenSwipeUD = function animateScreenSwipeUD(direction, options) {
+	    setCanvasSize();
+	    var x = 0,
+	        y = 0,
+	        width = canvas.width,
+	        height = canvas.height;
+	    var screen = new _screen2.default(x, y, width, height, options);
+	
+	    if (direction === 0) {
+	      var screenSwipeLeftAnimation = (0, _animejs2.default)({
+	        targets: screen,
+	        y: canvas.height,
+	        delay: options.delay,
+	        duration: options.duration,
+	        easing: 'easeOutExpo',
+	        complete: removeAnimation
+	      });
+	      animations.push(screenSwipeLeftAnimation);
+	    } else {
+	      //right
+	      var _screenSwipeLeftAnimation2 = (0, _animejs2.default)({
+	        targets: screen,
+	        height: 0,
+	        delay: options.delay,
+	        duration: options.duration,
+	        easing: 'easeOutExpo',
+	        complete: removeAnimation
+	      });
+	      animations.push(_screenSwipeLeftAnimation2);
+	    }
+	  };
+	
 	  // use delay and a box that is the size of the canvas to make it seem like I'm swiping the whole screen
 	  // use the ripple class to create shrinking ripples and expanding riiples to give off illusion
 	  // have boxes that say in the same place but mapped across the whole canvas, grow or shrink in place
@@ -1273,7 +1339,11 @@
 	    } else if (key === "q") {
 	      animateScreenFlash(_util2.default[key]);
 	    } else if (key === "o") {
-	      animateScreenSwipeLeft(_util2.default[key]);
+	      var direction = Math.floor(Math.random() * 2);
+	      animateScreenSwipeLR(direction, _util2.default[key]);
+	    } else if (key === "p") {
+	      var _direction = Math.floor(Math.random() * 2);
+	      animateScreenSwipeUD(_direction, _util2.default[key]);
 	    } else if (Object.keys(_util2.default).indexOf(key) > -1) {
 	      animateCircle(_util2.default[key]);
 	    }

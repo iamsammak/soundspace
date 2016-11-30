@@ -67,11 +67,11 @@ const GameView = (function (canvas, ctx) {
       targets: ripple,
       radius: function () { return canvas.width + 200; },
       lineWidth: 0,
-      alpha: {
-        value: 0,
-        easing: 'linear',
-        duration: function () { return 80000; },
-      },
+      // alpha: {
+      //   value: 0,
+      //   easing: 'linear',
+      //   duration: function () { return 80000; },
+      // },
       duration: function () { return anime.random(5000, 7000); },
       easing: 'easeOutExpo',
       complete: removeAnimation,
@@ -206,14 +206,62 @@ const GameView = (function (canvas, ctx) {
     animations.push(screenFlashAnimation);
   };
 
-  const animateScreenSwipeLeft = function(options) {
+  const animateScreenSwipeLR = function(direction, options) {
     setCanvasSize();
-    
+    let x = 0, y = 0, width = canvas.width, height = canvas.height;
+    const screen = new Screen(x, y, width, height, options);
+
+    if (direction === 0) {
+      const screenSwipeLeftAnimation = anime({
+        targets: screen,
+        x: canvas.width,
+        delay: options.delay,
+        duration: options.duration,
+        easing: 'easeOutExpo',
+        complete: removeAnimation,
+      });
+      animations.push(screenSwipeLeftAnimation);
+    } else { //right
+      const screenSwipeLeftAnimation = anime({
+        targets: screen,
+        width: 0,
+        delay: options.delay,
+        duration: options.duration,
+        easing: 'easeOutExpo',
+        complete: removeAnimation,
+      });
+      animations.push(screenSwipeLeftAnimation);
+    }
   };
 
-  const animateScreenSwipeRight = function(options) {
+  const animateScreenSwipeUD = function(direction, options) {
+    setCanvasSize();
+    let x = 0, y = 0, width = canvas.width, height = canvas.height;
+    const screen = new Screen(x, y, width, height, options);
 
+    if (direction === 0) {
+      const screenSwipeLeftAnimation = anime({
+        targets: screen,
+        y: canvas.height,
+        delay: options.delay,
+        duration: options.duration,
+        easing: 'easeOutExpo',
+        complete: removeAnimation,
+      });
+      animations.push(screenSwipeLeftAnimation);
+    } else { //right
+      const screenSwipeLeftAnimation = anime({
+        targets: screen,
+        height: 0,
+        delay: options.delay,
+        duration: options.duration,
+        easing: 'easeOutExpo',
+        complete: removeAnimation,
+      });
+      animations.push(screenSwipeLeftAnimation);
+    }
   };
+
 // use delay and a box that is the size of the canvas to make it seem like I'm swiping the whole screen
 // use the ripple class to create shrinking ripples and expanding riiples to give off illusion
 // have boxes that say in the same place but mapped across the whole canvas, grow or shrink in place
@@ -271,7 +319,12 @@ const GameView = (function (canvas, ctx) {
       animateScreenFlash(objOptions[key]);
     }
     else if (key === "o") {
-      animateScreenSwipeLeft(objOptions[key]);
+      let direction = Math.floor((Math.random()*2));
+      animateScreenSwipeLR(direction, objOptions[key]);
+    }
+    else if (key === "p") {
+      let direction = Math.floor((Math.random()*2));
+      animateScreenSwipeUD(direction, objOptions[key]);
     }
     else if (Object.keys(objOptions).indexOf(key) > -1) {
       animateCircle(objOptions[key]);
