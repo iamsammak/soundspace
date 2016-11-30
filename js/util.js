@@ -130,7 +130,7 @@ const objOptions = {
     numCircles: 5,
   },
   // Box
-  q: {
+  i: {
     color: ['#ca271c'],
     width: 100,
     height: 100,
@@ -144,8 +144,15 @@ const objOptions = {
     duration: [400, 500],
     numBoxes: 10,
   },
-  // triRectangle
   r: {
+    color: ['#82D9FF', '#FF9BAB', '#4993B2', '#9BFFF0', '#FFE482', '#FF8D7E'],
+    width: 20,
+    height: 20,
+    duration: [400, 500],
+    numBoxes: 10,
+  },
+  // triRectangle
+  u: {
     rotate: 180,
     borderRadius: '8px',
     duration: 800,
@@ -162,6 +169,12 @@ const objOptions = {
     endHeight: 0,
     duration: 500,
     numBoxes: 1,
+  },
+  // screen swipe
+  q: {
+    color: ['#82D9FF', '#FF9BAB', '#4993B2', '#9BFFF0', '#FFE482', '#FF8D7E'],
+    delay: 200,
+    duration: 50,
   },
 };
 

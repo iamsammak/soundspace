@@ -1,0 +1,40 @@
+Bubble sort
+Iterates through an array, swaps with the element in front if necessary
+Time complexity: O(n^2)
+Space complexity: O(1)
+stable
+
+Insertion Sort
+Builds a sorted array as it goes
+Time: O(n^2)
+Space: O(1)
+stable
+
+Selection Sort
+Finds the minimum element, swaps it into the appropriate position. Repeat.
+Time complexity: O(n^2)
+Space complexity: O(1)
+unstable(?)
+
+2. Merge Sort
+Breaking input into many different pieces recursively, and merging back together
+Time: O(n log n) (Worst Case & Average case & Best case)
+Space: O(n)
+stable
+
+3. Heap Sort
+Turn input into a heap. Extract min or max, set it into its appropriate place
+Time: O(n log n) (WC/AC/BC)
+Space: O(1)
+unstable
+
+1.Quick sort
+Time:
+  BC/AC: O(n log n)
+  WC: O(n^2)
+Space:
+  BC/AC: O(log n)
+  WC: O(n)
+unstable
+quick sort - in place is unstable
+but naive quick sort is stable

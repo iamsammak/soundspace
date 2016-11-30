@@ -5,6 +5,7 @@ import objOptions from './util.js';
 import Box from './box.js';
 import TriRectangle from './tri_rectangle.js';
 import Rectangle from './rectangle.js';
+import Screen from './screen.js';
 
 const GameView = (function (canvas, ctx) {
   const animations = [];
@@ -69,7 +70,7 @@ const GameView = (function (canvas, ctx) {
       alpha: {
         value: 0,
         easing: 'linear',
-        duration: function () { return 60000; },
+        duration: function () { return 80000; },
       },
       duration: function () { return anime.random(5000, 7000); },
       easing: 'easeOutExpo',
@@ -93,13 +94,13 @@ const GameView = (function (canvas, ctx) {
 
   const animateBox = function(options) {
     setCanvasSize();
-    let x = canvas.width * (1/8);
+    let x = canvas.width * (1/8) - (options.width/2);
     let yArr = [canvas.height * (1/4) - 50, canvas.height * (1/2) - 50, canvas.height * (3/4) - 50];
     const boxes = createBoxes(x, yArr, options);
 
     const boxAnimation = anime({
       targets: boxes,
-      x: function() { return canvas.width * (7/8); },
+      x: function() { return canvas.width * (7/8) - (options.width/2); },
       delay: function (el, index) { return index * 100; },
       duration: function () { return anime.random(...options.duration); },
       easing: 'easeOutExpo',
@@ -130,11 +131,43 @@ const GameView = (function (canvas, ctx) {
       x: function() { return canvas.width * (1/10); },
       delay: function (el, index) { return index * 100; },
       duration: function () { return anime.random(...options.duration); },
+      width: 60,
+      height: 60,
       easing: 'easeOutExpo',
       complete: removeAnimation,
     });
 
     animations.push(lineBoxAnimation);
+  };
+
+  const animateLineBoxRight = function(options) {
+    setCanvasSize();
+    let x = canvas.width * (1/10);
+    let yArr = [canvas.height * (1/11) - (options.width/2),
+                canvas.height * (2/11) - (options.width/2),
+                canvas.height * (3/11) - (options.width/2),
+                canvas.height * (4/11) - (options.width/2),
+                canvas.height * (5/11) - (options.width/2),
+                canvas.height * (6/11) - (options.width/2),
+                canvas.height * (7/11) - (options.width/2),
+                canvas.height * (8/11) - (options.width/2),
+                canvas.height * (9/11) - (options.width/2),
+                canvas.height * (10/11) - (options.width/2)
+    ];
+    const boxes = createBoxes(x, yArr, options);
+
+    const lineBoxRightAnimation = anime({
+      targets: boxes,
+      x: function() { return canvas.width * (9/10); },
+      delay: function (el, index) { return index * 100; },
+      duration: function () { return anime.random(...options.duration); },
+      width: 60,
+      height: 60,
+      easing: 'easeOutExpo',
+      complete: removeAnimation,
+    });
+
+    animations.push(lineBoxRightAnimation);
   };
 
   const animateBigBox = function(options) {
@@ -154,6 +187,36 @@ const GameView = (function (canvas, ctx) {
 
     animations.push(bigBoxAnimation);
   };
+
+// Full screen animations
+  const animateScreenFlash = function(options) {
+    setCanvasSize();
+    let x = 0;
+    let y = 0;
+    let width = canvas.width;
+    let height = canvas.height;
+    const screenFlash = new Screen(x, y, width, height, options);
+
+    const screenFlashAnimation = anime({
+      targets: screenFlash,
+      duration: options.duration,
+      easing: 'easeOutExpo',
+      complete: removeAnimation,
+    });
+    animations.push(screenFlashAnimation);
+  };
+
+  const animateScreenSwipeLeft = function(options) {
+    setCanvasSize();
+    
+  };
+
+  const animateScreenSwipeRight = function(options) {
+
+  };
+// use delay and a box that is the size of the canvas to make it seem like I'm swiping the whole screen
+// use the ripple class to create shrinking ripples and expanding riiples to give off illusion
+// have boxes that say in the same place but mapped across the whole canvas, grow or shrink in place
 
 // Rectangle
   const animateTriRectangle = function(options) {
@@ -189,10 +252,10 @@ const GameView = (function (canvas, ctx) {
 // https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object/keys
   document.addEventListener('keydown', function (e) {
     const key = (e.key);
-    if (key === "q") {
+    if (key === "i") {
       animateBox(objOptions[key]);
     }
-    else if (key === "r") {
+    else if (key === "u") {
       animateTriRectangle(objOptions[key]);
     }
     else if (key === "t") {
@@ -200,6 +263,15 @@ const GameView = (function (canvas, ctx) {
     }
     else if (key === "y") {
       animateLineBox(objOptions[key]);
+    }
+    else if (key === "r") {
+      animateLineBoxRight(objOptions[key]);
+    }
+    else if (key === "q") {
+      animateScreenFlash(objOptions[key]);
+    }
+    else if (key === "o") {
+      animateScreenSwipeLeft(objOptions[key]);
     }
     else if (Object.keys(objOptions).indexOf(key) > -1) {
       animateCircle(objOptions[key]);

@@ -900,7 +900,7 @@
 	    numCircles: 5
 	  },
 	  // Box
-	  q: {
+	  i: {
 	    color: ['#ca271c'],
 	    width: 100,
 	    height: 100,
@@ -914,8 +914,15 @@
 	    duration: [400, 500],
 	    numBoxes: 10
 	  },
-	  // triRectangle
 	  r: {
+	    color: ['#82D9FF', '#FF9BAB', '#4993B2', '#9BFFF0', '#FFE482', '#FF8D7E'],
+	    width: 20,
+	    height: 20,
+	    duration: [400, 500],
+	    numBoxes: 10
+	  },
+	  // triRectangle
+	  u: {
 	    rotate: 180,
 	    borderRadius: '8px',
 	    duration: 800
@@ -932,6 +939,12 @@
 	    endHeight: 0,
 	    duration: 500,
 	    numBoxes: 1
+	  },
+	  // screen swipe
+	  q: {
+	    color: ['#82D9FF', '#FF9BAB', '#4993B2', '#9BFFF0', '#FFE482', '#FF8D7E'],
+	    delay: 200,
+	    duration: 50
 	  }
 	};
 	
@@ -974,6 +987,10 @@
 	var _rectangle = __webpack_require__(13);
 	
 	var _rectangle2 = _interopRequireDefault(_rectangle);
+	
+	var _screen = __webpack_require__(15);
+	
+	var _screen2 = _interopRequireDefault(_screen);
 	
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 	
@@ -1053,7 +1070,7 @@
 	        value: 0,
 	        easing: 'linear',
 	        duration: function duration() {
-	          return 60000;
+	          return 80000;
 	        }
 	      },
 	      duration: function duration() {
@@ -1080,14 +1097,14 @@
 	
 	  var animateBox = function animateBox(options) {
 	    setCanvasSize();
-	    var x = canvas.width * (1 / 8);
+	    var x = canvas.width * (1 / 8) - options.width / 2;
 	    var yArr = [canvas.height * (1 / 4) - 50, canvas.height * (1 / 2) - 50, canvas.height * (3 / 4) - 50];
 	    var boxes = createBoxes(x, yArr, options);
 	
 	    var boxAnimation = (0, _animejs2.default)({
 	      targets: boxes,
 	      x: function x() {
-	        return canvas.width * (7 / 8);
+	        return canvas.width * (7 / 8) - options.width / 2;
 	      },
 	      delay: function delay(el, index) {
 	        return index * 100;
@@ -1119,11 +1136,39 @@
 	      duration: function duration() {
 	        return _animejs2.default.random.apply(_animejs2.default, _toConsumableArray(options.duration));
 	      },
+	      width: 60,
+	      height: 60,
 	      easing: 'easeOutExpo',
 	      complete: removeAnimation
 	    });
 	
 	    animations.push(lineBoxAnimation);
+	  };
+	
+	  var animateLineBoxRight = function animateLineBoxRight(options) {
+	    setCanvasSize();
+	    var x = canvas.width * (1 / 10);
+	    var yArr = [canvas.height * (1 / 11) - options.width / 2, canvas.height * (2 / 11) - options.width / 2, canvas.height * (3 / 11) - options.width / 2, canvas.height * (4 / 11) - options.width / 2, canvas.height * (5 / 11) - options.width / 2, canvas.height * (6 / 11) - options.width / 2, canvas.height * (7 / 11) - options.width / 2, canvas.height * (8 / 11) - options.width / 2, canvas.height * (9 / 11) - options.width / 2, canvas.height * (10 / 11) - options.width / 2];
+	    var boxes = createBoxes(x, yArr, options);
+	
+	    var lineBoxRightAnimation = (0, _animejs2.default)({
+	      targets: boxes,
+	      x: function x() {
+	        return canvas.width * (9 / 10);
+	      },
+	      delay: function delay(el, index) {
+	        return index * 100;
+	      },
+	      duration: function duration() {
+	        return _animejs2.default.random.apply(_animejs2.default, _toConsumableArray(options.duration));
+	      },
+	      width: 60,
+	      height: 60,
+	      easing: 'easeOutExpo',
+	      complete: removeAnimation
+	    });
+	
+	    animations.push(lineBoxRightAnimation);
 	  };
 	
 	  var animateBigBox = function animateBigBox(options) {
@@ -1145,6 +1190,33 @@
 	
 	    animations.push(bigBoxAnimation);
 	  };
+	
+	  // Full screen animations
+	  var animateScreenFlash = function animateScreenFlash(options) {
+	    setCanvasSize();
+	    var x = 0;
+	    var y = 0;
+	    var width = canvas.width;
+	    var height = canvas.height;
+	    var screenFlash = new _screen2.default(x, y, width, height, options);
+	
+	    var screenFlashAnimation = (0, _animejs2.default)({
+	      targets: screenFlash,
+	      duration: options.duration,
+	      easing: 'easeOutExpo',
+	      complete: removeAnimation
+	    });
+	    animations.push(screenFlashAnimation);
+	  };
+	
+	  var animateScreenSwipeLeft = function animateScreenSwipeLeft(options) {
+	    setCanvasSize();
+	  };
+	
+	  var animateScreenSwipeRight = function animateScreenSwipeRight(options) {};
+	  // use delay and a box that is the size of the canvas to make it seem like I'm swiping the whole screen
+	  // use the ripple class to create shrinking ripples and expanding riiples to give off illusion
+	  // have boxes that say in the same place but mapped across the whole canvas, grow or shrink in place
 	
 	  // Rectangle
 	  var animateTriRectangle = function animateTriRectangle(options) {
@@ -1188,14 +1260,20 @@
 	  // https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object/keys
 	  document.addEventListener('keydown', function (e) {
 	    var key = e.key;
-	    if (key === "q") {
+	    if (key === "i") {
 	      animateBox(_util2.default[key]);
-	    } else if (key === "r") {
+	    } else if (key === "u") {
 	      animateTriRectangle(_util2.default[key]);
 	    } else if (key === "t") {
 	      animateBigBox(_util2.default[key]);
 	    } else if (key === "y") {
 	      animateLineBox(_util2.default[key]);
+	    } else if (key === "r") {
+	      animateLineBoxRight(_util2.default[key]);
+	    } else if (key === "q") {
+	      animateScreenFlash(_util2.default[key]);
+	    } else if (key === "o") {
+	      animateScreenSwipeLeft(_util2.default[key]);
 	    } else if (Object.keys(_util2.default).indexOf(key) > -1) {
 	      animateCircle(_util2.default[key]);
 	    }
@@ -1386,6 +1464,49 @@
 	}();
 	
 	exports.default = Rectangle;
+
+/***/ },
+/* 14 */,
+/* 15 */
+/***/ function(module, exports) {
+
+	"use strict";
+	
+	Object.defineProperty(exports, "__esModule", {
+	  value: true
+	});
+	
+	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+	
+	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+	
+	var Screen = function () {
+	  function Screen(x, y, width, height, options) {
+	    _classCallCheck(this, Screen);
+	
+	    this.x = x;
+	    this.y = y;
+	    this.width = width;
+	    this.height = height;
+	
+	    var colorIndex = Math.floor(Math.random() * options.color.length);
+	    this.color = options.color[colorIndex];
+	  }
+	
+	  _createClass(Screen, [{
+	    key: "draw",
+	    value: function draw(ctx) {
+	      ctx.beginPath();
+	      ctx.fillStyle = this.color;
+	      ctx.rect(this.x, this.y, this.width, this.height);
+	      ctx.fill();
+	    }
+	  }]);
+	
+	  return Screen;
+	}();
+	
+	exports.default = Screen;
 
 /***/ }
 /******/ ]);
