@@ -733,8 +733,11 @@
 	
 	    this.x = x;
 	    this.y = y;
-	    this.color = options.color;
+	    // this.color = options.color;
 	    this.radius = _animejs2.default.random.apply(_animejs2.default, _toConsumableArray(options.radius));
+	
+	    var colorIndex = Math.floor(Math.random() * options.color.length);
+	    this.color = options.color[colorIndex];
 	  }
 	
 	  _createClass(Circle, [{
@@ -771,49 +774,49 @@
 	var objOptions = {
 	  // big
 	  z: {
-	    color: '#baecf0',
+	    color: ['#baecf0'],
 	    radius: [175, 200],
 	    endRadius: 200,
 	    duration: [500, 1000],
 	    numCircles: 1
 	  },
 	  x: {
-	    color: '#ed6e2f',
+	    color: ['#ed6e2f'],
 	    radius: [175, 200],
 	    endRadius: 200,
 	    duration: [500, 1000],
 	    numCircles: 1
 	  },
 	  c: {
-	    color: '#f6c7df',
+	    color: ['#f6c7df'],
 	    radius: [175, 200],
 	    endRadius: 200,
 	    duration: [500, 1000],
 	    numCircles: 1
 	  },
 	  v: {
-	    color: '#f4de70',
+	    color: ['#f4de70'],
 	    radius: [175, 200],
 	    endRadius: 200,
 	    duration: [500, 1000],
 	    numCircles: 1
 	  },
 	  b: {
-	    color: '#fbfbf4',
+	    color: ['#fbfbf4'],
 	    radius: [175, 200],
 	    endRadius: 200,
 	    duration: [500, 1000],
 	    numCircles: 1
 	  },
 	  n: {
-	    color: '#222121',
+	    color: ['#222121'],
 	    radius: [175, 200],
 	    endRadius: 200,
 	    duration: [500, 1000],
 	    numCircles: 1
 	  },
 	  m: {
-	    color: '#baecf0',
+	    color: ['#baecf0'],
 	    radius: [175, 200],
 	    endRadius: 200,
 	    duration: [500, 1000],
@@ -821,28 +824,28 @@
 	  },
 	  // medium large
 	  a: {
-	    color: '#baecf0',
+	    color: ['#baecf0'],
 	    radius: [50, 100],
 	    duration: [500, 1000],
 	    endRadius: 100,
 	    numCircles: 10
 	  },
 	  s: {
-	    color: '#f6c7df',
+	    color: ['#f6c7df'],
 	    radius: [50, 100],
 	    duration: [500, 1000],
 	    endRadius: 100,
 	    numCircles: 10
 	  },
 	  d: {
-	    color: '#ed6e2f',
+	    color: ['#ed6e2f'],
 	    radius: [50, 100],
 	    duration: [500, 1000],
 	    endRadius: 100,
 	    numCircles: 10
 	  },
 	  f: {
-	    color: '#f4de70',
+	    color: ['#f4de70'],
 	    radius: [50, 100],
 	    duration: [500, 1000],
 	    endRadius: 100,
@@ -850,28 +853,28 @@
 	  },
 	  // small
 	  h: {
-	    color: '#fbfbf4',
+	    color: ['#fbfbf4'],
 	    radius: [15, 25],
 	    duration: [1000, 2000],
 	    endRadius: 0,
 	    numCircles: 25
 	  },
 	  j: {
-	    color: '#222121',
+	    color: ['#222121'],
 	    radius: [10, 15],
 	    duration: [1000, 2000],
 	    endRadius: 0,
 	    numCircles: 30
 	  },
 	  k: {
-	    color: '#f6c7df',
+	    color: ['#f6c7df'],
 	    radius: [10, 15],
 	    duration: [500, 1000],
 	    endRadius: 0,
 	    numCircles: 30
 	  },
 	  l: {
-	    color: '#f4de70',
+	    color: ['#f4de70'],
 	    radius: [10, 15],
 	    duration: [500, 1000],
 	    endRadius: 0,
@@ -879,21 +882,21 @@
 	  },
 	  // TBD
 	  w: {
-	    color: '#ed6e2f',
+	    color: ['#ed6e2f'],
 	    radius: [125, 150],
 	    duration: [8000, 10000],
 	    endRadius: 0,
 	    numCircles: 5
 	  },
 	  e: {
-	    color: '#f6c7df',
+	    color: ['#f6c7df'],
 	    radius: [100, 120],
 	    duration: [6000, 8000],
 	    endRadius: 0,
 	    numCircles: 5
 	  },
 	  g: {
-	    color: '#20b2aa',
+	    color: ['#20b2aa'],
 	    radius: [100, 120],
 	    duration: [3000, 5000],
 	    endRadius: 0,
@@ -1126,56 +1129,55 @@
 	    animations.push(boxAnimation);
 	  };
 	
-	  var animateLineBox = function animateLineBox(options) {
+	  var animateLineBoxLR = function animateLineBoxLR(direction, options) {
 	    setCanvasSize();
-	    var x = canvas.width * (9 / 10);
 	    var yArr = [canvas.height * (1 / 11) - options.width / 2, canvas.height * (2 / 11) - options.width / 2, canvas.height * (3 / 11) - options.width / 2, canvas.height * (4 / 11) - options.width / 2, canvas.height * (5 / 11) - options.width / 2, canvas.height * (6 / 11) - options.width / 2, canvas.height * (7 / 11) - options.width / 2, canvas.height * (8 / 11) - options.width / 2, canvas.height * (9 / 11) - options.width / 2, canvas.height * (10 / 11) - options.width / 2];
-	    var boxes = createBoxes(x, yArr, options);
 	
-	    var lineBoxAnimation = (0, _animejs2.default)({
-	      targets: boxes,
-	      x: function x() {
-	        return canvas.width * (1 / 10);
-	      },
-	      delay: function delay(el, index) {
-	        return index * 100;
-	      },
-	      duration: function duration() {
-	        return _animejs2.default.random.apply(_animejs2.default, _toConsumableArray(options.duration));
-	      },
-	      width: 60,
-	      height: 60,
-	      easing: 'easeOutExpo',
-	      complete: removeAnimation
-	    });
+	    if (direction === "left") {
+	      var x = canvas.width * (9 / 10);
+	      var boxes = createBoxes(x, yArr, options);
 	
-	    animations.push(lineBoxAnimation);
-	  };
+	      var lineBoxAnimation = (0, _animejs2.default)({
+	        targets: boxes,
+	        x: function x() {
+	          return canvas.width * (1 / 10);
+	        },
+	        delay: function delay(el, index) {
+	          return index * 100;
+	        },
+	        duration: function duration() {
+	          return _animejs2.default.random.apply(_animejs2.default, _toConsumableArray(options.duration));
+	        },
+	        width: 60,
+	        height: 60,
+	        easing: 'easeOutExpo',
+	        complete: removeAnimation
+	      });
 	
-	  var animateLineBoxRight = function animateLineBoxRight(options) {
-	    setCanvasSize();
-	    var x = canvas.width * (1 / 10);
-	    var yArr = [canvas.height * (1 / 11) - options.width / 2, canvas.height * (2 / 11) - options.width / 2, canvas.height * (3 / 11) - options.width / 2, canvas.height * (4 / 11) - options.width / 2, canvas.height * (5 / 11) - options.width / 2, canvas.height * (6 / 11) - options.width / 2, canvas.height * (7 / 11) - options.width / 2, canvas.height * (8 / 11) - options.width / 2, canvas.height * (9 / 11) - options.width / 2, canvas.height * (10 / 11) - options.width / 2];
-	    var boxes = createBoxes(x, yArr, options);
+	      animations.push(lineBoxAnimation);
+	    } else if (direction === "right") {
+	      var _x = canvas.width * (1 / 10);
+	      var _boxes = createBoxes(_x, yArr, options);
 	
-	    var lineBoxRightAnimation = (0, _animejs2.default)({
-	      targets: boxes,
-	      x: function x() {
-	        return canvas.width * (9 / 10);
-	      },
-	      delay: function delay(el, index) {
-	        return index * 100;
-	      },
-	      duration: function duration() {
-	        return _animejs2.default.random.apply(_animejs2.default, _toConsumableArray(options.duration));
-	      },
-	      width: 60,
-	      height: 60,
-	      easing: 'easeOutExpo',
-	      complete: removeAnimation
-	    });
+	      var lineBoxRightAnimation = (0, _animejs2.default)({
+	        targets: _boxes,
+	        x: function x() {
+	          return canvas.width * (9 / 10);
+	        },
+	        delay: function delay(el, index) {
+	          return index * 100;
+	        },
+	        duration: function duration() {
+	          return _animejs2.default.random.apply(_animejs2.default, _toConsumableArray(options.duration));
+	        },
+	        width: 60,
+	        height: 60,
+	        easing: 'easeOutExpo',
+	        complete: removeAnimation
+	      });
 	
-	    animations.push(lineBoxRightAnimation);
+	      animations.push(lineBoxRightAnimation);
+	    }
 	  };
 	
 	  var animateBigBox = function animateBigBox(options) {
@@ -1333,9 +1335,9 @@
 	    } else if (key === "t") {
 	      animateBigBox(_util2.default[key]);
 	    } else if (key === "y") {
-	      animateLineBox(_util2.default[key]);
+	      animateLineBoxLR("left", _util2.default[key]);
 	    } else if (key === "r") {
-	      animateLineBoxRight(_util2.default[key]);
+	      animateLineBoxLR("right", _util2.default[key]);
 	    } else if (key === "q") {
 	      animateScreenFlash(_util2.default[key]);
 	    } else if (key === "o") {
@@ -1514,9 +1516,12 @@
 	
 	    this.x = x;
 	    this.y = y;
-	    this.color = options.color;
+	    // this.color = options.color;
 	    this.width = options.width;
 	    this.height = options.height;
+	
+	    var colorIndex = Math.floor(Math.random() * options.color.length);
+	    this.color = options.color[colorIndex];
 	  }
 	
 	  _createClass(Rectangle, [{

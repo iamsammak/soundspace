@@ -110,64 +110,53 @@ const GameView = (function (canvas, ctx) {
     animations.push(boxAnimation);
   };
 
-  const animateLineBox = function(options) {
+  const animateLineBoxLR = function(direction, options) {
     setCanvasSize();
-    let x = canvas.width * (9/10);
     let yArr = [canvas.height * (1/11) - (options.width/2),
-                canvas.height * (2/11) - (options.width/2),
-                canvas.height * (3/11) - (options.width/2),
-                canvas.height * (4/11) - (options.width/2),
-                canvas.height * (5/11) - (options.width/2),
-                canvas.height * (6/11) - (options.width/2),
-                canvas.height * (7/11) - (options.width/2),
-                canvas.height * (8/11) - (options.width/2),
-                canvas.height * (9/11) - (options.width/2),
-                canvas.height * (10/11) - (options.width/2)
+      canvas.height * (2/11) - (options.width/2),
+      canvas.height * (3/11) - (options.width/2),
+      canvas.height * (4/11) - (options.width/2),
+      canvas.height * (5/11) - (options.width/2),
+      canvas.height * (6/11) - (options.width/2),
+      canvas.height * (7/11) - (options.width/2),
+      canvas.height * (8/11) - (options.width/2),
+      canvas.height * (9/11) - (options.width/2),
+      canvas.height * (10/11) - (options.width/2)
     ];
-    const boxes = createBoxes(x, yArr, options);
 
-    const lineBoxAnimation = anime({
-      targets: boxes,
-      x: function() { return canvas.width * (1/10); },
-      delay: function (el, index) { return index * 100; },
-      duration: function () { return anime.random(...options.duration); },
-      width: 60,
-      height: 60,
-      easing: 'easeOutExpo',
-      complete: removeAnimation,
-    });
+    if (direction === "left") {
+      let x = canvas.width * (9/10);
+      const boxes = createBoxes(x, yArr, options);
 
-    animations.push(lineBoxAnimation);
-  };
+      const lineBoxAnimation = anime({
+        targets: boxes,
+        x: function() { return canvas.width * (1/10); },
+        delay: function (el, index) { return index * 100; },
+        duration: function () { return anime.random(...options.duration); },
+        width: 60,
+        height: 60,
+        easing: 'easeOutExpo',
+        complete: removeAnimation,
+      });
 
-  const animateLineBoxRight = function(options) {
-    setCanvasSize();
-    let x = canvas.width * (1/10);
-    let yArr = [canvas.height * (1/11) - (options.width/2),
-                canvas.height * (2/11) - (options.width/2),
-                canvas.height * (3/11) - (options.width/2),
-                canvas.height * (4/11) - (options.width/2),
-                canvas.height * (5/11) - (options.width/2),
-                canvas.height * (6/11) - (options.width/2),
-                canvas.height * (7/11) - (options.width/2),
-                canvas.height * (8/11) - (options.width/2),
-                canvas.height * (9/11) - (options.width/2),
-                canvas.height * (10/11) - (options.width/2)
-    ];
-    const boxes = createBoxes(x, yArr, options);
+      animations.push(lineBoxAnimation);
+    } else if (direction === "right") {
+      let x = canvas.width * (1/10);
+      const boxes = createBoxes(x, yArr, options);
 
-    const lineBoxRightAnimation = anime({
-      targets: boxes,
-      x: function() { return canvas.width * (9/10); },
-      delay: function (el, index) { return index * 100; },
-      duration: function () { return anime.random(...options.duration); },
-      width: 60,
-      height: 60,
-      easing: 'easeOutExpo',
-      complete: removeAnimation,
-    });
+      const lineBoxRightAnimation = anime({
+        targets: boxes,
+        x: function() { return canvas.width * (9/10); },
+        delay: function (el, index) { return index * 100; },
+        duration: function () { return anime.random(...options.duration); },
+        width: 60,
+        height: 60,
+        easing: 'easeOutExpo',
+        complete: removeAnimation,
+      });
 
-    animations.push(lineBoxRightAnimation);
+      animations.push(lineBoxRightAnimation);
+    }
   };
 
   const animateBigBox = function(options) {
@@ -310,10 +299,10 @@ const GameView = (function (canvas, ctx) {
       animateBigBox(objOptions[key]);
     }
     else if (key === "y") {
-      animateLineBox(objOptions[key]);
+      animateLineBoxLR("left", objOptions[key]);
     }
     else if (key === "r") {
-      animateLineBoxRight(objOptions[key]);
+      animateLineBoxLR("right", objOptions[key]);
     }
     else if (key === "q") {
       animateScreenFlash(objOptions[key]);
