@@ -2,6 +2,9 @@ import anime from 'animejs';
 import Ripple from './ripple.js';
 import Circle from './circle.js';
 import circleOptions from './util.js';
+import Box from './box.js';
+import TriRectangle from './tri_rectangle.js';
+import Rectangle from './rectangle.js';
 
 const GameView = (function (canvas, ctx) {
   const animations = [];
@@ -9,57 +12,19 @@ const GameView = (function (canvas, ctx) {
   const setCanvasSize = function () {
     canvas.width = window.innerWidth;
     canvas.height = window.innerHeight;
+    // console.log(canvas.width);
+    // console.log(canvas.height);
   };
 
   const distance = canvas.width;
 
-  const createCircles = function (x, y, options) {
-    const circles = [];
-    for (let i = 0; i < options.numCircles; i++) {
-      const p = new Circle(x, y, options);
-      circles.push(p);
-    }
-    return circles;
-  };
-
   const removeAnimation = function (animation) {
+    // debugger;
     const index = animations.indexOf(animation);
     if (index > -1) { animations.splice(index, 1); }
   };
 
-  const animateCircles = function (options) {
-    setCanvasSize();
-    const x = Math.random() * canvas.width;
-    const y = Math.random() * canvas.height;
-    const circles = createCircles(x, y, options);
-    const ripple = new Ripple(x, y);
-    const circlesAnimation = anime({
-      targets: circles,
-      x: function(p) { return p.x + anime.random(-distance, distance); },
-      y: function(p) { return p.y + anime.random(-distance, distance); },
-      radius: options.endRadius,
-      duration: function () { return anime.random(...options.duration); },
-      easing: 'easeOutExpo',
-      complete: removeAnimation,
-    });
-    const rippleAnimation = anime({
-      targets: ripple,
-      radius: function () { return canvas.width + 200; },
-      lineWidth: 0,
-      alpha: {
-        value: 0,
-        easing: 'linear',
-        duration: function () { return 80000; },
-      },
-      duration: function () { return anime.random(5000, 8000); },
-      easing: 'easeOutExpo',
-      complete: removeAnimation,
-    });
-    animations.push(circlesAnimation);
-    animations.push(rippleAnimation);
-  };
-
-  const mainLoop = anime({
+  const mainLoopAnimation = anime({
     duration: Infinity,
     update: function () {
       ctx.clearRect(0, 0, canvas.width, canvas.height);
@@ -71,15 +36,144 @@ const GameView = (function (canvas, ctx) {
     },
   });
 
+  const createCircles = function (x, y, options) {
+    const circles = [];
+    for (let i = 0; i < options.numCircles; i++) {
+      const cir = new Circle(x, y, options);
+      circles.push(cir);
+    }
+    return circles;
+  };
+
+  const animateCircle = function (options) {
+    setCanvasSize();
+    const x = Math.random() * canvas.width;
+    const y = Math.random() * canvas.height;
+    const circles = createCircles(x, y, options);
+    const ripple = new Ripple(x, y);
+
+    const circlesAnimation = anime({
+      targets: circles,
+      x: function(cir) { return cir.x + anime.random(-distance, distance); },
+      y: function(cir) { return cir.y + anime.random(-distance, distance); },
+      radius: options.endRadius,
+      duration: function () { return anime.random(...options.duration); },
+      easing: 'easeOutExpo',
+      complete: removeAnimation,
+    });
+
+    const rippleAnimation = anime({
+      targets: ripple,
+      radius: function () { return canvas.width + 200; },
+      lineWidth: 0,
+      alpha: {
+        value: 0,
+        easing: 'linear',
+        duration: function () { return 60000; },
+      },
+      duration: function () { return anime.random(5000, 7000); },
+      easing: 'easeOutExpo',
+      complete: removeAnimation,
+    });
+
+    animations.push(circlesAnimation);
+    animations.push(rippleAnimation);
+  };
+
+  const createBoxes = function (x, yArr, options) {
+    const boxes = [];
+    for (let i = 0; i < options.numBoxes; i++) {
+      let y = yArr[i];
+      const box = new Box(x, y, options);
+      boxes.push(box);
+    }
+    return boxes;
+  };
+
+  const animateBox = function(options) {
+    setCanvasSize();
+    let x = canvas.width * (1/8);
+    let yArr = [canvas.height * (1/4) - 50, canvas.height * (1/2) - 50, canvas.height * (3/4) - 50];
+    const boxes = createBoxes(x, yArr, options);
+
+    const boxAnimation = anime({
+      targets: boxes,
+      x: function() { return canvas.width * (6/8); },
+      delay: function (el, index) { return index * 100; },
+      duration: function () { return anime.random(...options.duration); },
+      easing: 'easeOutExpo',
+      complete: removeAnimation,
+    });
+
+    animations.push(boxAnimation);
+  };
+
+  const animateBigBox = function(options) {
+    setCanvasSize();
+    let xIdx = Math.floor((Math.random()*options.startX.length));
+    let x = (options.startX[xIdx] * canvas.width - (options.width/2));
+    let yArr = options.startY;
+    const bigBox = createBoxes(x, yArr, options);
+
+    const bigBoxAnimation = anime({
+      targets: bigBox,
+      y: function() { return canvas.height - 400; },
+      duration: options.duration,
+      easing: 'easeOutExpo',
+      complete: removeAnimation,
+    });
+
+    animations.push(bigBoxAnimation);
+  };
+
+  const animateTriRectangle = function(options) {
+    setCanvasSize();
+    let x = canvas.width * (1/4) - 25;
+    let y = canvas.height * (1/3) - 25;
+    const triRects = new TriRectangle(x, y, options);
+    const triRectsAnimation = anime({
+      targets: triRects,
+      x: function() { return canvas.width * (3/4) - 25; },
+      y: function() { return canvas.height * (2/3) - 25; },
+      duration: options.duration,
+      easing: 'easeOutExpo',
+      complete: removeAnimation,
+    });
+
+    let x2 = canvas.width * (3/4) + 25;
+    let y2 = canvas.height * (1/3) - 25;
+    const triRects2 = new TriRectangle(x2, y2, options);
+    const triRectsAnimation2 = anime({
+      targets: triRects2,
+      x: function() { return canvas.width * (1/4) - 25; },
+      y: function() { return canvas.height * (2/3) - 25; },
+      duration: options.duration,
+      easing: 'easeOutExpo',
+      complete: removeAnimation,
+    });
+
+    animations.push(triRectsAnimation);
+    animations.push(triRectsAnimation2);
+  };
+
+// https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object/keys
   document.addEventListener('keydown', function (e) {
     const key = (e.key);
-    if (Object.keys(circleOptions).indexOf(key) > -1) {
-      animateCircles(circleOptions[key]);
+    if (key === "q") {
+      animateBox(circleOptions[key]);
+    }
+    else if (key === "r") {
+      animateTriRectangle(circleOptions[key]);
+    }
+    else if (key === "t") {
+      animateBigBox(circleOptions[key]);
+    }
+    else if (Object.keys(circleOptions).indexOf(key) > -1) {
+      animateCircle(circleOptions[key]);
     }
   }, false);
 
   window.addEventListener('resize', setCanvasSize, false);
 });
 
-// module.exports = GameView;
 export default GameView;

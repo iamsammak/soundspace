@@ -13,7 +13,7 @@ class GameView {
     this.animations = [];
 
     this.keyHandler = this.keyHandler.bind(this);
-    this.animateCircles = this.animateCircles.bind(this);
+    this.animateCircle = this.animateCircle.bind(this);
     this.mainLoopUpdate = this.mainLoopUpdate.bind(this);
 
     // const mainAnimation = anime({
@@ -48,7 +48,7 @@ class GameView {
     const key = (e.key);
     if (Object.keys(circleOptions).indexOf(key) > -1) {
       // debugger;
-      this.animateCircles(circleOptions[key]);
+      this.animateCircle(circleOptions[key]);
     }
   }
 
@@ -75,12 +75,13 @@ class GameView {
     }
   }
 
-  animateCircles(options) {
+  animateCircle(options) {
     let distance = this.canvas.width;
     const x = Math.random() * this.canvas.width;
     const y = Math.random() * this.canvas.height;
     const circles = this.createCircles(x, y, options);
     const ripple = new Ripple(x, y);
+
     const circlesAnimation = anime({
       targets: circles,
       x: function(p) {

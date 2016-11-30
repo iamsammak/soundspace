@@ -244,4 +244,4 @@ function foldingCipher(string) {
 // google you don't need to wear a suit to make money
 // which means you are here to have fun,
 // you don't have to take yourself too seriously
-// by proving value you receive value back
+// by providing value you receive value back

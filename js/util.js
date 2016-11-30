@@ -1,4 +1,3 @@
-// module.exports = {
 const circleOptions = {
   // big
   z: {
@@ -50,14 +49,6 @@ const circleOptions = {
     duration: [500, 1000],
     numCircles: 1,
   },
-  // mid
-  // f: {
-  //   color: '#f4de70',
-  //   radius: [25, 50],
-  //   duration: [500, 1000],
-  //   endRadius: 35,
-  //   numCircles: 10,
-  // },
   // medium large
   a: {
     color: '#baecf0',
@@ -117,20 +108,54 @@ const circleOptions = {
     numCircles: 30,
   },
   // TBD
-  // w: {
-  //   color: '#ed6e2f',
-  //   radius: [125, 150],
-  //   duration: [8000, 10000],
-  //   endRadius: 0,
-  //   numCircles: 5,
-  // },
-  // e: {
-  //   color: '#f6c7df',
-  //   radius: [100, 120],
-  //   duration: [6000, 8000],
-  //   endRadius: 0,
-  //   numCircles: 5,
-  // },
+  w: {
+    color: '#ed6e2f',
+    radius: [125, 150],
+    duration: [8000, 10000],
+    endRadius: 0,
+    numCircles: 5,
+  },
+  e: {
+    color: '#f6c7df',
+    radius: [100, 120],
+    duration: [6000, 8000],
+    endRadius: 0,
+    numCircles: 5,
+  },
+  g: {
+    color: '#20b2aa',
+    radius: [100, 120],
+    duration: [3000, 5000],
+    endRadius: 0,
+    numCircles: 5,
+  },
+  // Box
+  q: {
+    color: ['#ca271c'],
+    width: 100,
+    height: 100,
+    duration: [400, 500],
+    numBoxes: 3,
+  },
+  // triRectangle
+  r: {
+    rotate: 180,
+    borderRadius: '8px',
+    duration: 800,
+  },
+  // BigBox
+  // return anime.random(50, 100); // Will set a random value from 50 to 100 to each divs
+  t: {
+    color: ['#82FFB7', '#D79BFF', '#49B276' ],
+    startX: [(1/4), (1/2), (3/4)],
+    startY: [5],
+    width: 400,
+    height: 400,
+    endWidth: 0,
+    endHeight: 0,
+    duration: 500,
+    numBoxes: 1,
+  },
 };
 
 export default circleOptions;

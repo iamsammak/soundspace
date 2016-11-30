@@ -715,38 +715,7 @@
 	  value: true
 	});
 	
-	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }(); // const anime = require('animejs');
-	//
-	// const Circle = function (x, y, options) {
-	//   this.x = x;
-	//   this.y = y;
-	//   this.color = options.color; // TODO: This gets customized later
-	//   this.radius = anime.random(...options.radius); // TODO: This gets customized later
-	// };
-	//
-	// Circle.prototype.draw = function (ctx) {
-	//   ctx.beginPath();
-	//   ctx.arc(this.x, this.y, this.radius, 0, 2 * Math.PI, true);
-	//   ctx.fillStyle = this.color;
-	//   ctx.fill();
-	// };
-	//
-	// module.exports = Circle;
-	
-	// const createCircle = function (x, y) {
-	//   const p = {};
-	//   p.x = x;
-	//   p.y = y;
-	//   p.color = '#ffec6a'; // TODO: This gets customized later
-	//   p.radius = 50; // TODO: This gets customized later
-	//   p.draw = function () {
-	//     ctx.beginPath();
-	//     ctx.arc(p.x, p.y, p.radius, 0, 2 * Math.PI, true);
-	//     ctx.fillStyle = p.color;
-	//     ctx.fill();
-	//   };
-	//   return p;
-	// };
+	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
 	
 	var _animejs = __webpack_require__(2);
 	
@@ -799,7 +768,6 @@
 	Object.defineProperty(exports, "__esModule", {
 	  value: true
 	});
-	// module.exports = {
 	var circleOptions = {
 	  // big
 	  z: {
@@ -851,14 +819,6 @@
 	    duration: [500, 1000],
 	    numCircles: 1
 	  },
-	  // mid
-	  // f: {
-	  //   color: '#f4de70',
-	  //   radius: [25, 50],
-	  //   duration: [500, 1000],
-	  //   endRadius: 35,
-	  //   numCircles: 10,
-	  // },
 	  // medium large
 	  a: {
 	    color: '#baecf0',
@@ -916,6 +876,55 @@
 	    duration: [500, 1000],
 	    endRadius: 0,
 	    numCircles: 30
+	  },
+	  // TBD
+	  w: {
+	    color: '#ed6e2f',
+	    radius: [125, 150],
+	    duration: [8000, 10000],
+	    endRadius: 0,
+	    numCircles: 5
+	  },
+	  e: {
+	    color: '#f6c7df',
+	    radius: [100, 120],
+	    duration: [6000, 8000],
+	    endRadius: 0,
+	    numCircles: 5
+	  },
+	  g: {
+	    color: '#20b2aa',
+	    radius: [100, 120],
+	    duration: [3000, 5000],
+	    endRadius: 0,
+	    numCircles: 5
+	  },
+	  // Box
+	  q: {
+	    color: ['#ca271c'],
+	    width: 100,
+	    height: 100,
+	    duration: [400, 500],
+	    numBoxes: 3
+	  },
+	  // triRectangle
+	  r: {
+	    rotate: 180,
+	    borderRadius: '8px',
+	    duration: 800
+	  },
+	  // BigBox
+	  // return anime.random(50, 100); // Will set a random value from 50 to 100 to each divs
+	  t: {
+	    color: ['#82FFB7', '#D79BFF', '#49B276'],
+	    startX: [1 / 4, 1 / 2, 3 / 4],
+	    startY: [5],
+	    width: 400,
+	    height: 400,
+	    endWidth: 0,
+	    endHeight: 0,
+	    duration: 500,
+	    numBoxes: 1
 	  }
 	};
 	
@@ -947,6 +956,18 @@
 	
 	var _util2 = _interopRequireDefault(_util);
 	
+	var _box = __webpack_require__(11);
+	
+	var _box2 = _interopRequireDefault(_box);
+	
+	var _tri_rectangle = __webpack_require__(12);
+	
+	var _tri_rectangle2 = _interopRequireDefault(_tri_rectangle);
+	
+	var _rectangle = __webpack_require__(13);
+	
+	var _rectangle2 = _interopRequireDefault(_rectangle);
+	
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 	
 	function _toConsumableArray(arr) { if (Array.isArray(arr)) { for (var i = 0, arr2 = Array(arr.length); i < arr.length; i++) { arr2[i] = arr[i]; } return arr2; } else { return Array.from(arr); } }
@@ -957,71 +978,21 @@
 	  var setCanvasSize = function setCanvasSize() {
 	    canvas.width = window.innerWidth;
 	    canvas.height = window.innerHeight;
+	    // console.log(canvas.width);
+	    // console.log(canvas.height);
 	  };
 	
 	  var distance = canvas.width;
 	
-	  var createCircles = function createCircles(x, y, options) {
-	    var circles = [];
-	    for (var i = 0; i < options.numCircles; i++) {
-	      var p = new _circle2.default(x, y, options);
-	      circles.push(p);
-	    }
-	    return circles;
-	  };
-	
 	  var removeAnimation = function removeAnimation(animation) {
+	    // debugger;
 	    var index = animations.indexOf(animation);
 	    if (index > -1) {
 	      animations.splice(index, 1);
 	    }
 	  };
 	
-	  var animateCircles = function animateCircles(options) {
-	    setCanvasSize();
-	    var x = Math.random() * canvas.width;
-	    var y = Math.random() * canvas.height;
-	    var circles = createCircles(x, y, options);
-	    var ripple = new _ripple2.default(x, y);
-	    var circlesAnimation = (0, _animejs2.default)({
-	      targets: circles,
-	      x: function x(p) {
-	        return p.x + _animejs2.default.random(-distance, distance);
-	      },
-	      y: function y(p) {
-	        return p.y + _animejs2.default.random(-distance, distance);
-	      },
-	      radius: options.endRadius,
-	      duration: function duration() {
-	        return _animejs2.default.random.apply(_animejs2.default, _toConsumableArray(options.duration));
-	      },
-	      easing: 'easeOutExpo',
-	      complete: removeAnimation
-	    });
-	    var rippleAnimation = (0, _animejs2.default)({
-	      targets: ripple,
-	      radius: function radius() {
-	        return canvas.width + 200;
-	      },
-	      lineWidth: 0,
-	      alpha: {
-	        value: 0,
-	        easing: 'linear',
-	        duration: function duration() {
-	          return 80000;
-	        }
-	      },
-	      duration: function duration() {
-	        return _animejs2.default.random(5000, 8000);
-	      },
-	      easing: 'easeOutExpo',
-	      complete: removeAnimation
-	    });
-	    animations.push(circlesAnimation);
-	    animations.push(rippleAnimation);
-	  };
-	
-	  var mainLoop = (0, _animejs2.default)({
+	  var mainLoopAnimation = (0, _animejs2.default)({
 	    duration: Infinity,
 	    update: function update() {
 	      ctx.clearRect(0, 0, canvas.width, canvas.height);
@@ -1033,17 +1004,171 @@
 	    }
 	  });
 	
+	  var createCircles = function createCircles(x, y, options) {
+	    var circles = [];
+	    for (var i = 0; i < options.numCircles; i++) {
+	      var cir = new _circle2.default(x, y, options);
+	      circles.push(cir);
+	    }
+	    return circles;
+	  };
+	
+	  var animateCircle = function animateCircle(options) {
+	    setCanvasSize();
+	    var x = Math.random() * canvas.width;
+	    var y = Math.random() * canvas.height;
+	    var circles = createCircles(x, y, options);
+	    var ripple = new _ripple2.default(x, y);
+	
+	    var circlesAnimation = (0, _animejs2.default)({
+	      targets: circles,
+	      x: function x(cir) {
+	        return cir.x + _animejs2.default.random(-distance, distance);
+	      },
+	      y: function y(cir) {
+	        return cir.y + _animejs2.default.random(-distance, distance);
+	      },
+	      radius: options.endRadius,
+	      duration: function duration() {
+	        return _animejs2.default.random.apply(_animejs2.default, _toConsumableArray(options.duration));
+	      },
+	      easing: 'easeOutExpo',
+	      complete: removeAnimation
+	    });
+	
+	    var rippleAnimation = (0, _animejs2.default)({
+	      targets: ripple,
+	      radius: function radius() {
+	        return canvas.width + 200;
+	      },
+	      lineWidth: 0,
+	      alpha: {
+	        value: 0,
+	        easing: 'linear',
+	        duration: function duration() {
+	          return 60000;
+	        }
+	      },
+	      duration: function duration() {
+	        return _animejs2.default.random(5000, 7000);
+	      },
+	      easing: 'easeOutExpo',
+	      complete: removeAnimation
+	    });
+	
+	    animations.push(circlesAnimation);
+	    animations.push(rippleAnimation);
+	  };
+	
+	  var createBoxes = function createBoxes(x, yArr, options) {
+	    var boxes = [];
+	    for (var i = 0; i < options.numBoxes; i++) {
+	      var y = yArr[i];
+	      var box = new _box2.default(x, y, options);
+	      boxes.push(box);
+	    }
+	    return boxes;
+	  };
+	
+	  var animateBox = function animateBox(options) {
+	    setCanvasSize();
+	    var x = canvas.width * (1 / 8);
+	    var yArr = [canvas.height * (1 / 4) - 50, canvas.height * (1 / 2) - 50, canvas.height * (3 / 4) - 50];
+	    var boxes = createBoxes(x, yArr, options);
+	
+	    var boxAnimation = (0, _animejs2.default)({
+	      targets: boxes,
+	      x: function x() {
+	        return canvas.width * (6 / 8);
+	      },
+	      delay: function delay(el, index) {
+	        return index * 100;
+	      },
+	      duration: function duration() {
+	        return _animejs2.default.random.apply(_animejs2.default, _toConsumableArray(options.duration));
+	      },
+	      easing: 'easeOutExpo',
+	      complete: removeAnimation
+	    });
+	
+	    animations.push(boxAnimation);
+	  };
+	
+	  var animateBigBox = function animateBigBox(options) {
+	    setCanvasSize();
+	    var xIdx = Math.floor(Math.random() * options.startX.length);
+	    var x = options.startX[xIdx] * canvas.width - options.width / 2;
+	    var yArr = options.startY;
+	    var bigBox = createBoxes(x, yArr, options);
+	
+	    var bigBoxAnimation = (0, _animejs2.default)({
+	      targets: bigBox,
+	      y: function y() {
+	        return canvas.height - 400;
+	      },
+	      duration: options.duration,
+	      easing: 'easeOutExpo',
+	      complete: removeAnimation
+	    });
+	
+	    animations.push(bigBoxAnimation);
+	  };
+	
+	  var animateTriRectangle = function animateTriRectangle(options) {
+	    setCanvasSize();
+	    var x = canvas.width * (1 / 4) - 25;
+	    var y = canvas.height * (1 / 3) - 25;
+	    var triRects = new _tri_rectangle2.default(x, y, options);
+	    var triRectsAnimation = (0, _animejs2.default)({
+	      targets: triRects,
+	      x: function x() {
+	        return canvas.width * (3 / 4) - 25;
+	      },
+	      y: function y() {
+	        return canvas.height * (2 / 3) - 25;
+	      },
+	      duration: options.duration,
+	      easing: 'easeOutExpo',
+	      complete: removeAnimation
+	    });
+	
+	    var x2 = canvas.width * (3 / 4) + 25;
+	    var y2 = canvas.height * (1 / 3) - 25;
+	    var triRects2 = new _tri_rectangle2.default(x2, y2, options);
+	    var triRectsAnimation2 = (0, _animejs2.default)({
+	      targets: triRects2,
+	      x: function x() {
+	        return canvas.width * (1 / 4) - 25;
+	      },
+	      y: function y() {
+	        return canvas.height * (2 / 3) - 25;
+	      },
+	      duration: options.duration,
+	      easing: 'easeOutExpo',
+	      complete: removeAnimation
+	    });
+	
+	    animations.push(triRectsAnimation);
+	    animations.push(triRectsAnimation2);
+	  };
+	
+	  // https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object/keys
 	  document.addEventListener('keydown', function (e) {
 	    var key = e.key;
-	    if (Object.keys(_util2.default).indexOf(key) > -1) {
-	      animateCircles(_util2.default[key]);
+	    if (key === "q") {
+	      animateBox(_util2.default[key]);
+	    } else if (key === "r") {
+	      animateTriRectangle(_util2.default[key]);
+	    } else if (key === "t") {
+	      animateBigBox(_util2.default[key]);
+	    } else if (Object.keys(_util2.default).indexOf(key) > -1) {
+	      animateCircle(_util2.default[key]);
 	    }
 	  }, false);
 	
 	  window.addEventListener('resize', setCanvasSize, false);
 	};
 	
-	// module.exports = GameView;
 	exports.default = GameView;
 
 /***/ },
@@ -1061,45 +1186,6 @@
 	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
 	
 	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
-	
-	// const Ripple = function (x, y) {
-	//   this.x = x;
-	//   this.y = y;
-	//   this.alpha = 1;
-	//   this.radius = 0;
-	//   this.lineWidth = 6;
-	//   this.color = '#FFF';
-	// };
-	//
-	// Ripple.prototype.draw = function (ctx) {
-	//   ctx.globalAlpha = this.alpha;
-	//   ctx.beginPath();
-	//   ctx.arc(this.x, this.y, this.radius, 0, 2 * Math.PI, true);
-	//   ctx.lindeWidth = this.lineWidth;
-	//   ctx.strokeStyle = this.color;
-	//   ctx.stroke();
-	// };
-	//
-	// module.exports = Ripple;
-	
-	// const createRipple = function (x, y) {
-	//   const p = {};
-	//   p.x = x;
-	//   p.y = y;
-	//   p.color = '#FFF';
-	//   p.radius = 0;
-	//   p.alpha = 1;
-	//   p.lineWidth = 6;
-	//   p.draw = function () {
-	//     ctx.globalAlpha = p.alpha;
-	//     ctx.beginPath();
-	//     ctx.arc(p.x, p.y, p.radius, 0, 2 * Math.PI, true);
-	//     ctx.lindeWidth = p.lineWidth;
-	//     ctx.strokeStyle = p.color;
-	//     ctx.stroke();
-	//   };
-	//   return p;
-	// };
 	
 	var Ripple = function () {
 	  function Ripple(x, y) {
@@ -1129,6 +1215,142 @@
 	}();
 	
 	exports.default = Ripple;
+
+/***/ },
+/* 11 */
+/***/ function(module, exports) {
+
+	"use strict";
+	
+	Object.defineProperty(exports, "__esModule", {
+	  value: true
+	});
+	
+	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+	
+	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+	
+	var Box = function () {
+	  function Box(x, y, options) {
+	    _classCallCheck(this, Box);
+	
+	    this.x = x;
+	    this.y = y;
+	    this.width = options.width;
+	    this.height = options.height;
+	
+	    var colorIndex = Math.floor(Math.random() * options.color.length);
+	    this.color = options.color[colorIndex];
+	  }
+	
+	  _createClass(Box, [{
+	    key: "draw",
+	    value: function draw(ctx) {
+	      ctx.beginPath();
+	      ctx.fillStyle = this.color;
+	      ctx.rect(this.x, this.y, this.width, this.height);
+	      ctx.fill();
+	    }
+	  }]);
+	
+	  return Box;
+	}();
+	
+	exports.default = Box;
+
+/***/ },
+/* 12 */
+/***/ function(module, exports) {
+
+	"use strict";
+	
+	Object.defineProperty(exports, "__esModule", {
+	  value: true
+	});
+	
+	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+	
+	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+	
+	var TriRectangle = function () {
+	  function TriRectangle(x, y, options) {
+	    _classCallCheck(this, TriRectangle);
+	
+	    this.x = x;
+	    this.y = y;
+	  }
+	
+	  _createClass(TriRectangle, [{
+	    key: "draw",
+	    value: function draw(ctx) {
+	      // Red rectangle
+	      ctx.beginPath();
+	      ctx.lineWidth = "6";
+	      ctx.strokeStyle = "red";
+	      ctx.rect(this.x - 5, this.y - 5, 140, 140);
+	      ctx.stroke();
+	
+	      // Green rectangle
+	      ctx.beginPath();
+	      ctx.lineWidth = "4";
+	      ctx.strokeStyle = "green";
+	      ctx.rect(this.x - 30, this.y - 30, 50, 50);
+	      ctx.stroke();
+	
+	      // Blue rectangle
+	      ctx.beginPath();
+	      ctx.lineWidth = "10";
+	      ctx.strokeStyle = "blue";
+	      ctx.rect(this.x - 50, this.y - 50, 80, 80);
+	      ctx.stroke();
+	    }
+	  }]);
+	
+	  return TriRectangle;
+	}();
+	
+	exports.default = TriRectangle;
+
+/***/ },
+/* 13 */
+/***/ function(module, exports) {
+
+	"use strict";
+	
+	Object.defineProperty(exports, "__esModule", {
+	  value: true
+	});
+	
+	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+	
+	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+	
+	var Rectangle = function () {
+	  function Rectangle(x, y, options) {
+	    _classCallCheck(this, Rectangle);
+	
+	    this.x = x;
+	    this.y = y;
+	    this.color = options.color;
+	    this.width = options.width;
+	    this.height = options.height;
+	  }
+	
+	  _createClass(Rectangle, [{
+	    key: "draw",
+	    value: function draw(ctx) {
+	      ctx.beginPath();
+	      ctx.lineWidth = "6";
+	      ctx.strokeStyle = "red";
+	      ctx.rect(this.x, this.y, this.width, this.height);
+	      ctx.stroke();
+	    }
+	  }]);
+	
+	  return Rectangle;
+	}();
+	
+	exports.default = Rectangle;
 
 /***/ }
 /******/ ]);
