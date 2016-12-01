@@ -8,6 +8,8 @@ import Box from './box.js';
 import TriRectangle from './tri_rectangle.js';
 import Rectangle from './rectangle.js';
 import Screen from './screen.js';
+import Line from './line.js';
+import Word from './word.js';
 
 const GameAnimation = (function (canvas, ctx) {
   const animations = [];
@@ -48,6 +50,25 @@ const GameAnimation = (function (canvas, ctx) {
   };
 
   const animateCircle = function (options) {
+    setCanvasSize();
+    const x = Math.random() * canvas.width;
+    const y = Math.random() * canvas.height;
+    const circles = createCircles(x, y, options);
+
+    const circlesAnimation = anime({
+      targets: circles,
+      x: function(cir) { return cir.x + anime.random(-distance, distance); },
+      y: function(cir) { return cir.y + anime.random(-distance, distance); },
+      radius: options.endRadius,
+      duration: function () { return anime.random(...options.duration); },
+      easing: 'easeOutExpo',
+      complete: removeAnimation,
+    });
+
+    animations.push(circlesAnimation);
+  };
+
+  const animateExplosions = function (options) {
     setCanvasSize();
     const x = Math.random() * canvas.width;
     const y = Math.random() * canvas.height;
@@ -135,6 +156,35 @@ const GameAnimation = (function (canvas, ctx) {
     });
     animations.push(topHalfAnimation);
     animations.push(bottomHalfAnimation);
+  };
+
+  const createHundredCircles = function(options) {
+    const circles = [];
+    let xArr = xLineBoxes(options);
+    let yArr = yLineBoxes(options);
+    for (let i = 0; i < options.numCircles; i++) {
+      for (let j = 0; j < options.numCircles; j++) {
+        let x = xArr[i];
+        let y = yArr[j];
+        const circle = new Circle(x, y, options);
+        circles.push(circle);
+      }
+    }
+    return circles;
+  };
+
+  const animateHundredCircles = function(options) {
+    setCanvasSize();
+    const circles = createHundredCircles(options);
+    const hundredCirclesAnimation = anime({
+      targets: circles,
+      radius: options.endRadius,
+      // delay: function (el, index) { return index * 10; },
+      duration: options.duration,
+      easing: 'easeOutExpo',
+      complete: removeAnimation
+    });
+    animations.push(hundredCirclesAnimation);
   };
 
 // Box
@@ -485,6 +535,33 @@ const GameAnimation = (function (canvas, ctx) {
     animations.push(triRectsAnimation2);
   };
 
+  const createYes = function(options) {
+    const words = [];
+    for (let i = 0; i < options.numWords; i++) {
+      let x = anime.random(canvas.width * (1/4), canvas.width * (3/4));
+      let y = anime.random(canvas.height * (1/4), canvas.height * (3/4));
+      const word = new Word(x, y, options);
+      words.push(word);
+    }
+    return words;
+  };
+
+  const animateYes = function(options) {
+    setCanvasSize();
+    const words = createYes(options);
+    const wordAnimation = anime({
+      targets: words,
+      font: options.endFont,
+      x: function(el, index) { return anime.random(canvas.width * (1/7), canvas.width * (6/7)); },
+      y: function(el, index) { return anime.random(canvas.height * (1/7), canvas.height * (6/7)); },
+      delay: function (el, index) { return index * 100; },
+      duration: options.duration,
+      easing: 'easeOutExpo',
+      complete: removeAnimation
+    });
+    animations.push(wordAnimation);
+  };
+
 // https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object/keys
   document.addEventListener('keydown', function (e) {
     const key = (e.key).toLowerCase(); //handles accidental caps lock
@@ -523,7 +600,7 @@ const GameAnimation = (function (canvas, ctx) {
     else if (key === "m") {
       animateRipple(objOptions[key]);
     }
-    else if (key === "v") {
+    else if (key === "f") {
       animateFiveFingerRipple(objOptions[key]);
     }
     else if (key === "g") {
@@ -534,6 +611,15 @@ const GameAnimation = (function (canvas, ctx) {
     }
     else if (key === "s") {
       animateHundredBoxes(objOptions[key]);
+    }
+    else if (key === "d") {
+      animateHundredCircles(objOptions[key]);
+    }
+    else if (key === "h" || key === "k" || key === "l") {
+      animateExplosions(objOptions[key]);
+    }
+    else if (key === "v") {
+      animateYes(objOptions[key]);
     }
     else if (Object.keys(objOptions).indexOf(key) > -1) {
       animateCircle(objOptions[key]);

@@ -840,22 +840,8 @@
 	  },
 	  // medium large
 	  a: {
-	    color: ['#baecf0'],
-	    radius: [50, 100],
-	    duration: [500, 1000],
-	    endRadius: 100,
-	    numCircles: 10
-	  },
-	  d: {
-	    color: ['#ed6e2f'],
-	    radius: [50, 100],
-	    duration: [500, 1000],
-	    endRadius: 100,
-	    numCircles: 10
-	  },
-	  f: {
-	    color: ['#f4de70'],
-	    radius: [50, 100],
+	    color: ['#baecf0', '#ed6e2f', '#f4de70'],
+	    radius: [50, 50],
 	    duration: [500, 1000],
 	    endRadius: 100,
 	    numCircles: 10
@@ -884,18 +870,27 @@
 	  },
 	  // shrinking circles
 	  w: {
-	    color: ['#ed6e2f', '#20b2aa'],
+	    color: ['#B2FF4C', '#EA86FF'],
 	    radius: [125, 150],
 	    duration: [8000, 10000],
 	    endRadius: 0,
-	    numCircles: 5
+	    numCircles: 8
 	  },
 	  e: {
-	    color: ['#f6c7df'],
+	    color: ['#FF9268', '#4CFFE1'],
 	    radius: [100, 120],
 	    duration: [6000, 8000],
 	    endRadius: 0,
-	    numCircles: 5
+	    numCircles: 8
+	  },
+	  // hundred circles
+	  d: {
+	    color: ['#CCA12D', '#99968F', '#FFA952', '#92FFFC', '#2DCC9B', '#A4BDFF', '#FFF4E3'],
+	    radius: [5, 20],
+	    width: 15,
+	    duration: 1000,
+	    endRadius: 30,
+	    numCircles: 10
 	  },
 	  // half circle
 	  j: {
@@ -910,6 +905,15 @@
 	    color: ['#E54D00', '#636770'],
 	    radius: [300, 300],
 	    duration: 700
+	  },
+	  // words
+	  v: {
+	    font: '0px Montserrat',
+	    text: ['Yes!', 'YES!'],
+	    color: ['#CCA12D', '#99968F', '#FFA952', '#92FFFC', '#2DCC9B', '#A4BDFF', '#FFF4E3'],
+	    endFont: '60px Montserrat',
+	    duration: 1000,
+	    numWords: 9
 	  },
 	  // Box
 	  i: {
@@ -1010,7 +1014,7 @@
 	    duration: 600,
 	    numRipples: 3
 	  },
-	  v: {
+	  f: {
 	    color: ['#fbfbf4', '#222121', '#f6c7df', '#baecf0', '#f4de70'],
 	    radius: 0,
 	    duration: 11000,
@@ -1257,6 +1261,14 @@
 	
 	var _screen2 = _interopRequireDefault(_screen);
 	
+	var _line = __webpack_require__(15);
+	
+	var _line2 = _interopRequireDefault(_line);
+	
+	var _word = __webpack_require__(16);
+	
+	var _word2 = _interopRequireDefault(_word);
+	
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 	
 	function _toConsumableArray(arr) { if (Array.isArray(arr)) { for (var i = 0, arr2 = Array(arr.length); i < arr.length; i++) { arr2[i] = arr[i]; } return arr2; } else { return Array.from(arr); } }
@@ -1302,6 +1314,31 @@
 	  };
 	
 	  var animateCircle = function animateCircle(options) {
+	    setCanvasSize();
+	    var x = Math.random() * canvas.width;
+	    var y = Math.random() * canvas.height;
+	    var circles = createCircles(x, y, options);
+	
+	    var circlesAnimation = (0, _animejs2.default)({
+	      targets: circles,
+	      x: function x(cir) {
+	        return cir.x + _animejs2.default.random(-distance, distance);
+	      },
+	      y: function y(cir) {
+	        return cir.y + _animejs2.default.random(-distance, distance);
+	      },
+	      radius: options.endRadius,
+	      duration: function duration() {
+	        return _animejs2.default.random.apply(_animejs2.default, _toConsumableArray(options.duration));
+	      },
+	      easing: 'easeOutExpo',
+	      complete: removeAnimation
+	    });
+	
+	    animations.push(circlesAnimation);
+	  };
+	
+	  var animateExplosions = function animateExplosions(options) {
 	    setCanvasSize();
 	    var x = Math.random() * canvas.width;
 	    var y = Math.random() * canvas.height;
@@ -1404,6 +1441,35 @@
 	    });
 	    animations.push(topHalfAnimation);
 	    animations.push(bottomHalfAnimation);
+	  };
+	
+	  var createHundredCircles = function createHundredCircles(options) {
+	    var circles = [];
+	    var xArr = xLineBoxes(options);
+	    var yArr = yLineBoxes(options);
+	    for (var i = 0; i < options.numCircles; i++) {
+	      for (var j = 0; j < options.numCircles; j++) {
+	        var x = xArr[i];
+	        var y = yArr[j];
+	        var circle = new _circle2.default(x, y, options);
+	        circles.push(circle);
+	      }
+	    }
+	    return circles;
+	  };
+	
+	  var animateHundredCircles = function animateHundredCircles(options) {
+	    setCanvasSize();
+	    var circles = createHundredCircles(options);
+	    var hundredCirclesAnimation = (0, _animejs2.default)({
+	      targets: circles,
+	      radius: options.endRadius,
+	      // delay: function (el, index) { return index * 10; },
+	      duration: options.duration,
+	      easing: 'easeOutExpo',
+	      complete: removeAnimation
+	    });
+	    animations.push(hundredCirclesAnimation);
 	  };
 	
 	  // Box
@@ -1782,6 +1848,39 @@
 	    animations.push(triRectsAnimation2);
 	  };
 	
+	  var createYes = function createYes(options) {
+	    var words = [];
+	    for (var i = 0; i < options.numWords; i++) {
+	      var x = _animejs2.default.random(canvas.width * (1 / 4), canvas.width * (3 / 4));
+	      var y = _animejs2.default.random(canvas.height * (1 / 4), canvas.height * (3 / 4));
+	      var word = new _word2.default(x, y, options);
+	      words.push(word);
+	    }
+	    return words;
+	  };
+	
+	  var animateYes = function animateYes(options) {
+	    setCanvasSize();
+	    var words = createYes(options);
+	    var wordAnimation = (0, _animejs2.default)({
+	      targets: words,
+	      font: options.endFont,
+	      x: function x(el, index) {
+	        return _animejs2.default.random(canvas.width * (1 / 7), canvas.width * (6 / 7));
+	      },
+	      y: function y(el, index) {
+	        return _animejs2.default.random(canvas.height * (1 / 7), canvas.height * (6 / 7));
+	      },
+	      delay: function delay(el, index) {
+	        return index * 100;
+	      },
+	      duration: options.duration,
+	      easing: 'easeOutExpo',
+	      complete: removeAnimation
+	    });
+	    animations.push(wordAnimation);
+	  };
+	
 	  // https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object/keys
 	  document.addEventListener('keydown', function (e) {
 	    var key = e.key.toLowerCase(); //handles accidental caps lock
@@ -1809,7 +1908,7 @@
 	      animateScreenSwipeUD(_direction, _util2.default[key]);
 	    } else if (key === "m") {
 	      animateRipple(_util2.default[key]);
-	    } else if (key === "v") {
+	    } else if (key === "f") {
 	      animateFiveFingerRipple(_util2.default[key]);
 	    } else if (key === "g") {
 	      animateDisappearCircle(_util2.default[key]);
@@ -1817,6 +1916,12 @@
 	      animateHalfCircles(_util2.default[key]);
 	    } else if (key === "s") {
 	      animateHundredBoxes(_util2.default[key]);
+	    } else if (key === "d") {
+	      animateHundredCircles(_util2.default[key]);
+	    } else if (key === "h" || key === "k" || key === "l") {
+	      animateExplosions(_util2.default[key]);
+	    } else if (key === "v") {
+	      animateYes(_util2.default[key]);
 	    } else if (Object.keys(_util2.default).indexOf(key) > -1) {
 	      animateCircle(_util2.default[key]);
 	    }
@@ -1908,6 +2013,86 @@
 	}();
 	
 	exports.default = HalfCircle;
+
+/***/ },
+/* 14 */,
+/* 15 */
+/***/ function(module, exports) {
+
+	'use strict';
+	
+	Object.defineProperty(exports, "__esModule", {
+	  value: true
+	});
+	
+	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+	
+	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+	
+	var Line = function () {
+	  function Line(x, y, options) {
+	    _classCallCheck(this, Line);
+	
+	    this.x = x;
+	    this.y = y;
+	  }
+	
+	  _createClass(Line, [{
+	    key: 'draw',
+	    value: function draw(ctx) {
+	      ctx.font = '40px Montserrat';
+	      ctx.fillStyle = 'red';
+	      ctx.fillText('Hello World!', this.x, this.y);
+	    }
+	  }]);
+	
+	  return Line;
+	}();
+	
+	exports.default = Line;
+
+/***/ },
+/* 16 */
+/***/ function(module, exports) {
+
+	"use strict";
+	
+	Object.defineProperty(exports, "__esModule", {
+	  value: true
+	});
+	
+	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+	
+	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+	
+	var Word = function () {
+	  function Word(x, y, options) {
+	    _classCallCheck(this, Word);
+	
+	    this.x = x;
+	    this.y = y;
+	    this.font = options.font;
+	
+	    var textIndex = Math.floor(Math.random() * options.text.length);
+	    this.text = options.text[textIndex];
+	
+	    var colorIndex = Math.floor(Math.random() * options.color.length);
+	    this.color = options.color[colorIndex];
+	  }
+	
+	  _createClass(Word, [{
+	    key: "draw",
+	    value: function draw(ctx) {
+	      ctx.font = this.font;
+	      ctx.fillStyle = this.color;
+	      ctx.fillText(this.text, this.x, this.y);
+	    }
+	  }]);
+	
+	  return Word;
+	}();
+	
+	exports.default = Word;
 
 /***/ }
 /******/ ]);

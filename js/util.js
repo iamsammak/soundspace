@@ -23,22 +23,8 @@ const objOptions = {
   },
   // medium large
   a: {
-    color: ['#baecf0'],
-    radius: [50, 100],
-    duration: [500, 1000],
-    endRadius: 100,
-    numCircles: 10,
-  },
-  d: {
-    color: ['#ed6e2f'],
-    radius: [50, 100],
-    duration: [500, 1000],
-    endRadius: 100,
-    numCircles: 10,
-  },
-  f: {
-    color: ['#f4de70'],
-    radius: [50, 100],
+    color: ['#baecf0', '#ed6e2f', '#f4de70'],
+    radius: [50, 50],
     duration: [500, 1000],
     endRadius: 100,
     numCircles: 10,
@@ -67,18 +53,27 @@ const objOptions = {
   },
   // shrinking circles
   w: {
-    color: ['#ed6e2f', '#20b2aa'],
+    color: ['#B2FF4C', '#EA86FF'],
     radius: [125, 150],
     duration: [8000, 10000],
     endRadius: 0,
-    numCircles: 5,
+    numCircles: 8,
   },
   e: {
-    color: ['#f6c7df'],
+    color: ['#FF9268', '#4CFFE1'],
     radius: [100, 120],
     duration: [6000, 8000],
     endRadius: 0,
-    numCircles: 5,
+    numCircles: 8,
+  },
+  // hundred circles
+  d: {
+    color: ['#CCA12D', '#99968F', '#FFA952', '#92FFFC', '#2DCC9B', '#A4BDFF', '#FFF4E3'],
+    radius: [5, 20],
+    width: 15,
+    duration: 1000,
+    endRadius: 30,
+    numCircles: 10,
   },
   // half circle
   j: {
@@ -93,6 +88,15 @@ const objOptions = {
     color: ['#E54D00', '#636770'],
     radius: [300, 300],
     duration: 700,
+  },
+  // words
+  v: {
+    font: '0px Montserrat',
+    text: ['Yes!', 'YES!'],
+    color: ['#CCA12D', '#99968F', '#FFA952', '#92FFFC', '#2DCC9B', '#A4BDFF', '#FFF4E3'],
+    endFont: '60px Montserrat',
+    duration: 1000,
+    numWords: 9
   },
   // Box
   i: {
@@ -193,7 +197,7 @@ const objOptions = {
     duration: 600,
     numRipples: 3,
   },
-  v: {
+  f: {
     color: ['#fbfbf4', '#222121', '#f6c7df', '#baecf0', '#f4de70'],
     radius: 0,
     duration: 11000,
