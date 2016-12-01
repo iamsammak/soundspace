@@ -567,6 +567,27 @@ const GameAnimation = (function (canvas, ctx) {
     animations.push(wordAnimation);
   };
 
+  const createLines = function(x, y, options) {
+    const lines = [];
+    for (let i = 0; i < options.numLines; i++) {
+      const line = new Line(x, y, options);
+      lines.push(line);
+    }
+    return lines;
+  };
+
+  const animateLine = function(options) {
+    setCanvasSize();
+    let x = 0, y = 0;
+    const lines = createLines(x, y, options);
+    const lineAnimation = anime({
+      targets: lines,
+      duration: options.duration,
+      easing: 'easeOutExpo',
+      complete: removeAnimation
+    });
+  };
+
 // https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object/keys
   document.addEventListener('keydown', function (e) {
     const key = (e.key).toLowerCase(); //handles accidental caps lock
@@ -579,7 +600,7 @@ const GameAnimation = (function (canvas, ctx) {
     else if (key === "t") {
       animateBigBox(objOptions[key]);
     }
-    else if (key === "y") {
+    else if (key === "v") {
       animateLineBoxLR("left", objOptions[key]);
     }
     else if (key === "r") {
@@ -623,7 +644,7 @@ const GameAnimation = (function (canvas, ctx) {
     else if (key === "h" || key === "k" || key === "l") {
       animateExplosions(objOptions[key]);
     }
-    else if (key === "v") {
+    else if (key === "y") {
       animateYes(objOptions[key]);
     }
     else if (Object.keys(objOptions).indexOf(key) > -1) {

@@ -100,7 +100,7 @@ const objOptions = {
   },
   // Box
   i: {
-    color: ['#ca271c'],
+    color: ['#CC5757'],
     width: 600,
     height: 100,
     endWidth: 100,

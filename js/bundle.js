@@ -915,7 +915,7 @@
 	  },
 	  // Box
 	  i: {
-	    color: ['#ca271c'],
+	    color: ['#CC5757'],
 	    width: 600,
 	    height: 100,
 	    endWidth: 100,
@@ -1888,6 +1888,28 @@
 	    animations.push(wordAnimation);
 	  };
 	
+	  var createLines = function createLines(x, y, options) {
+	    var lines = [];
+	    for (var i = 0; i < options.numLines; i++) {
+	      var line = new _line2.default(x, y, options);
+	      lines.push(line);
+	    }
+	    return lines;
+	  };
+	
+	  var animateLine = function animateLine(options) {
+	    setCanvasSize();
+	    var x = 0,
+	        y = 0;
+	    var lines = createLines(x, y, options);
+	    var lineAnimation = (0, _animejs2.default)({
+	      targets: lines,
+	      duration: options.duration,
+	      easing: 'easeOutExpo',
+	      complete: removeAnimation
+	    });
+	  };
+	
 	  // https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object/keys
 	  document.addEventListener('keydown', function (e) {
 	    var key = e.key.toLowerCase(); //handles accidental caps lock
@@ -1897,7 +1919,7 @@
 	      animateTriRectangle(_util2.default[key]);
 	    } else if (key === "t") {
 	      animateBigBox(_util2.default[key]);
-	    } else if (key === "y") {
+	    } else if (key === "v") {
 	      animateLineBoxLR("left", _util2.default[key]);
 	    } else if (key === "r") {
 	      animateLineBoxLR("right", _util2.default[key]);
@@ -1927,7 +1949,7 @@
 	      animateHundredCircles(_util2.default[key]);
 	    } else if (key === "h" || key === "k" || key === "l") {
 	      animateExplosions(_util2.default[key]);
-	    } else if (key === "v") {
+	    } else if (key === "y") {
 	      animateYes(_util2.default[key]);
 	    } else if (Object.keys(_util2.default).indexOf(key) > -1) {
 	      animateCircle(_util2.default[key]);
