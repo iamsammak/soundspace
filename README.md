@@ -22,15 +22,15 @@ User Interaction:
 
 Goal of the game:
 
-- [ ] Get lost in the pairing of sounds and animations
+- [ ] Get lost in the audio visual blend
 
 Sound Space's Sounds:
 
-A - [ ] hi
+- [ ]
 - [ ] hi
 - [ ]
 
-Sound Space's Animations:
+Sound Space's 2D Animations:
 
 - [ ]
 - [ ]
@@ -40,33 +40,23 @@ Sound Space's Animations:
 ### Game views
 
 ####Home Screen
+Silence before the awesomeness.
 ![homepage]
 
 ####Play view
-![gameview]
+![gameplay]
 
-####Pause Screen
-![paused]
-
-####Winner Screen
-![winner]
-
-[homepage]: ./icons/splash.png
-[gameview]: ./icons/game_play.png
+[homepage]: ./assets/images/homepage.png
+[gameplay]: ./icons/animations.mov
 [paused]: ./icons/paused.png
 [winner]: ./icons/winner.png
 
 ### Future Implementations
 
-Adding sounds with Howler.js :
-- [ ] Ambient bubble mood music
-- [ ] Shooting cannonballs
-- [ ] Bubble pop
-Revamp bubble collision with Paper.js :
-- [ ] bubble's surface will ripple upon collision with other bubbles
+Different Libraries :
 
-Levels :
-
-- [ ] Level 1: aim and shoot - destroy all the moving objects
-- [ ] Level 2: aim and shoot - freeze all the objects (objects will unfreeze when another object or your cannonball collides with it)
-- [ ] Level 3: touch all four walls - shot your cannonball so that it will touch every wall before colliding with
+- [ ] More animations
+- [ ] Utilize the bezier curve to draw custom animations
+- [ ] Implement a library change on Spacebar keydown
+- [ ] Library change means the color scheme of the animations and the sounds will all change. Almost like pseudo level change
+- [ ] This future implementation will test my DRY code abilities (in the words of HIMYM "challenge accpeted!")
