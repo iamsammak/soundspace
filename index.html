@@ -34,7 +34,6 @@
         e: new Howl({ src: ['assets/sounds/hatpedal.wav'] }),
         r: new Howl({ src: ['assets/sounds/malletdrum.wav'] }),
         t: new Howl({ src: ['assets/sounds/bottle_pop_1.wav'] }),
-        // u: new Howl({ src: ['assets/sounds/chinese_gong.mp3'], sprite: { gong: [0, 1000]} }),
         y: new Howl({ src: ['assets/sounds/bottle_pop_3.wav'] }),
         u: new Howl({ src: ['assets/sounds/kickclosetcrushed.wav'] }),
         i: new Howl({ src: ['assets/sounds/twang.wav'] }),
@@ -59,10 +58,7 @@
       }
 
       document.addEventListener('keydown', function (e) {
-        const key = (e.key);
-        // if (key === "u") {
-        //   sounds[key].play('gong')
-        // }
+        const key = (e.key).toLowerCase();
         if (Object.keys(sounds).indexOf(key) > -1) {
           sounds[key].play();
         }

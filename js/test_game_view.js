@@ -3,7 +3,7 @@ import Ripple from './ripple.js';
 import Circle from './circle.js';
 import objOptions from './util.js';
 
-class GameView {
+class GameAnimation {
   constructor(canvas, ctx) {
     this.canvas = canvas;
     this.ctx = ctx;
@@ -114,4 +114,4 @@ class GameView {
 
 }
 
-export default GameView;
+export default GameAnimation;

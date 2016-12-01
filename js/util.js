@@ -1,49 +1,21 @@
 const objOptions = {
   // big
-  z: {
-    color: ['#baecf0'],
-    radius: [175, 200],
-    endRadius: 200,
-    duration: [500, 1000],
-    numCircles: 1,
-  },
   x: {
-    color: ['#ed6e2f'],
-    radius: [175, 200],
-    endRadius: 200,
-    duration: [500, 1000],
-    numCircles: 1,
-  },
-  c: {
-    color: ['#f6c7df'],
-    radius: [175, 200],
-    endRadius: 200,
-    duration: [500, 1000],
-    numCircles: 1,
-  },
-  v: {
-    color: ['#f4de70'],
-    radius: [175, 200],
-    endRadius: 200,
-    duration: [500, 1000],
-    numCircles: 1,
-  },
-  b: {
-    color: ['#fbfbf4'],
+    color: ['#ed6e2f', '#baecf0'],
     radius: [175, 200],
     endRadius: 200,
     duration: [500, 1000],
     numCircles: 1,
   },
   n: {
-    color: ['#222121'],
+    color: ['#f4de70', '#f6c7df'],
     radius: [175, 200],
     endRadius: 200,
     duration: [500, 1000],
     numCircles: 1,
   },
-  m: {
-    color: ['#baecf0'],
+  b: {
+    color: ['#fbfbf4', '#baecf0'],
     radius: [175, 200],
     endRadius: 200,
     duration: [500, 1000],
@@ -109,7 +81,7 @@ const objOptions = {
   },
   // TBD
   w: {
-    color: ['#ed6e2f'],
+    color: ['#ed6e2f', '#20b2aa'],
     radius: [125, 150],
     duration: [8000, 10000],
     endRadius: 0,
@@ -122,21 +94,25 @@ const objOptions = {
     endRadius: 0,
     numCircles: 5,
   },
+  // disappearing circle
   g: {
-    color: ['#20b2aa'],
-    radius: [100, 120],
-    duration: [3000, 5000],
-    endRadius: 0,
-    numCircles: 5,
+    x: [430, -430, 430, -430],
+    y: [430, -430, -430, 430],
+    color: ['#E54D00', '#636770'],
+    radius: [300, 300],
+    duration: 900,
   },
   // Box
   i: {
     color: ['#ca271c'],
-    width: 100,
+    width: 600,
     height: 100,
+    endWidth: 100,
+    delay: 100,
     duration: [400, 500],
     numBoxes: 3,
   },
+  // Line boxes
   y: {
     color: ['#82D9FF', '#FF9BAB', '#4993B2', '#9BFFF0', '#FFE482', '#FF8D7E'],
     width: 20,
@@ -145,6 +121,20 @@ const objOptions = {
     numBoxes: 10,
   },
   r: {
+    color: ['#82D9FF', '#FF9BAB', '#4993B2', '#9BFFF0', '#FFE482', '#FF8D7E'],
+    width: 20,
+    height: 20,
+    duration: [400, 500],
+    numBoxes: 10,
+  },
+  z: {
+    color: ['#82D9FF', '#FF9BAB', '#4993B2', '#9BFFF0', '#FFE482', '#FF8D7E'],
+    width: 20,
+    height: 20,
+    duration: [400, 500],
+    numBoxes: 10,
+  },
+  c: {
     color: ['#82D9FF', '#FF9BAB', '#4993B2', '#9BFFF0', '#FFE482', '#FF8D7E'],
     width: 20,
     height: 20,
@@ -184,6 +174,20 @@ const objOptions = {
     color: ['#82D9FF', '#FF9BAB', '#4993B2'],
     delay: 300,
     duration: 600,
+  },
+  // ripple
+  m: {
+    color: ['#ffffff'],
+    radius: 300,
+    endRadius: 0,
+    duration: 600,
+    numRipples: 3,
+  },
+  v: {
+    color: ['#222121'],
+    radius: 0,
+    duration: 11000,
+    numRipples: 5,
   },
 };
 

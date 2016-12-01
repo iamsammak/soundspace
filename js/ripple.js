@@ -1,11 +1,18 @@
 class Ripple {
-  constructor(x, y) {
+  constructor(x, y, options = null) {
     this.x = x;
     this.y = y;
     this.alpha = 1;
-    this.radius = 0;
     this.lineWidth = 6;
-    this.color = '#FFF';
+
+    if (options === null) {
+      this.radius = 0;
+      this.color = '#FFF';
+    } else {
+      this.radius = options.radius;
+      let colorIndex = Math.floor((Math.random()*options.color.length));
+      this.color = options.color[colorIndex] || '#FFF';
+    }
   }
 
   draw(ctx) {

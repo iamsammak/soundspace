@@ -46,24 +46,24 @@
 
 	'use strict';
 	
-	var _game_view = __webpack_require__(7);
+	var _game_animation = __webpack_require__(11);
 	
-	var _game_view2 = _interopRequireDefault(_game_view);
+	var _game_animation2 = _interopRequireDefault(_game_animation);
 	
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 	
-	__webpack_require__(5);
+	__webpack_require__(10);
 	
-	// const GameView = require('./game_view.js');
+	// const GameAnimation = require('./game_view.js');
 	
-	// import GameView from './test_game_view.js';
+	// import GameAnimation from './test_game_view.js';
 	
 	
 	document.addEventListener('DOMContentLoaded', function () {
 	  var canvas = document.getElementById("my-canvas");
 	  var ctx = canvas.getContext('2d');
 	
-	  new _game_view2.default(canvas, ctx);
+	  new _game_animation2.default(canvas, ctx);
 	});
 
 /***/ },
@@ -707,6 +707,58 @@
 
 /***/ },
 /* 3 */
+/***/ function(module, exports) {
+
+	'use strict';
+	
+	Object.defineProperty(exports, "__esModule", {
+	  value: true
+	});
+	
+	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+	
+	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+	
+	var Ripple = function () {
+	  function Ripple(x, y) {
+	    var options = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : null;
+	
+	    _classCallCheck(this, Ripple);
+	
+	    this.x = x;
+	    this.y = y;
+	    this.alpha = 1;
+	    this.lineWidth = 6;
+	
+	    if (options === null) {
+	      this.radius = 0;
+	      this.color = '#FFF';
+	    } else {
+	      this.radius = options.radius;
+	      var colorIndex = Math.floor(Math.random() * options.color.length);
+	      this.color = options.color[colorIndex] || '#FFF';
+	    }
+	  }
+	
+	  _createClass(Ripple, [{
+	    key: 'draw',
+	    value: function draw(ctx) {
+	      ctx.globalAlpha = this.alpha;
+	      ctx.beginPath();
+	      ctx.arc(this.x, this.y, this.radius, 0, 2 * Math.PI, true);
+	      ctx.lineWidth = this.lineWidth;
+	      ctx.strokeStyle = this.color;
+	      ctx.stroke();
+	    }
+	  }]);
+	
+	  return Ripple;
+	}();
+	
+	exports.default = Ripple;
+
+/***/ },
+/* 4 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -733,7 +785,6 @@
 	
 	    this.x = x;
 	    this.y = y;
-	    // this.color = options.color;
 	    this.radius = _animejs2.default.random.apply(_animejs2.default, _toConsumableArray(options.radius));
 	
 	    var colorIndex = Math.floor(Math.random() * options.color.length);
@@ -756,14 +807,7 @@
 	exports.default = Circle;
 
 /***/ },
-/* 4 */,
 /* 5 */
-/***/ function(module, exports) {
-
-	// removed by extract-text-webpack-plugin
-
-/***/ },
-/* 6 */
 /***/ function(module, exports) {
 
 	'use strict';
@@ -773,50 +817,22 @@
 	});
 	var objOptions = {
 	  // big
-	  z: {
-	    color: ['#baecf0'],
-	    radius: [175, 200],
-	    endRadius: 200,
-	    duration: [500, 1000],
-	    numCircles: 1
-	  },
 	  x: {
-	    color: ['#ed6e2f'],
-	    radius: [175, 200],
-	    endRadius: 200,
-	    duration: [500, 1000],
-	    numCircles: 1
-	  },
-	  c: {
-	    color: ['#f6c7df'],
-	    radius: [175, 200],
-	    endRadius: 200,
-	    duration: [500, 1000],
-	    numCircles: 1
-	  },
-	  v: {
-	    color: ['#f4de70'],
-	    radius: [175, 200],
-	    endRadius: 200,
-	    duration: [500, 1000],
-	    numCircles: 1
-	  },
-	  b: {
-	    color: ['#fbfbf4'],
+	    color: ['#ed6e2f', '#baecf0'],
 	    radius: [175, 200],
 	    endRadius: 200,
 	    duration: [500, 1000],
 	    numCircles: 1
 	  },
 	  n: {
-	    color: ['#222121'],
+	    color: ['#f4de70', '#f6c7df'],
 	    radius: [175, 200],
 	    endRadius: 200,
 	    duration: [500, 1000],
 	    numCircles: 1
 	  },
-	  m: {
-	    color: ['#baecf0'],
+	  b: {
+	    color: ['#fbfbf4', '#baecf0'],
 	    radius: [175, 200],
 	    endRadius: 200,
 	    duration: [500, 1000],
@@ -882,7 +898,7 @@
 	  },
 	  // TBD
 	  w: {
-	    color: ['#ed6e2f'],
+	    color: ['#ed6e2f', '#20b2aa'],
 	    radius: [125, 150],
 	    duration: [8000, 10000],
 	    endRadius: 0,
@@ -895,21 +911,25 @@
 	    endRadius: 0,
 	    numCircles: 5
 	  },
+	  // disappearing circle
 	  g: {
-	    color: ['#20b2aa'],
-	    radius: [100, 120],
-	    duration: [3000, 5000],
-	    endRadius: 0,
-	    numCircles: 5
+	    x: [430, -430, 430, -430],
+	    y: [430, -430, -430, 430],
+	    color: ['#E54D00', '#636770'],
+	    radius: [300, 300],
+	    duration: 900
 	  },
 	  // Box
 	  i: {
 	    color: ['#ca271c'],
-	    width: 100,
+	    width: 600,
 	    height: 100,
+	    endWidth: 100,
+	    delay: 100,
 	    duration: [400, 500],
 	    numBoxes: 3
 	  },
+	  // Line boxes
 	  y: {
 	    color: ['#82D9FF', '#FF9BAB', '#4993B2', '#9BFFF0', '#FFE482', '#FF8D7E'],
 	    width: 20,
@@ -918,6 +938,20 @@
 	    numBoxes: 10
 	  },
 	  r: {
+	    color: ['#82D9FF', '#FF9BAB', '#4993B2', '#9BFFF0', '#FFE482', '#FF8D7E'],
+	    width: 20,
+	    height: 20,
+	    duration: [400, 500],
+	    numBoxes: 10
+	  },
+	  z: {
+	    color: ['#82D9FF', '#FF9BAB', '#4993B2', '#9BFFF0', '#FFE482', '#FF8D7E'],
+	    width: 20,
+	    height: 20,
+	    duration: [400, 500],
+	    numBoxes: 10
+	  },
+	  c: {
 	    color: ['#82D9FF', '#FF9BAB', '#4993B2', '#9BFFF0', '#FFE482', '#FF8D7E'],
 	    width: 20,
 	    height: 20,
@@ -957,13 +991,214 @@
 	    color: ['#82D9FF', '#FF9BAB', '#4993B2'],
 	    delay: 300,
 	    duration: 600
+	  },
+	  // ripple
+	  m: {
+	    color: ['#ffffff'],
+	    radius: 300,
+	    endRadius: 0,
+	    duration: 600,
+	    numRipples: 3
+	  },
+	  v: {
+	    color: ['#222121'],
+	    radius: 0,
+	    duration: 11000,
+	    numRipples: 5
 	  }
 	};
 	
 	exports.default = objOptions;
 
 /***/ },
+/* 6 */
+/***/ function(module, exports) {
+
+	"use strict";
+	
+	Object.defineProperty(exports, "__esModule", {
+	  value: true
+	});
+	
+	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+	
+	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+	
+	var Box = function () {
+	  function Box(x, y, options) {
+	    _classCallCheck(this, Box);
+	
+	    this.x = x;
+	    this.y = y;
+	    this.width = options.width;
+	    this.height = options.height;
+	
+	    var colorIndex = Math.floor(Math.random() * options.color.length);
+	    this.color = options.color[colorIndex];
+	  }
+	
+	  _createClass(Box, [{
+	    key: "draw",
+	    value: function draw(ctx) {
+	      ctx.beginPath();
+	      ctx.fillStyle = this.color;
+	      ctx.rect(this.x, this.y, this.width, this.height);
+	      ctx.fill();
+	    }
+	  }]);
+	
+	  return Box;
+	}();
+	
+	exports.default = Box;
+
+/***/ },
 /* 7 */
+/***/ function(module, exports) {
+
+	"use strict";
+	
+	Object.defineProperty(exports, "__esModule", {
+	  value: true
+	});
+	
+	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+	
+	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+	
+	var TriRectangle = function () {
+	  function TriRectangle(x, y, options) {
+	    _classCallCheck(this, TriRectangle);
+	
+	    this.x = x;
+	    this.y = y;
+	  }
+	
+	  _createClass(TriRectangle, [{
+	    key: "draw",
+	    value: function draw(ctx) {
+	      // Red rectangle
+	      ctx.beginPath();
+	      ctx.lineWidth = "6";
+	      ctx.strokeStyle = "#C7A1CC";
+	      ctx.rect(this.x - 45, this.y - 45, 140, 140);
+	      ctx.stroke();
+	
+	      // Green rectangle
+	      ctx.beginPath();
+	      ctx.lineWidth = "4";
+	      ctx.strokeStyle = "#AEFFE9";
+	      ctx.rect(this.x, this.y, 50, 50);
+	      ctx.stroke();
+	
+	      // Blue rectangle
+	      ctx.beginPath();
+	      ctx.lineWidth = "8";
+	      ctx.strokeStyle = "#FFE686";
+	      ctx.rect(this.x - 15, this.y - 15, 80, 80);
+	      ctx.stroke();
+	    }
+	  }]);
+	
+	  return TriRectangle;
+	}();
+	
+	exports.default = TriRectangle;
+
+/***/ },
+/* 8 */
+/***/ function(module, exports) {
+
+	"use strict";
+	
+	Object.defineProperty(exports, "__esModule", {
+	  value: true
+	});
+	
+	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+	
+	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+	
+	var Rectangle = function () {
+	  function Rectangle(x, y, options) {
+	    _classCallCheck(this, Rectangle);
+	
+	    this.x = x;
+	    this.y = y;
+	    // this.color = options.color;
+	    this.width = options.width;
+	    this.height = options.height;
+	
+	    var colorIndex = Math.floor(Math.random() * options.color.length);
+	    this.color = options.color[colorIndex];
+	  }
+	
+	  _createClass(Rectangle, [{
+	    key: "draw",
+	    value: function draw(ctx) {
+	      ctx.beginPath();
+	      ctx.lineWidth = "6";
+	      ctx.strokeStyle = "red";
+	      ctx.rect(this.x, this.y, this.width, this.height);
+	      ctx.stroke();
+	    }
+	  }]);
+	
+	  return Rectangle;
+	}();
+	
+	exports.default = Rectangle;
+
+/***/ },
+/* 9 */
+/***/ function(module, exports) {
+
+	"use strict";
+	
+	Object.defineProperty(exports, "__esModule", {
+	  value: true
+	});
+	
+	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+	
+	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+	
+	var Screen = function () {
+	  function Screen(x, y, width, height, options) {
+	    _classCallCheck(this, Screen);
+	
+	    this.x = x;
+	    this.y = y;
+	    this.width = width;
+	    this.height = height;
+	
+	    var colorIndex = Math.floor(Math.random() * options.color.length);
+	    this.color = options.color[colorIndex];
+	  }
+	
+	  _createClass(Screen, [{
+	    key: "draw",
+	    value: function draw(ctx) {
+	      ctx.beginPath();
+	      ctx.fillStyle = this.color;
+	      ctx.rect(this.x, this.y, this.width, this.height);
+	      ctx.fill();
+	    }
+	  }]);
+	
+	  return Screen;
+	}();
+	
+	exports.default = Screen;
+
+/***/ },
+/* 10 */
+/***/ function(module, exports) {
+
+	// removed by extract-text-webpack-plugin
+
+/***/ },
+/* 11 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -976,31 +1211,35 @@
 	
 	var _animejs2 = _interopRequireDefault(_animejs);
 	
-	var _ripple = __webpack_require__(10);
+	var _ripple = __webpack_require__(3);
 	
 	var _ripple2 = _interopRequireDefault(_ripple);
 	
-	var _circle = __webpack_require__(3);
+	var _circle = __webpack_require__(4);
 	
 	var _circle2 = _interopRequireDefault(_circle);
 	
-	var _util = __webpack_require__(6);
+	var _disappearing_circle = __webpack_require__(12);
+	
+	var _disappearing_circle2 = _interopRequireDefault(_disappearing_circle);
+	
+	var _util = __webpack_require__(5);
 	
 	var _util2 = _interopRequireDefault(_util);
 	
-	var _box = __webpack_require__(11);
+	var _box = __webpack_require__(6);
 	
 	var _box2 = _interopRequireDefault(_box);
 	
-	var _tri_rectangle = __webpack_require__(12);
+	var _tri_rectangle = __webpack_require__(7);
 	
 	var _tri_rectangle2 = _interopRequireDefault(_tri_rectangle);
 	
-	var _rectangle = __webpack_require__(13);
+	var _rectangle = __webpack_require__(8);
 	
 	var _rectangle2 = _interopRequireDefault(_rectangle);
 	
-	var _screen = __webpack_require__(15);
+	var _screen = __webpack_require__(9);
 	
 	var _screen2 = _interopRequireDefault(_screen);
 	
@@ -1008,7 +1247,7 @@
 	
 	function _toConsumableArray(arr) { if (Array.isArray(arr)) { for (var i = 0, arr2 = Array(arr.length); i < arr.length; i++) { arr2[i] = arr[i]; } return arr2; } else { return Array.from(arr); } }
 	
-	var GameView = function GameView(canvas, ctx) {
+	var GameAnimation = function GameAnimation(canvas, ctx) {
 	  var animations = [];
 	
 	  var setCanvasSize = function setCanvasSize() {
@@ -1094,6 +1333,38 @@
 	    animations.push(rippleAnimation);
 	  };
 	
+	  var animateDisappearCircle = function animateDisappearCircle(options) {
+	    setCanvasSize();
+	    var x = canvas.width * (1 / 2),
+	        y = canvas.height * (1 / 2);
+	    var randIdx = Math.floor(Math.random() * options.x.length);
+	    var x2 = x + options.x[randIdx],
+	        y2 = y + options.y[randIdx];
+	    var radius1 = options.radius[0],
+	        radius2 = options.radius[1];
+	    var color1 = options.color[0],
+	        color2 = options.color[1];
+	    var circle1 = new _disappearing_circle2.default(x, y, radius1, color1);
+	    var circle2 = new _disappearing_circle2.default(x2, y2, radius2, color2);
+	    var circle1Animation = (0, _animejs2.default)({
+	      targets: circle1,
+	      duration: options.duration,
+	      easing: 'easeOutExpo',
+	      complete: removeAnimation
+	    });
+	    var circle2Animation = (0, _animejs2.default)({
+	      targets: circle2,
+	      x: x,
+	      y: y,
+	      delay: 200,
+	      duration: options.duration,
+	      easing: 'easeOutExpo',
+	      complete: removeAnimation
+	    });
+	    animations.push(circle1Animation);
+	    animations.push(circle2Animation);
+	  };
+	
 	  // Box
 	  var createBoxes = function createBoxes(x, yArr, options) {
 	    var boxes = [];
@@ -1107,18 +1378,18 @@
 	
 	  var animateBox = function animateBox(options) {
 	    setCanvasSize();
-	    var x = canvas.width * (1 / 8) - options.width / 2;
+	    // let x = canvas.width * (1/8) - (options.width/2);
+	    var x = canvas.width * (1 / 8);
 	    var yArr = [canvas.height * (1 / 4) - 50, canvas.height * (1 / 2) - 50, canvas.height * (3 / 4) - 50];
 	    var boxes = createBoxes(x, yArr, options);
 	
 	    var boxAnimation = (0, _animejs2.default)({
 	      targets: boxes,
 	      x: function x() {
-	        return canvas.width * (7 / 8) - options.width / 2;
+	        return canvas.width * (7 / 8) - options.endWidth / 2;
 	      },
-	      delay: function delay(el, index) {
-	        return index * 100;
-	      },
+	      width: options.endWidth,
+	      delay: options.delay,
 	      duration: function duration() {
 	        return _animejs2.default.random.apply(_animejs2.default, _toConsumableArray(options.duration));
 	      },
@@ -1136,7 +1407,6 @@
 	    if (direction === "left") {
 	      var x = canvas.width * (9 / 10);
 	      var boxes = createBoxes(x, yArr, options);
-	
 	      var lineBoxAnimation = (0, _animejs2.default)({
 	        targets: boxes,
 	        x: function x() {
@@ -1158,7 +1428,6 @@
 	    } else if (direction === "right") {
 	      var _x = canvas.width * (1 / 10);
 	      var _boxes = createBoxes(_x, yArr, options);
-	
 	      var lineBoxRightAnimation = (0, _animejs2.default)({
 	        targets: _boxes,
 	        x: function x() {
@@ -1177,6 +1446,65 @@
 	      });
 	
 	      animations.push(lineBoxRightAnimation);
+	    }
+	  };
+	
+	  var createLineBoxUD = function createLineBoxUD(xArr, y, options) {
+	    var boxes = [];
+	    for (var i = 0; i < options.numBoxes; i++) {
+	      var x = xArr[i];
+	      var box = new _box2.default(x, y, options);
+	      boxes.push(box);
+	    }
+	    return boxes;
+	  };
+	
+	  var animateLineBoxUD = function animateLineBoxUD(direction, options) {
+	    setCanvasSize();
+	    var xArr = [canvas.width * (1 / 11) - options.width / 2, canvas.width * (2 / 11) - options.width / 2, canvas.width * (3 / 11) - options.width / 2, canvas.width * (4 / 11) - options.width / 2, canvas.width * (5 / 11) - options.width / 2, canvas.width * (6 / 11) - options.width / 2, canvas.width * (7 / 11) - options.width / 2, canvas.width * (8 / 11) - options.width / 2, canvas.width * (9 / 11) - options.width / 2, canvas.width * (10 / 11) - options.width / 2];
+	
+	    if (direction === "up") {
+	      var y = canvas.height * (1 / 10);
+	      var boxes = createLineBoxUD(xArr, y, options);
+	      var lineBoxUpAnimation = (0, _animejs2.default)({
+	        targets: boxes,
+	        y: function y() {
+	          return canvas.height * (9 / 10);
+	        },
+	        delay: function delay(el, index) {
+	          return index * 100;
+	        },
+	        duration: function duration() {
+	          return _animejs2.default.random.apply(_animejs2.default, _toConsumableArray(options.duration));
+	        },
+	        width: 60,
+	        height: 60,
+	        easing: 'easeOutExpo',
+	        complete: removeAnimation
+	      });
+	
+	      animations.push(lineBoxUpAnimation);
+	    } else if (direction === "down") {
+	      var _y = canvas.height * (9 / 10);
+	      var _boxes2 = createLineBoxUD(xArr, _y, options);
+	      var lineBoxDownAnimation = (0, _animejs2.default)({
+	        targets: _boxes2,
+	        y: function y() {
+	          return canvas.height * (1 / 10);
+	        },
+	        delay: function delay(el, index) {
+	          return index * 100;
+	        },
+	        duration: function duration() {
+	          return _animejs2.default.random.apply(_animejs2.default, _toConsumableArray(options.duration));
+	        },
+	        width: 60,
+	        height: 60,
+	        easing: 'easeOutExpo',
+	        complete: removeAnimation
+	      });
+	
+	      animations.push(lineBoxDownAnimation);
 	    }
 	  };
 	
@@ -1282,8 +1610,60 @@
 	    }
 	  };
 	
-	  // use delay and a box that is the size of the canvas to make it seem like I'm swiping the whole screen
-	  // use the ripple class to create shrinking ripples and expanding riiples to give off illusion
+	  var createRipples = function createRipples(x, y, options) {
+	    var ripples = [];
+	    for (var i = 0; i < options.numRipples; i++) {
+	      var ripple = new _ripple2.default(x, y, options);
+	      ripples.push(ripple);
+	    }
+	    return ripples;
+	  };
+	
+	  var animateRipple = function animateRipple(options) {
+	    setCanvasSize();
+	    var x = canvas.width * (1 / 2);
+	    var y = canvas.height * (1 / 2);
+	    var ripples = createRipples(x, y, options);
+	    var ripplesAnimation = (0, _animejs2.default)({
+	      targets: ripples,
+	      radius: options.endRadius,
+	      delay: function delay(el, index) {
+	        return index * 100;
+	      },
+	      duration: options.duration,
+	      easing: 'easeOutExpo',
+	      complete: removeAnimation
+	    });
+	    animations.push(ripplesAnimation);
+	  };
+	
+	  var createConfidedRipples = function createConfidedRipples(options) {
+	    var ripples = [];
+	    for (var i = 0; i < options.numRipples; i++) {
+	      var x = _animejs2.default.random(canvas.width * (1 / 4), canvas.width * (3 / 4));
+	      var y = _animejs2.default.random(canvas.height * (1 / 4), canvas.height * (3 / 4));
+	      var ripple = new _ripple2.default(x, y, options);
+	      ripples.push(ripple);
+	    }
+	    return ripples;
+	  };
+	
+	  // confide the starting x and y coordinates to be within a small canvas in the middle of the canvas
+	  var animateFiveFingerRipple = function animateFiveFingerRipple(options) {
+	    setCanvasSize();
+	    var ripples = createConfidedRipples(options);
+	    var fiveFingerRippleAnimation = (0, _animejs2.default)({
+	      targets: ripples,
+	      radius: canvas.width + 200,
+	      delay: function delay(el, index) {
+	        return index * 150;
+	      },
+	      duration: options.duration,
+	      easing: 'easeOutExpo',
+	      complete: removeAnimation
+	    });
+	    animations.push(fiveFingerRippleAnimation);
+	  };
 	  // have boxes that say in the same place but mapped across the whole canvas, grow or shrink in place
 	
 	  // Rectangle
@@ -1327,7 +1707,7 @@
 	
 	  // https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object/keys
 	  document.addEventListener('keydown', function (e) {
-	    var key = e.key;
+	    var key = e.key.toLowerCase(); //handles accidental caps lock
 	    if (key === "i") {
 	      animateBox(_util2.default[key]);
 	    } else if (key === "u") {
@@ -1338,6 +1718,10 @@
 	      animateLineBoxLR("left", _util2.default[key]);
 	    } else if (key === "r") {
 	      animateLineBoxLR("right", _util2.default[key]);
+	    } else if (key === "z") {
+	      animateLineBoxUD("up", _util2.default[key]);
+	    } else if (key === "c") {
+	      animateLineBoxUD("down", _util2.default[key]);
 	    } else if (key === "q") {
 	      animateScreenFlash(_util2.default[key]);
 	    } else if (key === "o") {
@@ -1346,6 +1730,12 @@
 	    } else if (key === "p") {
 	      var _direction = Math.floor(Math.random() * 2);
 	      animateScreenSwipeUD(_direction, _util2.default[key]);
+	    } else if (key === "m") {
+	      animateRipple(_util2.default[key]);
+	    } else if (key === "v") {
+	      animateFiveFingerRipple(_util2.default[key]);
+	    } else if (key === "g") {
+	      animateDisappearCircle(_util2.default[key]);
 	    } else if (Object.keys(_util2.default).indexOf(key) > -1) {
 	      animateCircle(_util2.default[key]);
 	    }
@@ -1354,94 +1744,7 @@
 	  window.addEventListener('resize', setCanvasSize, false);
 	};
 	
-	exports.default = GameView;
-
-/***/ },
-/* 8 */,
-/* 9 */,
-/* 10 */
-/***/ function(module, exports) {
-
-	'use strict';
-	
-	Object.defineProperty(exports, "__esModule", {
-	  value: true
-	});
-	
-	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
-	
-	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
-	
-	var Ripple = function () {
-	  function Ripple(x, y) {
-	    _classCallCheck(this, Ripple);
-	
-	    this.x = x;
-	    this.y = y;
-	    this.alpha = 1;
-	    this.radius = 0;
-	    this.lineWidth = 6;
-	    this.color = '#FFF';
-	  }
-	
-	  _createClass(Ripple, [{
-	    key: 'draw',
-	    value: function draw(ctx) {
-	      ctx.globalAlpha = this.alpha;
-	      ctx.beginPath();
-	      ctx.arc(this.x, this.y, this.radius, 0, 2 * Math.PI, true);
-	      ctx.lineWidth = this.lineWidth;
-	      ctx.strokeStyle = this.color;
-	      ctx.stroke();
-	    }
-	  }]);
-	
-	  return Ripple;
-	}();
-	
-	exports.default = Ripple;
-
-/***/ },
-/* 11 */
-/***/ function(module, exports) {
-
-	"use strict";
-	
-	Object.defineProperty(exports, "__esModule", {
-	  value: true
-	});
-	
-	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
-	
-	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
-	
-	var Box = function () {
-	  function Box(x, y, options) {
-	    _classCallCheck(this, Box);
-	
-	    this.x = x;
-	    this.y = y;
-	    this.width = options.width;
-	    this.height = options.height;
-	
-	    var colorIndex = Math.floor(Math.random() * options.color.length);
-	    this.color = options.color[colorIndex];
-	  }
-	
-	  _createClass(Box, [{
-	    key: "draw",
-	    value: function draw(ctx) {
-	      ctx.beginPath();
-	      ctx.fillStyle = this.color;
-	      ctx.rect(this.x, this.y, this.width, this.height);
-	      ctx.fill();
-	    }
-	  }]);
-	
-	  return Box;
-	}();
-	
-	exports.default = Box;
+	exports.default = GameAnimation;
 
 /***/ },
 /* 12 */
@@ -1457,131 +1760,30 @@
 	
 	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
 	
-	var TriRectangle = function () {
-	  function TriRectangle(x, y, options) {
-	    _classCallCheck(this, TriRectangle);
+	var DisappearingCircle = function () {
+	  function DisappearingCircle(x, y, radius, color) {
+	    _classCallCheck(this, DisappearingCircle);
 	
 	    this.x = x;
 	    this.y = y;
+	    this.radius = radius;
+	    this.color = color;
 	  }
 	
-	  _createClass(TriRectangle, [{
-	    key: "draw",
-	    value: function draw(ctx) {
-	      // Red rectangle
-	      ctx.beginPath();
-	      ctx.lineWidth = "6";
-	      ctx.strokeStyle = "red";
-	      ctx.rect(this.x - 5, this.y - 5, 140, 140);
-	      ctx.stroke();
-	
-	      // Green rectangle
-	      ctx.beginPath();
-	      ctx.lineWidth = "4";
-	      ctx.strokeStyle = "green";
-	      ctx.rect(this.x - 30, this.y - 30, 50, 50);
-	      ctx.stroke();
-	
-	      // Blue rectangle
-	      ctx.beginPath();
-	      ctx.lineWidth = "10";
-	      ctx.strokeStyle = "blue";
-	      ctx.rect(this.x - 50, this.y - 50, 80, 80);
-	      ctx.stroke();
-	    }
-	  }]);
-	
-	  return TriRectangle;
-	}();
-	
-	exports.default = TriRectangle;
-
-/***/ },
-/* 13 */
-/***/ function(module, exports) {
-
-	"use strict";
-	
-	Object.defineProperty(exports, "__esModule", {
-	  value: true
-	});
-	
-	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
-	
-	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
-	
-	var Rectangle = function () {
-	  function Rectangle(x, y, options) {
-	    _classCallCheck(this, Rectangle);
-	
-	    this.x = x;
-	    this.y = y;
-	    // this.color = options.color;
-	    this.width = options.width;
-	    this.height = options.height;
-	
-	    var colorIndex = Math.floor(Math.random() * options.color.length);
-	    this.color = options.color[colorIndex];
-	  }
-	
-	  _createClass(Rectangle, [{
+	  _createClass(DisappearingCircle, [{
 	    key: "draw",
 	    value: function draw(ctx) {
 	      ctx.beginPath();
-	      ctx.lineWidth = "6";
-	      ctx.strokeStyle = "red";
-	      ctx.rect(this.x, this.y, this.width, this.height);
-	      ctx.stroke();
-	    }
-	  }]);
-	
-	  return Rectangle;
-	}();
-	
-	exports.default = Rectangle;
-
-/***/ },
-/* 14 */,
-/* 15 */
-/***/ function(module, exports) {
-
-	"use strict";
-	
-	Object.defineProperty(exports, "__esModule", {
-	  value: true
-	});
-	
-	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
-	
-	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
-	
-	var Screen = function () {
-	  function Screen(x, y, width, height, options) {
-	    _classCallCheck(this, Screen);
-	
-	    this.x = x;
-	    this.y = y;
-	    this.width = width;
-	    this.height = height;
-	
-	    var colorIndex = Math.floor(Math.random() * options.color.length);
-	    this.color = options.color[colorIndex];
-	  }
-	
-	  _createClass(Screen, [{
-	    key: "draw",
-	    value: function draw(ctx) {
-	      ctx.beginPath();
+	      ctx.arc(this.x, this.y, this.radius, 0, 2 * Math.PI, true);
 	      ctx.fillStyle = this.color;
-	      ctx.rect(this.x, this.y, this.width, this.height);
 	      ctx.fill();
 	    }
 	  }]);
 	
-	  return Screen;
+	  return DisappearingCircle;
 	}();
 	
-	exports.default = Screen;
+	exports.default = DisappearingCircle;
 
 /***/ }
 /******/ ]);

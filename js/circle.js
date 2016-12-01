@@ -4,7 +4,6 @@ class Circle {
   constructor(x, y, options) {
     this.x = x;
     this.y = y;
-    // this.color = options.color;
     this.radius = anime.random(...options.radius);
 
     let colorIndex = Math.floor((Math.random()*options.color.length));

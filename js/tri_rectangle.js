@@ -8,22 +8,22 @@ class TriRectangle {
     // Red rectangle
     ctx.beginPath();
     ctx.lineWidth = "6";
-    ctx.strokeStyle = "red";
-    ctx.rect(this.x - 5, this.y - 5, 140, 140);
+    ctx.strokeStyle = "#C7A1CC";
+    ctx.rect(this.x - 45, this.y - 45, 140, 140);
     ctx.stroke();
 
     // Green rectangle
     ctx.beginPath();
     ctx.lineWidth = "4";
-    ctx.strokeStyle = "green";
-    ctx.rect(this.x - 30, this.y - 30, 50, 50);
+    ctx.strokeStyle = "#AEFFE9";
+    ctx.rect(this.x, this.y, 50, 50);
     ctx.stroke();
 
     // Blue rectangle
     ctx.beginPath();
-    ctx.lineWidth = "10";
-    ctx.strokeStyle = "blue";
-    ctx.rect(this.x - 50, this.y - 50, 80, 80);
+    ctx.lineWidth = "8";
+    ctx.strokeStyle = "#FFE686";
+    ctx.rect(this.x - 15, this.y - 15, 80, 80);
     ctx.stroke();
   }
 }
