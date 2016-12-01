@@ -1,6 +1,5 @@
 require("../css/application.scss");
 
-// const GameAnimation = require('./game_view.js');
 import GameAnimation from './game_animation.js';
 // import GameAnimation from './test_game_view.js';
 

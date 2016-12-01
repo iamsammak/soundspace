@@ -34,7 +34,6 @@ const GameAnimation = (function (canvas, ctx) {
   });
 
   const removeAnimation = function (animation) {
-    // debugger;
     const index = animations.indexOf(animation);
     if (index > -1) { animations.splice(index, 1); }
   };

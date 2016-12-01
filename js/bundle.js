@@ -54,8 +54,6 @@
 	
 	__webpack_require__(10);
 	
-	// const GameAnimation = require('./game_view.js');
-	
 	// import GameAnimation from './test_game_view.js';
 	
 	
@@ -1296,7 +1294,6 @@
 	  });
 	
 	  var removeAnimation = function removeAnimation(animation) {
-	    // debugger;
 	    var index = animations.indexOf(animation);
 	    if (index > -1) {
 	      animations.splice(index, 1);

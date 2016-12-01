@@ -55,8 +55,6 @@ class GameAnimation {
   setCanvasSize() {
     this.canvas.width = window.innerWidth;
     this.canvas.height = window.innerHeight;
-    console.log(this.canvas.width);
-    console.log(this.canvas.height);
   }
 
   createCircles(x, y, options) {
