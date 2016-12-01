@@ -45,9 +45,11 @@ Silence before the awesomeness.
 
 ####Play view
 ![gameplay]
+![gameplay2]
 
 [homepage]: ./assets/images/homepage.png
-[gameplay]: ./assets/images/animations.gif
+[gameplay]: ./assets/images/gameplay1.gif
+[gameplay2]: ./assets/images/gameplay2.gif
 [paused]: ./icons/paused.png
 [winner]: ./icons/winner.png
 
