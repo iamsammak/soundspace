@@ -20,18 +20,33 @@ What. ya. gonna. do?
 
 User Interaction:
 
-- [ ] Interact with the game by pressing an alphabet key
+- [ ] Interacts with the canvas by pressing an alphabet key
+- [ ] Key press triggers sound and animation
 - [ ] If user gets too excited while button mashing and hits the caps lock; no problem it still works, caps or no caps
 
 Goal of the game:
 
-- [ ] Get lost in the audio visual blend
+- [ ] Get lost in the simplicity
 
-Sound Space's Sounds:
+Sample Sounds using Howler.js:
 
-- [ ]
-- [ ] hi
-- [ ]
+```html
+<script>
+  const sounds = {
+    q: new Howl({ src: ['assets/sounds/beatboxsnare.wav'] }),
+    y: new Howl({ src: ['assets/sounds/bottle_pop_3.wav'] }),
+    m: new Howl({ src: ['assets/sounds/water_drop_high.mp3'] }),
+    v: new Howl({ src: ['assets/sounds/yes.wav'] })
+  }
+
+  document.addEventListener('keydown', function (e) {
+    const key = (e.key).toLowerCase();
+    if (Object.keys(sounds).indexOf(key) > -1) {
+      sounds[key].play();
+    }
+  }, false);
+</script>
+```
 
 Sound Space's 2D Animations:
 
@@ -55,8 +70,6 @@ Silence before the awesomeness.
 [gameplay]: ./assets/images/gameplay1.gif
 [gameplay2]: ./assets/images/gameplay2.gif
 [gameplay3]: ./assets/images/gameplay3.gif
-[paused]: ./icons/paused.png
-[winner]: ./icons/winner.png
 
 ### Future Implementations
 
@@ -66,4 +79,4 @@ Different Libraries :
 - [ ] Utilize the bezier curve to draw custom animations
 - [ ] Implement a library change on Spacebar keydown
 - [ ] Library change means the color scheme of the animations and the sounds will all change. Almost like pseudo level change
-- [ ] This future implementation will test my DRY code abilities (in the words of HIMYM "challenge accpeted!")
+- [ ] Will test how DRY my code is (in the words of HIMYM "challenge accepted!")
