@@ -48,12 +48,33 @@ Sample Sounds using Howler.js:
 </script>
 ```
 
-Sound Space's 2D Animations:
+Sample Half Circle animation using Anime.js:
 
-- [ ]
-- [ ]
-- [ ]
-
+```js
+const animateHalfCircles = function(options) {
+  setCanvasSize();
+  let x = canvas.width * (1/2), y = canvas.height * (1/2);
+  const topHalf = new HalfCircle(x, y, true, options);
+  const bottomHalf = new HalfCircle(x, y, false, options);
+  const topHalfAnimation = anime({
+    targets: topHalf,
+    x: x + 250,
+    color: '#fff',
+    duration: options.duration,
+    easing: 'easeOutExpo',
+    complete:removeAnimation,
+  });
+  const bottomHalfAnimation = anime({
+    targets: bottomHalf,
+    x: x - 250,
+    duration: options.duration,
+    easing: 'easeOutExpo',
+    complete:removeAnimation,
+  });
+  animations.push(topHalfAnimation);
+  animations.push(bottomHalfAnimation);
+};
+```
 
 ### Game views
 
