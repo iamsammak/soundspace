@@ -26,7 +26,7 @@ Goal of the game:
 
 Sound Space's Sounds:
 
-A - [ ]
+A - [ ] hi
 - [ ] hi
 - [ ]
 
