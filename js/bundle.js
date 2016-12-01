@@ -1919,7 +1919,7 @@
 	      animateTriRectangle(_util2.default[key]);
 	    } else if (key === "t") {
 	      animateBigBox(_util2.default[key]);
-	    } else if (key === "v") {
+	    } else if (key === "y") {
 	      animateLineBoxLR("left", _util2.default[key]);
 	    } else if (key === "r") {
 	      animateLineBoxLR("right", _util2.default[key]);
@@ -1949,7 +1949,7 @@
 	      animateHundredCircles(_util2.default[key]);
 	    } else if (key === "h" || key === "k" || key === "l") {
 	      animateExplosions(_util2.default[key]);
-	    } else if (key === "y") {
+	    } else if (key === "v") {
 	      animateYes(_util2.default[key]);
 	    } else if (Object.keys(_util2.default).indexOf(key) > -1) {
 	      animateCircle(_util2.default[key]);
