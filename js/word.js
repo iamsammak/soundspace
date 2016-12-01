@@ -2,7 +2,9 @@ class Word {
   constructor(x, y, options) {
     this.x = x;
     this.y = y;
-    this.font = options.font;
+
+    let fontIndex = Math.floor((Math.random()*options.font.length));
+    this.font = options.font[fontIndex];
 
     let textIndex = Math.floor((Math.random()*options.text.length));
     this.text = options.text[textIndex];

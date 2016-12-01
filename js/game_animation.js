@@ -554,7 +554,10 @@ const GameAnimation = (function (canvas, ctx) {
     const words = createYes(options);
     const wordAnimation = anime({
       targets: words,
-      font: options.endFont,
+      font: function() {
+        let endFontIdx = Math.floor((Math.random()*options.endFont.length));
+        return options.endFont[endFontIdx];
+      },
       x: function() { return anime.random(canvas.width * (1/7), canvas.width * (6/7)); },
       y: function() { return anime.random(canvas.height * (1/7), canvas.height * (6/7)); },
       delay: function (el, index) { return index * 100; },

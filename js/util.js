@@ -91,10 +91,10 @@ const objOptions = {
   },
   // words
   v: {
-    font: '0px Montserrat',
+    font: ['0px Montserrat'],
     text: ['Yes!', 'YES!'],
     color: ['#CCA12D', '#99968F', '#FFA952', '#92FFFC', '#2DCC9B', '#A4BDFF', '#FFF4E3'],
-    endFont: '60px Montserrat',
+    endFont: ['60px Montserrat', '60px Poiret One', '60px Gloria Hallelujah', '60px Orbitron', '60px Tillana', '60px Indie Flower', '60px Bungee', '60px Amatic SC'],
     duration: 1000,
     numWords: 9
   },

@@ -908,10 +908,10 @@
 	  },
 	  // words
 	  v: {
-	    font: '0px Montserrat',
+	    font: ['0px Montserrat'],
 	    text: ['Yes!', 'YES!'],
 	    color: ['#CCA12D', '#99968F', '#FFA952', '#92FFFC', '#2DCC9B', '#A4BDFF', '#FFF4E3'],
-	    endFont: '60px Montserrat',
+	    endFont: ['60px Montserrat', '60px Poiret One', '60px Gloria Hallelujah', '60px Orbitron', '60px Tillana', '60px Indie Flower', '60px Bungee', '60px Amatic SC'],
 	    duration: 1000,
 	    numWords: 9
 	  },
@@ -1871,7 +1871,10 @@
 	    var words = createYes(options);
 	    var wordAnimation = (0, _animejs2.default)({
 	      targets: words,
-	      font: options.endFont,
+	      font: function font() {
+	        var endFontIdx = Math.floor(Math.random() * options.endFont.length);
+	        return options.endFont[endFontIdx];
+	      },
 	      x: function x() {
 	        return _animejs2.default.random(canvas.width * (1 / 7), canvas.width * (6 / 7));
 	      },
@@ -2078,7 +2081,9 @@
 	
 	    this.x = x;
 	    this.y = y;
-	    this.font = options.font;
+	
+	    var fontIndex = Math.floor(Math.random() * options.font.length);
+	    this.font = options.font[fontIndex];
 	
 	    var textIndex = Math.floor(Math.random() * options.text.length);
 	    this.text = options.text[textIndex];
