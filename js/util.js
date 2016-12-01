@@ -52,18 +52,11 @@ const objOptions = {
   },
   // small
   h: {
-    color: ['#fbfbf4'],
+    color: ['#fbfbf4', '#222121'],
     radius: [15, 25],
     duration: [1000, 2000],
     endRadius: 0,
     numCircles: 25,
-  },
-  j: {
-    color: ['#222121'],
-    radius: [10, 15],
-    duration: [1000, 2000],
-    endRadius: 0,
-    numCircles: 30,
   },
   k: {
     color: ['#f6c7df'],
@@ -94,13 +87,19 @@ const objOptions = {
     endRadius: 0,
     numCircles: 5,
   },
+  // half circle
+  j: {
+    color: ['#267F64'],
+    radius: 250,
+    duration: 1000,
+  },
   // disappearing circle
   g: {
     x: [430, -430, 430, -430],
     y: [430, -430, -430, 430],
     color: ['#E54D00', '#636770'],
     radius: [300, 300],
-    duration: 900,
+    duration: 700,
   },
   // Box
   i: {

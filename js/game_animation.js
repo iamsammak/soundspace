@@ -2,6 +2,7 @@ import anime from 'animejs';
 import Ripple from './ripple.js';
 import Circle from './circle.js';
 import DisappearingCircle from './disappearing_circle.js';
+import HalfCircle from './half_circle.js';
 import objOptions from './util.js';
 import Box from './box.js';
 import TriRectangle from './tri_rectangle.js';
@@ -108,6 +109,32 @@ const GameAnimation = (function (canvas, ctx) {
     });
     animations.push(circle1Animation);
     animations.push(circle2Animation);
+  };
+
+  const animateHalfCircles = function(options) {
+    setCanvasSize();
+    let x = canvas.width * (1/2), y = canvas.height * (1/2);
+    const topHalf = new HalfCircle(x, y, true, options);
+    const bottomHalf = new HalfCircle(x, y, false, options);
+    const topHalfAnimation = anime({
+      targets: topHalf,
+      x: x + 250,
+      // y: y + 50,
+      color: '#fff',
+      duration: options.duration,
+      easing: 'easeOutExpo',
+      complete:removeAnimation,
+    });
+    const bottomHalfAnimation = anime({
+      targets: bottomHalf,
+      x: x - 250,
+      // y: y - 50,
+      duration: options.duration,
+      easing: 'easeOutExpo',
+      complete:removeAnimation,
+    });
+    animations.push(topHalfAnimation);
+    animations.push(bottomHalfAnimation);
   };
 
 // Box
@@ -463,6 +490,9 @@ const GameAnimation = (function (canvas, ctx) {
     }
     else if (key === "g") {
       animateDisappearCircle(objOptions[key]);
+    }
+    else if (key === "j") {
+      animateHalfCircles(objOptions[key]);
     }
     else if (Object.keys(objOptions).indexOf(key) > -1) {
       animateCircle(objOptions[key]);

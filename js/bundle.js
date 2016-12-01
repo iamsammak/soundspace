@@ -869,18 +869,11 @@
 	  },
 	  // small
 	  h: {
-	    color: ['#fbfbf4'],
+	    color: ['#fbfbf4', '#222121'],
 	    radius: [15, 25],
 	    duration: [1000, 2000],
 	    endRadius: 0,
 	    numCircles: 25
-	  },
-	  j: {
-	    color: ['#222121'],
-	    radius: [10, 15],
-	    duration: [1000, 2000],
-	    endRadius: 0,
-	    numCircles: 30
 	  },
 	  k: {
 	    color: ['#f6c7df'],
@@ -911,13 +904,19 @@
 	    endRadius: 0,
 	    numCircles: 5
 	  },
+	  // half circle
+	  j: {
+	    color: ['#267F64'],
+	    radius: 250,
+	    duration: 1000
+	  },
 	  // disappearing circle
 	  g: {
 	    x: [430, -430, 430, -430],
 	    y: [430, -430, -430, 430],
 	    color: ['#E54D00', '#636770'],
 	    radius: [300, 300],
-	    duration: 900
+	    duration: 700
 	  },
 	  // Box
 	  i: {
@@ -1223,6 +1222,10 @@
 	
 	var _disappearing_circle2 = _interopRequireDefault(_disappearing_circle);
 	
+	var _half_circle = __webpack_require__(13);
+	
+	var _half_circle2 = _interopRequireDefault(_half_circle);
+	
 	var _util = __webpack_require__(5);
 	
 	var _util2 = _interopRequireDefault(_util);
@@ -1363,6 +1366,33 @@
 	    });
 	    animations.push(circle1Animation);
 	    animations.push(circle2Animation);
+	  };
+	
+	  var animateHalfCircles = function animateHalfCircles(options) {
+	    setCanvasSize();
+	    var x = canvas.width * (1 / 2),
+	        y = canvas.height * (1 / 2);
+	    var topHalf = new _half_circle2.default(x, y, true, options);
+	    var bottomHalf = new _half_circle2.default(x, y, false, options);
+	    var topHalfAnimation = (0, _animejs2.default)({
+	      targets: topHalf,
+	      x: x + 250,
+	      // y: y + 50,
+	      color: '#fff',
+	      duration: options.duration,
+	      easing: 'easeOutExpo',
+	      complete: removeAnimation
+	    });
+	    var bottomHalfAnimation = (0, _animejs2.default)({
+	      targets: bottomHalf,
+	      x: x - 250,
+	      // y: y - 50,
+	      duration: options.duration,
+	      easing: 'easeOutExpo',
+	      complete: removeAnimation
+	    });
+	    animations.push(topHalfAnimation);
+	    animations.push(bottomHalfAnimation);
 	  };
 	
 	  // Box
@@ -1736,6 +1766,8 @@
 	      animateFiveFingerRipple(_util2.default[key]);
 	    } else if (key === "g") {
 	      animateDisappearCircle(_util2.default[key]);
+	    } else if (key === "j") {
+	      animateHalfCircles(_util2.default[key]);
 	    } else if (Object.keys(_util2.default).indexOf(key) > -1) {
 	      animateCircle(_util2.default[key]);
 	    }
@@ -1784,6 +1816,49 @@
 	}();
 	
 	exports.default = DisappearingCircle;
+
+/***/ },
+/* 13 */
+/***/ function(module, exports) {
+
+	"use strict";
+	
+	Object.defineProperty(exports, "__esModule", {
+	  value: true
+	});
+	
+	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+	
+	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+	
+	var HalfCircle = function () {
+	  function HalfCircle(x, y, topdown, options) {
+	    _classCallCheck(this, HalfCircle);
+	
+	    this.x = x;
+	    this.y = y;
+	    this.topdown = topdown; //boolean
+	    this.radius = options.radius;
+	
+	    var colorIndex = Math.floor(Math.random() * options.color.length);
+	    this.color = options.color[colorIndex];
+	  }
+	
+	  _createClass(HalfCircle, [{
+	    key: "draw",
+	    value: function draw(ctx) {
+	      ctx.beginPath();
+	      ctx.arc(this.x, this.y, this.radius, 0, Math.PI, this.topdown);
+	      ctx.closePath();
+	      ctx.fillStyle = this.color;
+	      ctx.fill();
+	    }
+	  }]);
+	
+	  return HalfCircle;
+	}();
+	
+	exports.default = HalfCircle;
 
 /***/ }
 /******/ ]);
