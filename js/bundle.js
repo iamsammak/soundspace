@@ -1463,6 +1463,12 @@
 	    var circles = createHundredCircles(options);
 	    var hundredCirclesAnimation = (0, _animejs2.default)({
 	      targets: circles,
+	      x: function x() {
+	        return _animejs2.default.random(canvas.width * (1 / 7), canvas.width * (6 / 7));
+	      },
+	      y: function y() {
+	        return _animejs2.default.random(canvas.height * (1 / 7), canvas.height * (6 / 7));
+	      },
 	      radius: options.endRadius,
 	      // delay: function (el, index) { return index * 10; },
 	      duration: options.duration,
@@ -1859,16 +1865,17 @@
 	    return words;
 	  };
 	
+	  // note: use a callback if you want each el to have a different end X and end Y
 	  var animateYes = function animateYes(options) {
 	    setCanvasSize();
 	    var words = createYes(options);
 	    var wordAnimation = (0, _animejs2.default)({
 	      targets: words,
 	      font: options.endFont,
-	      x: function x(el, index) {
+	      x: function x() {
 	        return _animejs2.default.random(canvas.width * (1 / 7), canvas.width * (6 / 7));
 	      },
-	      y: function y(el, index) {
+	      y: function y() {
 	        return _animejs2.default.random(canvas.height * (1 / 7), canvas.height * (6 / 7));
 	      },
 	      delay: function delay(el, index) {

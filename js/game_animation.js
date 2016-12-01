@@ -178,6 +178,8 @@ const GameAnimation = (function (canvas, ctx) {
     const circles = createHundredCircles(options);
     const hundredCirclesAnimation = anime({
       targets: circles,
+      x: function() { return anime.random(canvas.width * (1/7), canvas.width * (6/7)); },
+      y: function() { return anime.random(canvas.height * (1/7), canvas.height * (6/7)); },
       radius: options.endRadius,
       // delay: function (el, index) { return index * 10; },
       duration: options.duration,
@@ -546,14 +548,15 @@ const GameAnimation = (function (canvas, ctx) {
     return words;
   };
 
+// note: use a callback if you want each el to have a different end X and end Y
   const animateYes = function(options) {
     setCanvasSize();
     const words = createYes(options);
     const wordAnimation = anime({
       targets: words,
       font: options.endFont,
-      x: function(el, index) { return anime.random(canvas.width * (1/7), canvas.width * (6/7)); },
-      y: function(el, index) { return anime.random(canvas.height * (1/7), canvas.height * (6/7)); },
+      x: function() { return anime.random(canvas.width * (1/7), canvas.width * (6/7)); },
+      y: function() { return anime.random(canvas.height * (1/7), canvas.height * (6/7)); },
       delay: function (el, index) { return index * 100; },
       duration: options.duration,
       easing: 'easeOutExpo',
