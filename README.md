@@ -47,7 +47,7 @@ Silence before the awesomeness.
 ![gameplay]
 
 [homepage]: ./assets/images/homepage.png
-[gameplay]: ./icons/animations.mov
+[gameplay]: ./assets/images/animations.mov
 [paused]: ./icons/paused.png
 [winner]: ./icons/winner.png
 
