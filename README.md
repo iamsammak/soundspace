@@ -9,26 +9,33 @@
 
 [patatap](http://www.patatap.com/)
 
-Imagine you have a cannon and it shoots cannonballs. You noticed bubbles flying around you. Then a question pops into your head.
+Press a key. Any alphabet key. I dare you. Triple dog dare you.
 
-What. do. you. do?
+What. ya. gonna. do?
 
 ### Game Play
 
 User Interaction:
 
-- [ ] Interact with the game by moving the mouse over the game board
-- [ ] Shoot cannonballs by clicking the Mouse
-
-Baburu's moving parts:
-
-- [ ] Cannon fixed to the center of canvas that pivots following the user's mouse location
-- [ ] Bubbles float around, bound by the viewport
-- [ ] Cannonballs will bounce off and expire after 3 seconds
+- [ ] Interact with the game by pressing an alphabet key
+- [ ] If user gets too excited while button mashing and hits the caps lock; no problem it still works, caps or no caps
 
 Goal of the game:
 
-- [ ] Pop em' all
+- [ ] Get lost in the pairing of sounds and animations
+
+Sound Space's Sounds:
+
+A - [ ]
+- [ ] hi
+- [ ]
+
+Sound Space's Animations:
+
+- [ ]
+- [ ]
+- [ ]
+
 
 ### Game views
 

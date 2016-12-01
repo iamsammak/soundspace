@@ -1,4 +1,4 @@
-## Sound Space (rename to be decided)
+## Sound Space (name TBD)
 
 ### Background
 
@@ -32,7 +32,7 @@ In addition, this project will include:
 
 This app will consist of one screens: the animation canvas. The canvas will display a simple instruction in the beginning and the rest should be user intuitive
 
-Used to be yarn, changed to sound space because I wanted to implement an animation project that also utilized sounds
+Used to be Yarn, changed to Sound Space because I wanted to implement an animation project that also utilized sounds
 
 ![homepage]
 ![yarnview]

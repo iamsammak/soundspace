@@ -870,15 +870,15 @@
 	  },
 	  k: {
 	    color: ['#f6c7df', '#baecf0'],
-	    radius: [10, 15],
-	    duration: [500, 1000],
+	    radius: [15, 20],
+	    duration: [700, 1200],
 	    endRadius: 0,
 	    numCircles: 30
 	  },
 	  l: {
 	    color: ['#f4de70'],
 	    radius: [10, 15],
-	    duration: [500, 1000],
+	    duration: [700, 1200],
 	    endRadius: 0,
 	    numCircles: 30
 	  },
@@ -1011,7 +1011,7 @@
 	    numRipples: 3
 	  },
 	  v: {
-	    color: ['#222121'],
+	    color: ['#fbfbf4', '#222121', '#f6c7df', '#baecf0', '#f4de70'],
 	    radius: 0,
 	    duration: 11000,
 	    numRipples: 5
