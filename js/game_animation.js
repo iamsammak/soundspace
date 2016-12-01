@@ -600,7 +600,7 @@ const GameAnimation = (function (canvas, ctx) {
     else if (key === "t") {
       animateBigBox(objOptions[key]);
     }
-    else if (key === "y") {
+    else if (key === "v") {
       animateLineBoxLR("left", objOptions[key]);
     }
     else if (key === "r") {
@@ -644,7 +644,7 @@ const GameAnimation = (function (canvas, ctx) {
     else if (key === "h" || key === "k" || key === "l") {
       animateExplosions(objOptions[key]);
     }
-    else if (key === "v") {
+    else if (key === "y") {
       animateYes(objOptions[key]);
     }
     else if (Object.keys(objOptions).indexOf(key) > -1) {

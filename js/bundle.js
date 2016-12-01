@@ -905,7 +905,7 @@
 	    duration: 700
 	  },
 	  // words
-	  v: {
+	  y: {
 	    font: ['0px Montserrat'],
 	    text: ['Yes!', 'YES!'],
 	    color: ['#CCA12D', '#99968F', '#FFA952', '#92FFFC', '#2DCC9B', '#A4BDFF', '#FFF4E3'],
@@ -924,7 +924,7 @@
 	    numBoxes: 3
 	  },
 	  // Line boxes
-	  y: {
+	  v: {
 	    color: ['#82D9FF', '#FF9BAB', '#4993B2', '#9BFFF0', '#FFE482', '#FF8D7E'],
 	    width: 20,
 	    height: 20,
@@ -1919,7 +1919,7 @@
 	      animateTriRectangle(_util2.default[key]);
 	    } else if (key === "t") {
 	      animateBigBox(_util2.default[key]);
-	    } else if (key === "y") {
+	    } else if (key === "v") {
 	      animateLineBoxLR("left", _util2.default[key]);
 	    } else if (key === "r") {
 	      animateLineBoxLR("right", _util2.default[key]);
@@ -1949,7 +1949,7 @@
 	      animateHundredCircles(_util2.default[key]);
 	    } else if (key === "h" || key === "k" || key === "l") {
 	      animateExplosions(_util2.default[key]);
-	    } else if (key === "v") {
+	    } else if (key === "y") {
 	      animateYes(_util2.default[key]);
 	    } else if (Object.keys(_util2.default).indexOf(key) > -1) {
 	      animateCircle(_util2.default[key]);
