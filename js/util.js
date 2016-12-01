@@ -29,13 +29,6 @@ const objOptions = {
     endRadius: 100,
     numCircles: 10,
   },
-  s: {
-    color: ['#f6c7df'],
-    radius: [50, 100],
-    duration: [500, 1000],
-    endRadius: 100,
-    numCircles: 10,
-  },
   d: {
     color: ['#ed6e2f'],
     radius: [50, 100],
@@ -59,7 +52,7 @@ const objOptions = {
     numCircles: 25,
   },
   k: {
-    color: ['#f6c7df'],
+    color: ['#f6c7df', '#baecf0'],
     radius: [10, 15],
     duration: [500, 1000],
     endRadius: 0,
@@ -72,7 +65,7 @@ const objOptions = {
     endRadius: 0,
     numCircles: 30,
   },
-  // TBD
+  // shrinking circles
   w: {
     color: ['#ed6e2f', '#20b2aa'],
     radius: [125, 150],
@@ -93,7 +86,7 @@ const objOptions = {
     radius: 250,
     duration: 1000,
   },
-  // disappearing circle
+  // disappearing big circle
   g: {
     x: [430, -430, 430, -430],
     y: [430, -430, -430, 430],
@@ -116,6 +109,8 @@ const objOptions = {
     color: ['#82D9FF', '#FF9BAB', '#4993B2', '#9BFFF0', '#FFE482', '#FF8D7E'],
     width: 20,
     height: 20,
+    endWidth: 50,
+    endHeight: 50,
     duration: [400, 500],
     numBoxes: 10,
   },
@@ -123,6 +118,8 @@ const objOptions = {
     color: ['#82D9FF', '#FF9BAB', '#4993B2', '#9BFFF0', '#FFE482', '#FF8D7E'],
     width: 20,
     height: 20,
+    endWidth: 50,
+    endHeight: 50,
     duration: [400, 500],
     numBoxes: 10,
   },
@@ -130,6 +127,8 @@ const objOptions = {
     color: ['#82D9FF', '#FF9BAB', '#4993B2', '#9BFFF0', '#FFE482', '#FF8D7E'],
     width: 20,
     height: 20,
+    endWidth: 50,
+    endHeight: 50,
     duration: [400, 500],
     numBoxes: 10,
   },
@@ -137,7 +136,19 @@ const objOptions = {
     color: ['#82D9FF', '#FF9BAB', '#4993B2', '#9BFFF0', '#FFE482', '#FF8D7E'],
     width: 20,
     height: 20,
+    endWidth: 50,
+    endHeight: 50,
     duration: [400, 500],
+    numBoxes: 10,
+  },
+  // hundred boxes
+  s: {
+    color: ['#f6c7df', '#82D9FF', '#FF9BAB', '#4993B2', '#9BFFF0', '#FFE482', '#FF8D7E', '#baecf0'],
+    width: 0,
+    height: 0,
+    duration: 1000,
+    endWidth: 25,
+    endHeight: 25,
     numBoxes: 10,
   },
   // triRectangle
@@ -151,7 +162,7 @@ const objOptions = {
   t: {
     color: ['#82FFB7', '#D79BFF' ],
     startX: [(1/4), (3/4)],
-    startY: [5],
+    startY: [-200, 200],
     width: 400,
     height: 400,
     endWidth: 0,

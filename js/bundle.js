@@ -846,13 +846,6 @@
 	    endRadius: 100,
 	    numCircles: 10
 	  },
-	  s: {
-	    color: ['#f6c7df'],
-	    radius: [50, 100],
-	    duration: [500, 1000],
-	    endRadius: 100,
-	    numCircles: 10
-	  },
 	  d: {
 	    color: ['#ed6e2f'],
 	    radius: [50, 100],
@@ -876,7 +869,7 @@
 	    numCircles: 25
 	  },
 	  k: {
-	    color: ['#f6c7df'],
+	    color: ['#f6c7df', '#baecf0'],
 	    radius: [10, 15],
 	    duration: [500, 1000],
 	    endRadius: 0,
@@ -889,7 +882,7 @@
 	    endRadius: 0,
 	    numCircles: 30
 	  },
-	  // TBD
+	  // shrinking circles
 	  w: {
 	    color: ['#ed6e2f', '#20b2aa'],
 	    radius: [125, 150],
@@ -910,7 +903,7 @@
 	    radius: 250,
 	    duration: 1000
 	  },
-	  // disappearing circle
+	  // disappearing big circle
 	  g: {
 	    x: [430, -430, 430, -430],
 	    y: [430, -430, -430, 430],
@@ -933,6 +926,8 @@
 	    color: ['#82D9FF', '#FF9BAB', '#4993B2', '#9BFFF0', '#FFE482', '#FF8D7E'],
 	    width: 20,
 	    height: 20,
+	    endWidth: 50,
+	    endHeight: 50,
 	    duration: [400, 500],
 	    numBoxes: 10
 	  },
@@ -940,6 +935,8 @@
 	    color: ['#82D9FF', '#FF9BAB', '#4993B2', '#9BFFF0', '#FFE482', '#FF8D7E'],
 	    width: 20,
 	    height: 20,
+	    endWidth: 50,
+	    endHeight: 50,
 	    duration: [400, 500],
 	    numBoxes: 10
 	  },
@@ -947,6 +944,8 @@
 	    color: ['#82D9FF', '#FF9BAB', '#4993B2', '#9BFFF0', '#FFE482', '#FF8D7E'],
 	    width: 20,
 	    height: 20,
+	    endWidth: 50,
+	    endHeight: 50,
 	    duration: [400, 500],
 	    numBoxes: 10
 	  },
@@ -954,7 +953,19 @@
 	    color: ['#82D9FF', '#FF9BAB', '#4993B2', '#9BFFF0', '#FFE482', '#FF8D7E'],
 	    width: 20,
 	    height: 20,
+	    endWidth: 50,
+	    endHeight: 50,
 	    duration: [400, 500],
+	    numBoxes: 10
+	  },
+	  // hundred boxes
+	  s: {
+	    color: ['#f6c7df', '#82D9FF', '#FF9BAB', '#4993B2', '#9BFFF0', '#FFE482', '#FF8D7E', '#baecf0'],
+	    width: 0,
+	    height: 0,
+	    duration: 1000,
+	    endWidth: 25,
+	    endHeight: 25,
 	    numBoxes: 10
 	  },
 	  // triRectangle
@@ -968,7 +979,7 @@
 	  t: {
 	    color: ['#82FFB7', '#D79BFF'],
 	    startX: [1 / 4, 3 / 4],
-	    startY: [5],
+	    startY: [-200, 200],
 	    width: 400,
 	    height: 400,
 	    endWidth: 0,
@@ -1430,9 +1441,19 @@
 	    animations.push(boxAnimation);
 	  };
 	
+	  var xLineBoxes = function xLineBoxes(options) {
+	    var xArr = [canvas.width * (1 / 11) - options.width / 2, canvas.width * (2 / 11) - options.width / 2, canvas.width * (3 / 11) - options.width / 2, canvas.width * (4 / 11) - options.width / 2, canvas.width * (5 / 11) - options.width / 2, canvas.width * (6 / 11) - options.width / 2, canvas.width * (7 / 11) - options.width / 2, canvas.width * (8 / 11) - options.width / 2, canvas.width * (9 / 11) - options.width / 2, canvas.width * (10 / 11) - options.width / 2];
+	    return xArr;
+	  };
+	
+	  var yLineBoxes = function yLineBoxes(options) {
+	    var yArr = [canvas.height * (1 / 11) - options.width / 2, canvas.height * (2 / 11) - options.width / 2, canvas.height * (3 / 11) - options.width / 2, canvas.height * (4 / 11) - options.width / 2, canvas.height * (5 / 11) - options.width / 2, canvas.height * (6 / 11) - options.width / 2, canvas.height * (7 / 11) - options.width / 2, canvas.height * (8 / 11) - options.width / 2, canvas.height * (9 / 11) - options.width / 2, canvas.height * (10 / 11) - options.width / 2];
+	    return yArr;
+	  };
+	
 	  var animateLineBoxLR = function animateLineBoxLR(direction, options) {
 	    setCanvasSize();
-	    var yArr = [canvas.height * (1 / 11) - options.width / 2, canvas.height * (2 / 11) - options.width / 2, canvas.height * (3 / 11) - options.width / 2, canvas.height * (4 / 11) - options.width / 2, canvas.height * (5 / 11) - options.width / 2, canvas.height * (6 / 11) - options.width / 2, canvas.height * (7 / 11) - options.width / 2, canvas.height * (8 / 11) - options.width / 2, canvas.height * (9 / 11) - options.width / 2, canvas.height * (10 / 11) - options.width / 2];
+	    var yArr = yLineBoxes(options);
 	
 	    if (direction === "left") {
 	      var x = canvas.width * (9 / 10);
@@ -1448,8 +1469,8 @@
 	        duration: function duration() {
 	          return _animejs2.default.random.apply(_animejs2.default, _toConsumableArray(options.duration));
 	        },
-	        width: 60,
-	        height: 60,
+	        width: options.endWidth,
+	        height: options.endHeight,
 	        easing: 'easeOutExpo',
 	        complete: removeAnimation
 	      });
@@ -1469,8 +1490,8 @@
 	        duration: function duration() {
 	          return _animejs2.default.random.apply(_animejs2.default, _toConsumableArray(options.duration));
 	        },
-	        width: 60,
-	        height: 60,
+	        width: options.endWidth,
+	        height: options.endHeight,
 	        easing: 'easeOutExpo',
 	        complete: removeAnimation
 	      });
@@ -1491,8 +1512,7 @@
 	
 	  var animateLineBoxUD = function animateLineBoxUD(direction, options) {
 	    setCanvasSize();
-	    var xArr = [canvas.width * (1 / 11) - options.width / 2, canvas.width * (2 / 11) - options.width / 2, canvas.width * (3 / 11) - options.width / 2, canvas.width * (4 / 11) - options.width / 2, canvas.width * (5 / 11) - options.width / 2, canvas.width * (6 / 11) - options.width / 2, canvas.width * (7 / 11) - options.width / 2, canvas.width * (8 / 11) - options.width / 2, canvas.width * (9 / 11) - options.width / 2, canvas.width * (10 / 11) - options.width / 2];
-	
+	    var xArr = xLineBoxes(options);
 	    if (direction === "up") {
 	      var y = canvas.height * (1 / 10);
 	      var boxes = createLineBoxUD(xArr, y, options);
@@ -1507,8 +1527,8 @@
 	        duration: function duration() {
 	          return _animejs2.default.random.apply(_animejs2.default, _toConsumableArray(options.duration));
 	        },
-	        width: 60,
-	        height: 60,
+	        width: options.endWidth,
+	        height: options.endHeight,
 	        easing: 'easeOutExpo',
 	        complete: removeAnimation
 	      });
@@ -1528,8 +1548,8 @@
 	        duration: function duration() {
 	          return _animejs2.default.random.apply(_animejs2.default, _toConsumableArray(options.duration));
 	        },
-	        width: 60,
-	        height: 60,
+	        width: options.endWidth,
+	        height: options.endHeight,
 	        easing: 'easeOutExpo',
 	        complete: removeAnimation
 	      });
@@ -1537,19 +1557,48 @@
 	      animations.push(lineBoxDownAnimation);
 	    }
 	  };
+	  // have boxes that say in the same place but mapped across the whole canvas, grow or shrink in place
+	  var createHundredBoxes = function createHundredBoxes(options) {
+	    var boxes = [];
+	    var xArr = xLineBoxes(options);
+	    var yArr = yLineBoxes(options);
+	    for (var i = 0; i < options.numBoxes; i++) {
+	      for (var j = 0; j < options.numBoxes; j++) {
+	        var x = xArr[i];
+	        var y = yArr[j];
+	        var box = new _box2.default(x, y, options);
+	        boxes.push(box);
+	      }
+	    }
+	    return boxes;
+	  };
+	
+	  var animateHundredBoxes = function animateHundredBoxes(options) {
+	    setCanvasSize();
+	    var boxes = createHundredBoxes(options);
+	    var hundredBoxesAnimation = (0, _animejs2.default)({
+	      targets: boxes,
+	      width: options.endWidth,
+	      height: options.endHeight,
+	      // delay: function (el, index) { return index * 10; },
+	      duration: options.duration,
+	      easing: 'easeOutExpo',
+	      complete: removeAnimation
+	    });
+	    animations.push(hundredBoxesAnimation);
+	  };
 	
 	  var animateBigBox = function animateBigBox(options) {
 	    setCanvasSize();
 	    var xIdx = Math.floor(Math.random() * options.startX.length);
+	    var yIdx = Math.floor(Math.random() * options.startY.length);
 	    var x = options.startX[xIdx] * canvas.width - options.width / 2;
-	    var yArr = options.startY;
+	    var yArr = [canvas.height * yIdx + options.startY[yIdx]];
 	    var bigBox = createBoxes(x, yArr, options);
 	
 	    var bigBoxAnimation = (0, _animejs2.default)({
 	      targets: bigBox,
-	      y: function y() {
-	        return canvas.height - 400;
-	      },
+	      y: canvas.height * (1 / 2) - options.height / 2,
 	      duration: options.duration,
 	      easing: 'easeOutExpo',
 	      complete: removeAnimation
@@ -1678,7 +1727,6 @@
 	    return ripples;
 	  };
 	
-	  // confide the starting x and y coordinates to be within a small canvas in the middle of the canvas
 	  var animateFiveFingerRipple = function animateFiveFingerRipple(options) {
 	    setCanvasSize();
 	    var ripples = createConfidedRipples(options);
@@ -1694,7 +1742,6 @@
 	    });
 	    animations.push(fiveFingerRippleAnimation);
 	  };
-	  // have boxes that say in the same place but mapped across the whole canvas, grow or shrink in place
 	
 	  // Rectangle
 	  var animateTriRectangle = function animateTriRectangle(options) {
@@ -1768,6 +1815,8 @@
 	      animateDisappearCircle(_util2.default[key]);
 	    } else if (key === "j") {
 	      animateHalfCircles(_util2.default[key]);
+	    } else if (key === "s") {
+	      animateHundredBoxes(_util2.default[key]);
 	    } else if (Object.keys(_util2.default).indexOf(key) > -1) {
 	      animateCircle(_util2.default[key]);
 	    }

@@ -168,19 +168,39 @@ const GameAnimation = (function (canvas, ctx) {
     animations.push(boxAnimation);
   };
 
+  const xLineBoxes = function(options){
+    let xArr = [canvas.width * (1/11) - (options.width/2),
+                canvas.width * (2/11) - (options.width/2),
+                canvas.width * (3/11) - (options.width/2),
+                canvas.width * (4/11) - (options.width/2),
+                canvas.width * (5/11) - (options.width/2),
+                canvas.width * (6/11) - (options.width/2),
+                canvas.width * (7/11) - (options.width/2),
+                canvas.width * (8/11) - (options.width/2),
+                canvas.width * (9/11) - (options.width/2),
+                canvas.width * (10/11) - (options.width/2)
+    ];
+    return xArr;
+  };
+
+  const yLineBoxes = function(options){
+    let yArr = [canvas.height * (1/11) - (options.width/2),
+                canvas.height * (2/11) - (options.width/2),
+                canvas.height * (3/11) - (options.width/2),
+                canvas.height * (4/11) - (options.width/2),
+                canvas.height * (5/11) - (options.width/2),
+                canvas.height * (6/11) - (options.width/2),
+                canvas.height * (7/11) - (options.width/2),
+                canvas.height * (8/11) - (options.width/2),
+                canvas.height * (9/11) - (options.width/2),
+                canvas.height * (10/11) - (options.width/2)
+    ];
+    return yArr;
+  };
+
   const animateLineBoxLR = function(direction, options) {
     setCanvasSize();
-    let yArr = [canvas.height * (1/11) - (options.width/2),
-      canvas.height * (2/11) - (options.width/2),
-      canvas.height * (3/11) - (options.width/2),
-      canvas.height * (4/11) - (options.width/2),
-      canvas.height * (5/11) - (options.width/2),
-      canvas.height * (6/11) - (options.width/2),
-      canvas.height * (7/11) - (options.width/2),
-      canvas.height * (8/11) - (options.width/2),
-      canvas.height * (9/11) - (options.width/2),
-      canvas.height * (10/11) - (options.width/2)
-    ];
+    let yArr = yLineBoxes(options);
 
     if (direction === "left") {
       let x = canvas.width * (9/10);
@@ -190,8 +210,8 @@ const GameAnimation = (function (canvas, ctx) {
         x: function() { return canvas.width * (1/10); },
         delay: function (el, index) { return index * 100; },
         duration: function () { return anime.random(...options.duration); },
-        width: 60,
-        height: 60,
+        width: options.endWidth,
+        height: options.endHeight,
         easing: 'easeOutExpo',
         complete: removeAnimation,
       });
@@ -205,8 +225,8 @@ const GameAnimation = (function (canvas, ctx) {
         x: function() { return canvas.width * (9/10); },
         delay: function (el, index) { return index * 100; },
         duration: function () { return anime.random(...options.duration); },
-        width: 60,
-        height: 60,
+        width: options.endWidth,
+        height: options.endHeight,
         easing: 'easeOutExpo',
         complete: removeAnimation,
       });
@@ -227,18 +247,7 @@ const GameAnimation = (function (canvas, ctx) {
 
   const animateLineBoxUD = function(direction, options) {
     setCanvasSize();
-    let xArr = [canvas.width * (1/11) - (options.width/2),
-      canvas.width * (2/11) - (options.width/2),
-      canvas.width * (3/11) - (options.width/2),
-      canvas.width * (4/11) - (options.width/2),
-      canvas.width * (5/11) - (options.width/2),
-      canvas.width * (6/11) - (options.width/2),
-      canvas.width * (7/11) - (options.width/2),
-      canvas.width * (8/11) - (options.width/2),
-      canvas.width * (9/11) - (options.width/2),
-      canvas.width * (10/11) - (options.width/2)
-    ];
-
+    let xArr = xLineBoxes(options);
     if (direction === "up") {
       let y = canvas.height * (1/10);
       const boxes = createLineBoxUD(xArr, y, options);
@@ -247,8 +256,8 @@ const GameAnimation = (function (canvas, ctx) {
         y: function() { return canvas.height * (9/10); },
         delay: function (el, index) { return index * 100; },
         duration: function () { return anime.random(...options.duration); },
-        width: 60,
-        height: 60,
+        width: options.endWidth,
+        height: options.endHeight,
         easing: 'easeOutExpo',
         complete: removeAnimation,
       });
@@ -262,8 +271,8 @@ const GameAnimation = (function (canvas, ctx) {
         y: function() { return canvas.height * (1/10); },
         delay: function (el, index) { return index * 100; },
         duration: function () { return anime.random(...options.duration); },
-        width: 60,
-        height: 60,
+        width: options.endWidth,
+        height: options.endHeight,
         easing: 'easeOutExpo',
         complete: removeAnimation,
       });
@@ -271,17 +280,48 @@ const GameAnimation = (function (canvas, ctx) {
       animations.push(lineBoxDownAnimation);
     }
   };
+  // have boxes that say in the same place but mapped across the whole canvas, grow or shrink in place
+  const createHundredBoxes = function(options) {
+    const boxes = [];
+    let xArr = xLineBoxes(options);
+    let yArr = yLineBoxes(options);
+    for (let i = 0; i < options.numBoxes; i++) {
+      for (let j = 0; j < options.numBoxes; j++) {
+        let x = xArr[i];
+        let y = yArr[j];
+        const box = new Box(x, y, options);
+        boxes.push(box);
+      }
+    }
+    return boxes;
+  };
+
+  const animateHundredBoxes = function(options) {
+    setCanvasSize();
+    const boxes = createHundredBoxes(options);
+    const hundredBoxesAnimation = anime({
+      targets: boxes,
+      width: options.endWidth,
+      height: options.endHeight,
+      // delay: function (el, index) { return index * 10; },
+      duration: options.duration,
+      easing: 'easeOutExpo',
+      complete: removeAnimation
+    });
+    animations.push(hundredBoxesAnimation);
+  };
 
   const animateBigBox = function(options) {
     setCanvasSize();
     let xIdx = Math.floor((Math.random()*options.startX.length));
+    let yIdx = Math.floor((Math.random()*options.startY.length));
     let x = (options.startX[xIdx] * canvas.width - (options.width/2));
-    let yArr = options.startY;
+    let yArr = [(canvas.height*yIdx) + options.startY[yIdx]];
     const bigBox = createBoxes(x, yArr, options);
 
     const bigBoxAnimation = anime({
       targets: bigBox,
-      y: function() { return canvas.height - 400; },
+      y: canvas.height * (1/2) - (options.height/2),
       duration: options.duration,
       easing: 'easeOutExpo',
       complete: removeAnimation,
@@ -400,7 +440,6 @@ const GameAnimation = (function (canvas, ctx) {
     return ripples;
   };
 
-// confide the starting x and y coordinates to be within a small canvas in the middle of the canvas
   const animateFiveFingerRipple = function(options) {
     setCanvasSize();
     const ripples = createConfidedRipples(options);
@@ -414,7 +453,6 @@ const GameAnimation = (function (canvas, ctx) {
     });
     animations.push(fiveFingerRippleAnimation);
   };
-// have boxes that say in the same place but mapped across the whole canvas, grow or shrink in place
 
 // Rectangle
   const animateTriRectangle = function(options) {
@@ -493,6 +531,9 @@ const GameAnimation = (function (canvas, ctx) {
     }
     else if (key === "j") {
       animateHalfCircles(objOptions[key]);
+    }
+    else if (key === "s") {
+      animateHundredBoxes(objOptions[key]);
     }
     else if (Object.keys(objOptions).indexOf(key) > -1) {
       animateCircle(objOptions[key]);
