@@ -1,4 +1,6 @@
 # Sound Space
+####Live Site
+[Click to Play](https://iamsammak.github.io/soundspace/)
 
 ![header]
 [header]: ./assets/images/header.png
@@ -7,10 +9,6 @@
 
 
 ### Background
-####Live Site
-[Click to Play](https://iamsammak.github.io/soundspace/)
-
-[patatap](http://www.patatap.com/)
 
 Press a key. Any alphabet key. I dare you. Triple dog dare you.
 
@@ -101,3 +99,6 @@ Different Libraries :
 - [ ] Implement a library change on Spacebar keydown
 - [ ] Library change means the color scheme of the animations and the sounds will all change. Almost like pseudo level change
 - [ ] Will test how DRY my code is (in the words of HIMYM "challenge accepted!")
+
+### Inspiration
+- [ ] [patatap](http://www.patatap.com/)
