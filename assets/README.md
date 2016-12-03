@@ -57,7 +57,7 @@ Examples below:
     * this script will handle the logic for creating and updating the necessary `Anime.js` elements and rendering them to the DOM.
     * Holds the collection of animation objects
     * adds and deletes animations onto the canvas
-* `util.js`
+* `options.js`
     * Holds all the attribute information for each animation object
     * color, width, height, endingWidth, endingHeight, duration, etc...
 * `ripple.js`

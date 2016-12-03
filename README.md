@@ -94,6 +94,7 @@ Silence before the awesomeness.
 
 Different Libraries :
 
+- [ ] Create an app around this game, that uses a database so users can save a string of letters and intervals then replay their creation
 - [ ] More animations
 - [ ] Utilize the bezier curve to draw custom animations
 - [ ] Implement a library change on Spacebar keydown

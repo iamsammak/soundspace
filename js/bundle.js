@@ -46,13 +46,13 @@
 
 	'use strict';
 	
-	var _game_animation = __webpack_require__(11);
+	var _game_animation = __webpack_require__(1);
 	
 	var _game_animation2 = _interopRequireDefault(_game_animation);
 	
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 	
-	__webpack_require__(10);
+	__webpack_require__(14);
 	
 	// import GameAnimation from './test_game_view.js';
 	
@@ -65,7 +65,812 @@
 	});
 
 /***/ },
-/* 1 */,
+/* 1 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+	
+	Object.defineProperty(exports, "__esModule", {
+	  value: true
+	});
+	
+	var _animejs = __webpack_require__(2);
+	
+	var _animejs2 = _interopRequireDefault(_animejs);
+	
+	var _options = __webpack_require__(3);
+	
+	var _utils = __webpack_require__(15);
+	
+	var _utils2 = _interopRequireDefault(_utils);
+	
+	var _ripple = __webpack_require__(4);
+	
+	var _ripple2 = _interopRequireDefault(_ripple);
+	
+	var _circle = __webpack_require__(5);
+	
+	var _circle2 = _interopRequireDefault(_circle);
+	
+	var _disappearing_circle = __webpack_require__(6);
+	
+	var _disappearing_circle2 = _interopRequireDefault(_disappearing_circle);
+	
+	var _half_circle = __webpack_require__(7);
+	
+	var _half_circle2 = _interopRequireDefault(_half_circle);
+	
+	var _box = __webpack_require__(8);
+	
+	var _box2 = _interopRequireDefault(_box);
+	
+	var _tri_rectangle = __webpack_require__(9);
+	
+	var _tri_rectangle2 = _interopRequireDefault(_tri_rectangle);
+	
+	var _rectangle = __webpack_require__(10);
+	
+	var _rectangle2 = _interopRequireDefault(_rectangle);
+	
+	var _screen = __webpack_require__(11);
+	
+	var _screen2 = _interopRequireDefault(_screen);
+	
+	var _line = __webpack_require__(12);
+	
+	var _line2 = _interopRequireDefault(_line);
+	
+	var _word = __webpack_require__(13);
+	
+	var _word2 = _interopRequireDefault(_word);
+	
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+	
+	function _toConsumableArray(arr) { if (Array.isArray(arr)) { for (var i = 0, arr2 = Array(arr.length); i < arr.length; i++) { arr2[i] = arr[i]; } return arr2; } else { return Array.from(arr); } }
+	
+	var GameAnimation = function GameAnimation(canvas, ctx) {
+	  var animations = [];
+	
+	  var setCanvasSize = function setCanvasSize() {
+	    canvas.width = window.innerWidth;
+	    canvas.height = window.innerHeight;
+	  };
+	
+	  var distance = canvas.width;
+	
+	  var mainLoopAnimation = (0, _animejs2.default)({
+	    duration: Infinity,
+	    update: function update() {
+	      ctx.clearRect(0, 0, canvas.width, canvas.height);
+	      animations.forEach(function (anim) {
+	        anim.animatables.forEach(function (animatable) {
+	          animatable.target.draw(ctx);
+	        });
+	      });
+	    }
+	  });
+	
+	  var removeAnimation = function removeAnimation(animation) {
+	    var index = animations.indexOf(animation);
+	    if (index > -1) {
+	      animations.splice(index, 1);
+	    }
+	  };
+	
+	  // Circle
+	  var createCircles = function createCircles(x, y, options) {
+	    var circles = [];
+	    for (var i = 0; i < options.numCircles; i++) {
+	      var cir = new _circle2.default(x, y, options);
+	      circles.push(cir);
+	    }
+	    return circles;
+	  };
+	
+	  var animateCircle = function animateCircle(options) {
+	    setCanvasSize();
+	    var x = Math.random() * canvas.width;
+	    var y = Math.random() * canvas.height;
+	    var circles = createCircles(x, y, options);
+	
+	    var circlesAnimation = (0, _animejs2.default)({
+	      targets: circles,
+	      x: function x(cir) {
+	        return cir.x + _animejs2.default.random(-distance, distance);
+	      },
+	      y: function y(cir) {
+	        return cir.y + _animejs2.default.random(-distance, distance);
+	      },
+	      radius: options.endRadius,
+	      duration: function duration() {
+	        return _animejs2.default.random.apply(_animejs2.default, _toConsumableArray(options.duration));
+	      },
+	      easing: 'easeOutExpo',
+	      complete: removeAnimation
+	    });
+	
+	    animations.push(circlesAnimation);
+	  };
+	
+	  var animateExplosions = function animateExplosions(options) {
+	    setCanvasSize();
+	    var x = Math.random() * canvas.width;
+	    var y = Math.random() * canvas.height;
+	    var circles = createCircles(x, y, options);
+	    var ripple = new _ripple2.default(x, y);
+	
+	    var circlesAnimation = (0, _animejs2.default)({
+	      targets: circles,
+	      x: function x(cir) {
+	        return cir.x + _animejs2.default.random(-distance, distance);
+	      },
+	      y: function y(cir) {
+	        return cir.y + _animejs2.default.random(-distance, distance);
+	      },
+	      radius: options.endRadius,
+	      duration: function duration() {
+	        return _animejs2.default.random.apply(_animejs2.default, _toConsumableArray(options.duration));
+	      },
+	      easing: 'easeOutExpo',
+	      complete: removeAnimation
+	    });
+	
+	    // Ripple - circle that is only stroked
+	    var rippleAnimation = (0, _animejs2.default)({
+	      targets: ripple,
+	      radius: function radius() {
+	        return canvas.width + 200;
+	      },
+	      lineWidth: 0,
+	      // alpha: {
+	      //   value: 0,
+	      //   easing: 'linear',
+	      //   duration: function () { return 80000; },
+	      // },
+	      duration: function duration() {
+	        return _animejs2.default.random(5000, 7000);
+	      },
+	      easing: 'easeOutExpo',
+	      complete: removeAnimation
+	    });
+	
+	    animations.push(circlesAnimation);
+	    animations.push(rippleAnimation);
+	  };
+	
+	  var animateDisappearCircle = function animateDisappearCircle(options) {
+	    setCanvasSize();
+	    var x = canvas.width * (1 / 2),
+	        y = canvas.height * (1 / 2);
+	    var randIdx = Math.floor(Math.random() * options.x.length);
+	    var x2 = x + options.x[randIdx],
+	        y2 = y + options.y[randIdx];
+	    var radius1 = options.radius[0],
+	        radius2 = options.radius[1];
+	    var color1 = options.color[0],
+	        color2 = options.color[1];
+	    var circle1 = new _disappearing_circle2.default(x, y, radius1, color1);
+	    var circle2 = new _disappearing_circle2.default(x2, y2, radius2, color2);
+	    var circle1Animation = (0, _animejs2.default)({
+	      targets: circle1,
+	      duration: options.duration,
+	      easing: 'easeOutExpo',
+	      complete: removeAnimation
+	    });
+	    var circle2Animation = (0, _animejs2.default)({
+	      targets: circle2,
+	      x: x,
+	      y: y,
+	      delay: 200,
+	      duration: options.duration,
+	      easing: 'easeOutExpo',
+	      complete: removeAnimation
+	    });
+	    animations.push(circle1Animation);
+	    animations.push(circle2Animation);
+	  };
+	
+	  var animateHalfCircles = function animateHalfCircles(options) {
+	    setCanvasSize();
+	    var x = canvas.width * (1 / 2),
+	        y = canvas.height * (1 / 2);
+	    var topHalf = new _half_circle2.default(x, y, true, options);
+	    var bottomHalf = new _half_circle2.default(x, y, false, options);
+	    var topHalfAnimation = (0, _animejs2.default)({
+	      targets: topHalf,
+	      x: x + 250,
+	      // y: y + 50,
+	      color: '#fff',
+	      duration: options.duration,
+	      easing: 'easeOutExpo',
+	      complete: removeAnimation
+	    });
+	    var bottomHalfAnimation = (0, _animejs2.default)({
+	      targets: bottomHalf,
+	      x: x - 250,
+	      // y: y - 50,
+	      duration: options.duration,
+	      easing: 'easeOutExpo',
+	      complete: removeAnimation
+	    });
+	    animations.push(topHalfAnimation);
+	    animations.push(bottomHalfAnimation);
+	  };
+	
+	  var createHundredCircles = function createHundredCircles(options) {
+	    var circles = [];
+	    var xArr = xLineBoxes(options);
+	    var yArr = yLineBoxes(options);
+	    for (var i = 0; i < options.numCircles; i++) {
+	      for (var j = 0; j < options.numCircles; j++) {
+	        var x = xArr[i];
+	        var y = yArr[j];
+	        var circle = new _circle2.default(x, y, options);
+	        circles.push(circle);
+	      }
+	    }
+	    return circles;
+	  };
+	
+	  var animateHundredCircles = function animateHundredCircles(options) {
+	    setCanvasSize();
+	    var circles = createHundredCircles(options);
+	    var hundredCirclesAnimation = (0, _animejs2.default)({
+	      targets: circles,
+	      x: function x() {
+	        return _animejs2.default.random(canvas.width * (1 / 7), canvas.width * (6 / 7));
+	      },
+	      y: function y() {
+	        return _animejs2.default.random(canvas.height * (1 / 7), canvas.height * (6 / 7));
+	      },
+	      radius: options.endRadius,
+	      // delay: function (el, index) { return index * 10; },
+	      duration: options.duration,
+	      easing: 'easeOutExpo',
+	      complete: removeAnimation
+	    });
+	    animations.push(hundredCirclesAnimation);
+	  };
+	
+	  // Box
+	  var createBoxes = function createBoxes(x, yArr, options) {
+	    var boxes = [];
+	    for (var i = 0; i < options.numBoxes; i++) {
+	      var y = yArr[i];
+	      var box = new _box2.default(x, y, options);
+	      boxes.push(box);
+	    }
+	    return boxes;
+	  };
+	
+	  var animateBox = function animateBox(options) {
+	    setCanvasSize();
+	    // let x = canvas.width * (1/8) - (options.width/2);
+	    var x = canvas.width * (1 / 8);
+	    var yArr = [canvas.height * (1 / 4) - 50, canvas.height * (1 / 2) - 50, canvas.height * (3 / 4) - 50];
+	    var boxes = createBoxes(x, yArr, options);
+	
+	    var boxAnimation = (0, _animejs2.default)({
+	      targets: boxes,
+	      x: function x() {
+	        return canvas.width * (7 / 8) - options.endWidth;
+	      },
+	      width: options.endWidth,
+	      delay: options.delay,
+	      duration: function duration() {
+	        return _animejs2.default.random.apply(_animejs2.default, _toConsumableArray(options.duration));
+	      },
+	      easing: 'easeOutExpo',
+	      complete: removeAnimation
+	    });
+	
+	    animations.push(boxAnimation);
+	  };
+	
+	  var animateSevenBoxes = function animateSevenBoxes(options) {
+	    setCanvasSize();
+	    var x = canvas.width * (1 / 8);
+	    var yArr = [canvas.height * (2 / 10) - options.height / 2, canvas.height * (3 / 10) - options.height / 2, canvas.height * (4 / 10) - options.height / 2, canvas.height * (5 / 10) - options.height / 2, canvas.height * (6 / 10) - options.height / 2, canvas.height * (7 / 10) - options.height / 2, canvas.height * (8 / 10) - options.height / 2];
+	    var sevenBoxes = createBoxes(x, yArr, options);
+	
+	    var boxAnimation = (0, _animejs2.default)({
+	      targets: sevenBoxes,
+	      x: function x() {
+	        return canvas.width * (7 / 8);
+	      },
+	      width: options.endWidth,
+	      delay: options.delay,
+	      duration: options.duration,
+	      easing: 'easeOutExpo',
+	      complete: removeAnimation
+	    });
+	
+	    animations.push(boxAnimation);
+	  };
+	
+	  var animateSpine = function animateSpine(options) {
+	    setCanvasSize();
+	    var x = canvas.width * (1 / 2) - options.width / 2;
+	    var yArr = [canvas.height * (1 / 12) - options.height / 2, canvas.height * (2 / 12) - options.height / 2, canvas.height * (3 / 12) - options.height / 2, canvas.height * (4 / 12) - options.height / 2, canvas.height * (5 / 12) - options.height / 2, canvas.height * (6 / 12) - options.height / 2, canvas.height * (7 / 12) - options.height / 2, canvas.height * (8 / 12) - options.height / 2, canvas.height * (9 / 12) - options.height / 2, canvas.height * (10 / 12) - options.height / 2, canvas.height * (11 / 12) - options.height / 2, canvas.height * (11 / 12) - options.height / 2, canvas.height * (10 / 12) - options.height / 2, canvas.height * (9 / 12) - options.height / 2, canvas.height * (8 / 12) - options.height / 2, canvas.height * (7 / 12) - options.height / 2, canvas.height * (6 / 12) - options.height / 2, canvas.height * (5 / 12) - options.height / 2, canvas.height * (4 / 12) - options.height / 2, canvas.height * (3 / 12) - options.height / 2, canvas.height * (2 / 12) - options.height / 2, canvas.height * (1 / 12) - options.height / 2];
+	    var boxes = createBoxes(x, yArr, options);
+	
+	    var boxAnimation = (0, _animejs2.default)({
+	      targets: boxes,
+	      x: function x(el, index) {
+	        if (_utils2.default.isEven(index)) {
+	          return canvas.width * (7 / 8);
+	        } else {
+	          return canvas.width * (1 / 8);
+	        }
+	      },
+	      width: options.endWidth,
+	      delay: function delay(el, index) {
+	        return index * 40;
+	      },
+	      duration: options.duration,
+	      easing: 'easeOutExpo',
+	      complete: removeAnimation
+	    });
+	
+	    animations.push(boxAnimation);
+	  };
+	
+	  var xLineBoxes = function xLineBoxes(options) {
+	    var xArr = [canvas.width * (1 / 11) - options.width / 2, canvas.width * (2 / 11) - options.width / 2, canvas.width * (3 / 11) - options.width / 2, canvas.width * (4 / 11) - options.width / 2, canvas.width * (5 / 11) - options.width / 2, canvas.width * (6 / 11) - options.width / 2, canvas.width * (7 / 11) - options.width / 2, canvas.width * (8 / 11) - options.width / 2, canvas.width * (9 / 11) - options.width / 2, canvas.width * (10 / 11) - options.width / 2];
+	    return xArr;
+	  };
+	
+	  var yLineBoxes = function yLineBoxes(options) {
+	    var yArr = [canvas.height * (1 / 11) - options.width / 2, canvas.height * (2 / 11) - options.width / 2, canvas.height * (3 / 11) - options.width / 2, canvas.height * (4 / 11) - options.width / 2, canvas.height * (5 / 11) - options.width / 2, canvas.height * (6 / 11) - options.width / 2, canvas.height * (7 / 11) - options.width / 2, canvas.height * (8 / 11) - options.width / 2, canvas.height * (9 / 11) - options.width / 2, canvas.height * (10 / 11) - options.width / 2];
+	    return yArr;
+	  };
+	
+	  var animateLineBoxLR = function animateLineBoxLR(direction, options) {
+	    setCanvasSize();
+	    var yArr = yLineBoxes(options);
+	
+	    if (direction === "left") {
+	      var x = canvas.width * (9 / 10);
+	      var boxes = createBoxes(x, yArr, options);
+	      var lineBoxAnimation = (0, _animejs2.default)({
+	        targets: boxes,
+	        x: function x() {
+	          return canvas.width * (1 / 10);
+	        },
+	        delay: function delay(el, index) {
+	          return index * 100;
+	        },
+	        duration: function duration() {
+	          return _animejs2.default.random.apply(_animejs2.default, _toConsumableArray(options.duration));
+	        },
+	        width: options.endWidth,
+	        height: options.endHeight,
+	        easing: 'easeOutExpo',
+	        complete: removeAnimation
+	      });
+	
+	      animations.push(lineBoxAnimation);
+	    } else if (direction === "right") {
+	      var _x = canvas.width * (1 / 10);
+	      var _boxes = createBoxes(_x, yArr, options);
+	      var lineBoxRightAnimation = (0, _animejs2.default)({
+	        targets: _boxes,
+	        x: function x() {
+	          return canvas.width * (9 / 10);
+	        },
+	        delay: function delay(el, index) {
+	          return index * 100;
+	        },
+	        duration: function duration() {
+	          return _animejs2.default.random.apply(_animejs2.default, _toConsumableArray(options.duration));
+	        },
+	        width: options.endWidth,
+	        height: options.endHeight,
+	        easing: 'easeOutExpo',
+	        complete: removeAnimation
+	      });
+	
+	      animations.push(lineBoxRightAnimation);
+	    }
+	  };
+	
+	  var createLineBoxUD = function createLineBoxUD(xArr, y, options) {
+	    var boxes = [];
+	    for (var i = 0; i < options.numBoxes; i++) {
+	      var x = xArr[i];
+	      var box = new _box2.default(x, y, options);
+	      boxes.push(box);
+	    }
+	    return boxes;
+	  };
+	
+	  var animateLineBoxUD = function animateLineBoxUD(direction, options) {
+	    setCanvasSize();
+	    var xArr = xLineBoxes(options);
+	    if (direction === "up") {
+	      var y = canvas.height * (1 / 10);
+	      var boxes = createLineBoxUD(xArr, y, options);
+	      var lineBoxUpAnimation = (0, _animejs2.default)({
+	        targets: boxes,
+	        y: function y() {
+	          return canvas.height * (9 / 10);
+	        },
+	        delay: function delay(el, index) {
+	          return index * 100;
+	        },
+	        duration: function duration() {
+	          return _animejs2.default.random.apply(_animejs2.default, _toConsumableArray(options.duration));
+	        },
+	        width: options.endWidth,
+	        height: options.endHeight,
+	        easing: 'easeOutExpo',
+	        complete: removeAnimation
+	      });
+	
+	      animations.push(lineBoxUpAnimation);
+	    } else if (direction === "down") {
+	      var _y = canvas.height * (9 / 10);
+	      var _boxes2 = createLineBoxUD(xArr, _y, options);
+	      var lineBoxDownAnimation = (0, _animejs2.default)({
+	        targets: _boxes2,
+	        y: function y() {
+	          return canvas.height * (1 / 10);
+	        },
+	        delay: function delay(el, index) {
+	          return index * 100;
+	        },
+	        duration: function duration() {
+	          return _animejs2.default.random.apply(_animejs2.default, _toConsumableArray(options.duration));
+	        },
+	        width: options.endWidth,
+	        height: options.endHeight,
+	        easing: 'easeOutExpo',
+	        complete: removeAnimation
+	      });
+	
+	      animations.push(lineBoxDownAnimation);
+	    }
+	  };
+	  // have boxes that say in the same place but mapped across the whole canvas, grow or shrink in place
+	  var createHundredBoxes = function createHundredBoxes(options) {
+	    var boxes = [];
+	    var xArr = xLineBoxes(options);
+	    var yArr = yLineBoxes(options);
+	    for (var i = 0; i < options.numBoxes; i++) {
+	      for (var j = 0; j < options.numBoxes; j++) {
+	        var x = xArr[i] - options.endWidth / 2;
+	        var y = yArr[j] - options.endHeight / 2;
+	        var box = new _box2.default(x, y, options);
+	        boxes.push(box);
+	      }
+	    }
+	    return boxes;
+	  };
+	
+	  var animateHundredBoxes = function animateHundredBoxes(options) {
+	    setCanvasSize();
+	    var boxes = createHundredBoxes(options);
+	    var hundredBoxesAnimation = (0, _animejs2.default)({
+	      targets: boxes,
+	      width: options.endWidth,
+	      height: options.endHeight,
+	      // delay: function (el, index) { return index * 10; },
+	      duration: options.duration,
+	      easing: 'easeOutExpo',
+	      complete: removeAnimation
+	    });
+	    animations.push(hundredBoxesAnimation);
+	  };
+	
+	  var animateBigBox = function animateBigBox(options) {
+	    setCanvasSize();
+	    var xIdx = Math.floor(Math.random() * options.startX.length);
+	    var yIdx = Math.floor(Math.random() * options.startY.length);
+	    var x = options.startX[xIdx] * canvas.width - options.width / 2;
+	    var yArr = [canvas.height * yIdx + options.startY[yIdx]];
+	    var bigBox = createBoxes(x, yArr, options);
+	
+	    var bigBoxAnimation = (0, _animejs2.default)({
+	      targets: bigBox,
+	      y: canvas.height * (1 / 2) - options.height / 2,
+	      duration: options.duration,
+	      easing: 'easeOutExpo',
+	      complete: removeAnimation
+	    });
+	
+	    animations.push(bigBoxAnimation);
+	  };
+	
+	  // Full screen animations
+	  var animateScreenFlash = function animateScreenFlash(options) {
+	    setCanvasSize();
+	    var x = 0;
+	    var y = 0;
+	    var width = canvas.width;
+	    var height = canvas.height;
+	    var screenFlash = new _screen2.default(x, y, width, height, options);
+	
+	    var screenFlashAnimation = (0, _animejs2.default)({
+	      targets: screenFlash,
+	      duration: options.duration,
+	      easing: 'easeOutExpo',
+	      complete: removeAnimation
+	    });
+	    animations.push(screenFlashAnimation);
+	  };
+	
+	  var animateScreenSwipeLR = function animateScreenSwipeLR(direction, options) {
+	    setCanvasSize();
+	    var x = 0,
+	        y = 0,
+	        width = canvas.width,
+	        height = canvas.height;
+	    var screen = new _screen2.default(x, y, width, height, options);
+	
+	    if (direction === 0) {
+	      var screenSwipeLeftAnimation = (0, _animejs2.default)({
+	        targets: screen,
+	        x: canvas.width,
+	        delay: options.delay,
+	        duration: options.duration,
+	        easing: 'easeOutExpo',
+	        complete: removeAnimation
+	      });
+	      animations.push(screenSwipeLeftAnimation);
+	    } else {
+	      //right
+	      var _screenSwipeLeftAnimation = (0, _animejs2.default)({
+	        targets: screen,
+	        width: 0,
+	        delay: options.delay,
+	        duration: options.duration,
+	        easing: 'easeOutExpo',
+	        complete: removeAnimation
+	      });
+	      animations.push(_screenSwipeLeftAnimation);
+	    }
+	  };
+	
+	  var animateScreenSwipeUD = function animateScreenSwipeUD(direction, options) {
+	    setCanvasSize();
+	    var x = 0,
+	        y = 0,
+	        width = canvas.width,
+	        height = canvas.height;
+	    var screen = new _screen2.default(x, y, width, height, options);
+	
+	    if (direction === 0) {
+	      var screenSwipeLeftAnimation = (0, _animejs2.default)({
+	        targets: screen,
+	        y: canvas.height,
+	        delay: options.delay,
+	        duration: options.duration,
+	        easing: 'easeOutExpo',
+	        complete: removeAnimation
+	      });
+	      animations.push(screenSwipeLeftAnimation);
+	    } else {
+	      //right
+	      var _screenSwipeLeftAnimation2 = (0, _animejs2.default)({
+	        targets: screen,
+	        height: 0,
+	        delay: options.delay,
+	        duration: options.duration,
+	        easing: 'easeOutExpo',
+	        complete: removeAnimation
+	      });
+	      animations.push(_screenSwipeLeftAnimation2);
+	    }
+	  };
+	
+	  var createRipples = function createRipples(x, y, options) {
+	    var ripples = [];
+	    for (var i = 0; i < options.numRipples; i++) {
+	      var ripple = new _ripple2.default(x, y, options);
+	      ripples.push(ripple);
+	    }
+	    return ripples;
+	  };
+	
+	  var animateRipple = function animateRipple(options) {
+	    setCanvasSize();
+	    var x = canvas.width * (1 / 2);
+	    var y = canvas.height * (1 / 2);
+	    var ripples = createRipples(x, y, options);
+	    var ripplesAnimation = (0, _animejs2.default)({
+	      targets: ripples,
+	      radius: options.endRadius,
+	      delay: function delay(el, index) {
+	        return index * 100;
+	      },
+	      duration: options.duration,
+	      easing: 'easeOutExpo',
+	      complete: removeAnimation
+	    });
+	    animations.push(ripplesAnimation);
+	  };
+	
+	  var createConfidedRipples = function createConfidedRipples(options) {
+	    var ripples = [];
+	    for (var i = 0; i < options.numRipples; i++) {
+	      var x = _animejs2.default.random(canvas.width * (1 / 4), canvas.width * (3 / 4));
+	      var y = _animejs2.default.random(canvas.height * (1 / 4), canvas.height * (3 / 4));
+	      var ripple = new _ripple2.default(x, y, options);
+	      ripples.push(ripple);
+	    }
+	    return ripples;
+	  };
+	
+	  var animateFiveFingerRipple = function animateFiveFingerRipple(options) {
+	    setCanvasSize();
+	    var ripples = createConfidedRipples(options);
+	    var fiveFingerRippleAnimation = (0, _animejs2.default)({
+	      targets: ripples,
+	      radius: canvas.width + 200,
+	      delay: function delay(el, index) {
+	        return index * 150;
+	      },
+	      duration: options.duration,
+	      easing: 'easeOutExpo',
+	      complete: removeAnimation
+	    });
+	    animations.push(fiveFingerRippleAnimation);
+	  };
+	
+	  // Rectangle
+	  var animateTriRectangle = function animateTriRectangle(options) {
+	    setCanvasSize();
+	    var x = canvas.width * (1 / 4) - 25;
+	    var y = canvas.height * (1 / 3) - 25;
+	    var triRects = new _tri_rectangle2.default(x, y, options);
+	    var triRectsAnimation = (0, _animejs2.default)({
+	      targets: triRects,
+	      x: function x() {
+	        return canvas.width * (3 / 4) - 25;
+	      },
+	      y: function y() {
+	        return canvas.height * (2 / 3) - 25;
+	      },
+	      duration: options.duration,
+	      easing: 'easeOutExpo',
+	      complete: removeAnimation
+	    });
+	
+	    var x2 = canvas.width * (3 / 4) + 25;
+	    var y2 = canvas.height * (1 / 3) - 25;
+	    var triRects2 = new _tri_rectangle2.default(x2, y2, options);
+	    var triRectsAnimation2 = (0, _animejs2.default)({
+	      targets: triRects2,
+	      x: function x() {
+	        return canvas.width * (1 / 4) - 25;
+	      },
+	      y: function y() {
+	        return canvas.height * (2 / 3) - 25;
+	      },
+	      duration: options.duration,
+	      easing: 'easeOutExpo',
+	      complete: removeAnimation
+	    });
+	
+	    animations.push(triRectsAnimation);
+	    animations.push(triRectsAnimation2);
+	  };
+	
+	  var createYes = function createYes(options) {
+	    var words = [];
+	    for (var i = 0; i < options.numWords; i++) {
+	      var x = _animejs2.default.random(canvas.width * (1 / 4), canvas.width * (3 / 4));
+	      var y = _animejs2.default.random(canvas.height * (1 / 4), canvas.height * (3 / 4));
+	      var word = new _word2.default(x, y, options);
+	      words.push(word);
+	    }
+	    return words;
+	  };
+	
+	  // note: use a callback if you want each el to have a different end X and end Y
+	  var animateYes = function animateYes(options) {
+	    setCanvasSize();
+	    var words = createYes(options);
+	    var wordAnimation = (0, _animejs2.default)({
+	      targets: words,
+	      font: function font() {
+	        var endFontIdx = Math.floor(Math.random() * options.endFont.length);
+	        return options.endFont[endFontIdx];
+	      },
+	      x: function x() {
+	        return _animejs2.default.random(canvas.width * (1 / 7), canvas.width * (6 / 7));
+	      },
+	      y: function y() {
+	        return _animejs2.default.random(canvas.height * (1 / 7), canvas.height * (6 / 7));
+	      },
+	      delay: function delay(el, index) {
+	        return index * 100;
+	      },
+	      duration: options.duration,
+	      easing: 'easeOutExpo',
+	      complete: removeAnimation
+	    });
+	    animations.push(wordAnimation);
+	  };
+	
+	  var createLines = function createLines(x1, y1, x2, y2, options) {
+	    var lines = [];
+	    for (var i = 0; i < options.numLines; i++) {
+	      var line = new _line2.default(x1, y1, x2, y2, options);
+	      lines.push(line);
+	    }
+	    return lines;
+	  };
+	
+	  var animateLine = function animateLine(options) {
+	    setCanvasSize();
+	    var x1 = 100,
+	        y1 = 100;
+	    var x2 = 300,
+	        y2 = 300;
+	    var lines = createLines(x1, y1, x2, y2, options);
+	    var lineAnimation = (0, _animejs2.default)({
+	      targets: lines,
+	      duration: options.duration,
+	      easing: 'easeOutExpo',
+	      complete: removeAnimation
+	    });
+	  };
+	
+	  // https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object/keys
+	  document.addEventListener('keydown', function (e) {
+	    var key = e.key.toLowerCase(); //handles accidental caps lock
+	    if (key === "i") {
+	      animateBox(_options.objOptions[key]);
+	    } else if (key === "u") {
+	      animateSevenBoxes(_options.objOptions[key]);
+	    } else if (key === "t") {
+	      animateBigBox(_options.objOptions[key]);
+	    } else if (key === "v") {
+	      animateLineBoxLR("left", _options.objOptions[key]);
+	    } else if (key === "r") {
+	      animateLineBoxLR("right", _options.objOptions[key]);
+	    } else if (key === "z") {
+	      animateLineBoxUD("up", _options.objOptions[key]);
+	    } else if (key === "c") {
+	      animateLineBoxUD("down", _options.objOptions[key]);
+	    } else if (key === "q") {
+	      animateScreenFlash(_options.objOptions[key]);
+	    } else if (key === "o") {
+	      var direction = Math.floor(Math.random() * 2);
+	      animateScreenSwipeLR(direction, _options.objOptions[key]);
+	    } else if (key === "p") {
+	      var _direction = Math.floor(Math.random() * 2);
+	      animateScreenSwipeUD(_direction, _options.objOptions[key]);
+	    } else if (key === "m") {
+	      animateRipple(_options.objOptions[key]);
+	    } else if (key === "f") {
+	      animateFiveFingerRipple(_options.objOptions[key]);
+	    } else if (key === "g") {
+	      animateDisappearCircle(_options.objOptions[key]);
+	    } else if (key === "j") {
+	      animateHalfCircles(_options.objOptions[key]);
+	    } else if (key === "s") {
+	      animateHundredBoxes(_options.objOptions[key]);
+	    } else if (key === "d") {
+	      animateHundredCircles(_options.objOptions[key]);
+	    } else if (key === "h" || key === "k" || key === "l") {
+	      animateExplosions(_options.objOptions[key]);
+	    } else if (key === "y") {
+	      animateYes(_options.objOptions[key]);
+	    } else if (key === "b") {
+	      animateSpine(_options.objOptions[key]);
+	    } else if (Object.keys(_options.objOptions).indexOf(key) > -1) {
+	      animateCircle(_options.objOptions[key]);
+	    }
+	  }, false);
+	
+	  window.addEventListener('resize', setCanvasSize, false);
+	};
+	
+	exports.default = GameAnimation;
+
+/***/ },
 /* 2 */
 /***/ function(module, exports, __webpack_require__) {
 
@@ -712,125 +1517,32 @@
 	Object.defineProperty(exports, "__esModule", {
 	  value: true
 	});
+	// this would help DRY up my code
+	// testing to get canvas into this file
+	// const canvas = document.getElementById("my-canvas");
+	// import Utils from './utils.js';
 	
-	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
-	
-	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
-	
-	var Ripple = function () {
-	  function Ripple(x, y) {
-	    var options = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : null;
-	
-	    _classCallCheck(this, Ripple);
-	
-	    this.x = x;
-	    this.y = y;
-	    this.alpha = 1;
-	    this.lineWidth = 6;
-	
-	    if (options === null) {
-	      this.radius = 0;
-	      this.color = '#FFF';
-	    } else {
-	      this.radius = options.radius;
-	      var colorIndex = Math.floor(Math.random() * options.color.length);
-	      this.color = options.color[colorIndex] || '#FFF';
-	    }
-	  }
-	
-	  _createClass(Ripple, [{
-	    key: 'draw',
-	    value: function draw(ctx) {
-	      ctx.globalAlpha = this.alpha;
-	      ctx.beginPath();
-	      ctx.arc(this.x, this.y, this.radius, 0, 2 * Math.PI, true);
-	      ctx.lineWidth = this.lineWidth;
-	      ctx.strokeStyle = this.color;
-	      ctx.stroke();
-	    }
-	  }]);
-	
-	  return Ripple;
-	}();
-	
-	exports.default = Ripple;
-
-/***/ },
-/* 4 */
-/***/ function(module, exports, __webpack_require__) {
-
-	'use strict';
-	
-	Object.defineProperty(exports, "__esModule", {
-	  value: true
-	});
-	
-	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
-	
-	var _animejs = __webpack_require__(2);
-	
-	var _animejs2 = _interopRequireDefault(_animejs);
-	
-	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-	
-	function _toConsumableArray(arr) { if (Array.isArray(arr)) { for (var i = 0, arr2 = Array(arr.length); i < arr.length; i++) { arr2[i] = arr[i]; } return arr2; } else { return Array.from(arr); } }
-	
-	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
-	
-	var Circle = function () {
-	  function Circle(x, y, options) {
-	    _classCallCheck(this, Circle);
-	
-	    this.x = x;
-	    this.y = y;
-	    this.radius = _animejs2.default.random.apply(_animejs2.default, _toConsumableArray(options.radius));
-	
-	    var colorIndex = Math.floor(Math.random() * options.color.length);
-	    this.color = options.color[colorIndex];
-	  }
-	
-	  _createClass(Circle, [{
-	    key: 'draw',
-	    value: function draw(ctx) {
-	      ctx.beginPath();
-	      ctx.arc(this.x, this.y, this.radius, 0, 2 * Math.PI, true);
-	      ctx.fillStyle = this.color;
-	      ctx.fill();
-	    }
-	  }]);
-	
-	  return Circle;
-	}();
-	
-	exports.default = Circle;
-
-/***/ },
-/* 5 */
-/***/ function(module, exports) {
-
-	'use strict';
-	
-	Object.defineProperty(exports, "__esModule", {
-	  value: true
-	});
-	var objOptions = {
+	var objOptions = exports.objOptions = {
+	  // line
+	  b: {
+	    color: ['#f4de70'],
+	    width: 40,
+	    height: 40,
+	    endWidth: 0,
+	    delay: 100,
+	    duration: 500,
+	    numBoxes: 22
+	  },
 	  // big
 	  x: {
-	    color: ['#ed6e2f', '#baecf0'],
+	    color: ['#ed6e2f', '#baecf0', '#fbfbf4'],
 	    radius: [175, 200],
 	    endRadius: 200,
 	    duration: [500, 1000],
 	    numCircles: 1
 	  },
 	  n: {
-	    color: ['#f4de70', '#f6c7df'],
-	    radius: [175, 200],
-	    endRadius: 200,
-	    duration: [500, 1000],
-	    numCircles: 1
-	  },
-	  b: {
-	    color: ['#fbfbf4', '#baecf0'],
+	    color: ['#f4de70', '#f6c7df', '#fbfbf4'],
 	    radius: [175, 200],
 	    endRadius: 200,
 	    duration: [500, 1000],
@@ -870,14 +1582,14 @@
 	  w: {
 	    color: ['#B2FF4C', '#EA86FF'],
 	    radius: [125, 150],
-	    duration: [8000, 10000],
+	    duration: [5000, 7000],
 	    endRadius: 0,
 	    numCircles: 8
 	  },
 	  e: {
 	    color: ['#FF9268', '#4CFFE1'],
 	    radius: [100, 120],
-	    duration: [6000, 8000],
+	    duration: [4000, 6000],
 	    endRadius: 0,
 	    numCircles: 8
 	  },
@@ -922,6 +1634,17 @@
 	    delay: 100,
 	    duration: [400, 500],
 	    numBoxes: 3
+	  },
+	  // seven lines
+	  u: {
+	    color: ['#ffffff'],
+	    // width: Utils.canvassx() * (6/8),
+	    width: 1260,
+	    height: 60,
+	    endWidth: 0,
+	    delay: 100,
+	    duration: 500,
+	    numBoxes: 7
 	  },
 	  // Line boxes
 	  v: {
@@ -970,12 +1693,6 @@
 	    endHeight: 25,
 	    numBoxes: 10
 	  },
-	  // triRectangle
-	  u: {
-	    rotate: 180,
-	    borderRadius: '8px',
-	    duration: 800
-	  },
 	  // BigBox
 	  // anime.random(50, 100); // Will set a random value from 50 to 100
 	  t: {
@@ -1019,11 +1736,192 @@
 	    numRipples: 5
 	  }
 	};
+
+/***/ },
+/* 4 */
+/***/ function(module, exports) {
+
+	'use strict';
 	
-	exports.default = objOptions;
+	Object.defineProperty(exports, "__esModule", {
+	  value: true
+	});
+	
+	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+	
+	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+	
+	var Ripple = function () {
+	  function Ripple(x, y) {
+	    var options = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : null;
+	
+	    _classCallCheck(this, Ripple);
+	
+	    this.x = x;
+	    this.y = y;
+	    this.alpha = 1;
+	    this.lineWidth = 6;
+	
+	    if (options === null) {
+	      this.radius = 0;
+	      this.color = '#FFF';
+	    } else {
+	      this.radius = options.radius;
+	      var colorIndex = Math.floor(Math.random() * options.color.length);
+	      this.color = options.color[colorIndex] || '#FFF';
+	    }
+	  }
+	
+	  _createClass(Ripple, [{
+	    key: 'draw',
+	    value: function draw(ctx) {
+	      ctx.globalAlpha = this.alpha;
+	      ctx.beginPath();
+	      ctx.arc(this.x, this.y, this.radius, 0, 2 * Math.PI, true);
+	      ctx.lineWidth = this.lineWidth;
+	      ctx.strokeStyle = this.color;
+	      ctx.stroke();
+	    }
+	  }]);
+	
+	  return Ripple;
+	}();
+	
+	exports.default = Ripple;
+
+/***/ },
+/* 5 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+	
+	Object.defineProperty(exports, "__esModule", {
+	  value: true
+	});
+	
+	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+	
+	var _animejs = __webpack_require__(2);
+	
+	var _animejs2 = _interopRequireDefault(_animejs);
+	
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+	
+	function _toConsumableArray(arr) { if (Array.isArray(arr)) { for (var i = 0, arr2 = Array(arr.length); i < arr.length; i++) { arr2[i] = arr[i]; } return arr2; } else { return Array.from(arr); } }
+	
+	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+	
+	var Circle = function () {
+	  function Circle(x, y, options) {
+	    _classCallCheck(this, Circle);
+	
+	    this.x = x;
+	    this.y = y;
+	    this.radius = _animejs2.default.random.apply(_animejs2.default, _toConsumableArray(options.radius));
+	
+	    var colorIndex = Math.floor(Math.random() * options.color.length);
+	    this.color = options.color[colorIndex];
+	  }
+	
+	  _createClass(Circle, [{
+	    key: 'draw',
+	    value: function draw(ctx) {
+	      ctx.beginPath();
+	      ctx.arc(this.x, this.y, this.radius, 0, 2 * Math.PI, true);
+	      ctx.fillStyle = this.color;
+	      ctx.fill();
+	    }
+	  }]);
+	
+	  return Circle;
+	}();
+	
+	exports.default = Circle;
 
 /***/ },
 /* 6 */
+/***/ function(module, exports) {
+
+	"use strict";
+	
+	Object.defineProperty(exports, "__esModule", {
+	  value: true
+	});
+	
+	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+	
+	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+	
+	var DisappearingCircle = function () {
+	  function DisappearingCircle(x, y, radius, color) {
+	    _classCallCheck(this, DisappearingCircle);
+	
+	    this.x = x;
+	    this.y = y;
+	    this.radius = radius;
+	    this.color = color;
+	  }
+	
+	  _createClass(DisappearingCircle, [{
+	    key: "draw",
+	    value: function draw(ctx) {
+	      ctx.beginPath();
+	      ctx.arc(this.x, this.y, this.radius, 0, 2 * Math.PI, true);
+	      ctx.fillStyle = this.color;
+	      ctx.fill();
+	    }
+	  }]);
+	
+	  return DisappearingCircle;
+	}();
+	
+	exports.default = DisappearingCircle;
+
+/***/ },
+/* 7 */
+/***/ function(module, exports) {
+
+	"use strict";
+	
+	Object.defineProperty(exports, "__esModule", {
+	  value: true
+	});
+	
+	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+	
+	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+	
+	var HalfCircle = function () {
+	  function HalfCircle(x, y, topdown, options) {
+	    _classCallCheck(this, HalfCircle);
+	
+	    this.x = x;
+	    this.y = y;
+	    this.topdown = topdown; //boolean
+	    this.radius = options.radius;
+	
+	    var colorIndex = Math.floor(Math.random() * options.color.length);
+	    this.color = options.color[colorIndex];
+	  }
+	
+	  _createClass(HalfCircle, [{
+	    key: "draw",
+	    value: function draw(ctx) {
+	      ctx.beginPath();
+	      ctx.arc(this.x, this.y, this.radius, 0, Math.PI, this.topdown);
+	      ctx.closePath();
+	      ctx.fillStyle = this.color;
+	      ctx.fill();
+	    }
+	  }]);
+	
+	  return HalfCircle;
+	}();
+	
+	exports.default = HalfCircle;
+
+/***/ },
+/* 8 */
 /***/ function(module, exports) {
 
 	"use strict";
@@ -1065,7 +1963,7 @@
 	exports.default = Box;
 
 /***/ },
-/* 7 */
+/* 9 */
 /***/ function(module, exports) {
 
 	"use strict";
@@ -1078,12 +1976,16 @@
 	
 	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
 	
+	// import Utils from './utils.js';
+	
 	var TriRectangle = function () {
 	  function TriRectangle(x, y, options) {
 	    _classCallCheck(this, TriRectangle);
 	
 	    this.x = x;
 	    this.y = y;
+	
+	    // this.rotate = Utils.radians(options.rotate);
 	  }
 	
 	  _createClass(TriRectangle, [{
@@ -1094,6 +1996,7 @@
 	      ctx.lineWidth = "6";
 	      ctx.strokeStyle = "#C7A1CC";
 	      ctx.rect(this.x - 45, this.y - 45, 140, 140);
+	      // ctx.rotate(this.rotate);
 	      ctx.stroke();
 	
 	      // Green rectangle
@@ -1101,6 +2004,7 @@
 	      ctx.lineWidth = "4";
 	      ctx.strokeStyle = "#AEFFE9";
 	      ctx.rect(this.x, this.y, 50, 50);
+	      // ctx.rotate(this.rotate);
 	      ctx.stroke();
 	
 	      // Blue rectangle
@@ -1108,6 +2012,7 @@
 	      ctx.lineWidth = "8";
 	      ctx.strokeStyle = "#FFE686";
 	      ctx.rect(this.x - 15, this.y - 15, 80, 80);
+	      // ctx.rotate(this.rotate);
 	      ctx.stroke();
 	    }
 	  }]);
@@ -1118,7 +2023,7 @@
 	exports.default = TriRectangle;
 
 /***/ },
-/* 8 */
+/* 10 */
 /***/ function(module, exports) {
 
 	"use strict";
@@ -1162,7 +2067,7 @@
 	exports.default = Rectangle;
 
 /***/ },
-/* 9 */
+/* 11 */
 /***/ function(module, exports) {
 
 	"use strict";
@@ -1204,764 +2109,6 @@
 	exports.default = Screen;
 
 /***/ },
-/* 10 */
-/***/ function(module, exports) {
-
-	// removed by extract-text-webpack-plugin
-
-/***/ },
-/* 11 */
-/***/ function(module, exports, __webpack_require__) {
-
-	'use strict';
-	
-	Object.defineProperty(exports, "__esModule", {
-	  value: true
-	});
-	
-	var _animejs = __webpack_require__(2);
-	
-	var _animejs2 = _interopRequireDefault(_animejs);
-	
-	var _ripple = __webpack_require__(3);
-	
-	var _ripple2 = _interopRequireDefault(_ripple);
-	
-	var _circle = __webpack_require__(4);
-	
-	var _circle2 = _interopRequireDefault(_circle);
-	
-	var _disappearing_circle = __webpack_require__(12);
-	
-	var _disappearing_circle2 = _interopRequireDefault(_disappearing_circle);
-	
-	var _half_circle = __webpack_require__(13);
-	
-	var _half_circle2 = _interopRequireDefault(_half_circle);
-	
-	var _util = __webpack_require__(5);
-	
-	var _util2 = _interopRequireDefault(_util);
-	
-	var _box = __webpack_require__(6);
-	
-	var _box2 = _interopRequireDefault(_box);
-	
-	var _tri_rectangle = __webpack_require__(7);
-	
-	var _tri_rectangle2 = _interopRequireDefault(_tri_rectangle);
-	
-	var _rectangle = __webpack_require__(8);
-	
-	var _rectangle2 = _interopRequireDefault(_rectangle);
-	
-	var _screen = __webpack_require__(9);
-	
-	var _screen2 = _interopRequireDefault(_screen);
-	
-	var _line = __webpack_require__(15);
-	
-	var _line2 = _interopRequireDefault(_line);
-	
-	var _word = __webpack_require__(16);
-	
-	var _word2 = _interopRequireDefault(_word);
-	
-	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-	
-	function _toConsumableArray(arr) { if (Array.isArray(arr)) { for (var i = 0, arr2 = Array(arr.length); i < arr.length; i++) { arr2[i] = arr[i]; } return arr2; } else { return Array.from(arr); } }
-	
-	var GameAnimation = function GameAnimation(canvas, ctx) {
-	  var animations = [];
-	
-	  var setCanvasSize = function setCanvasSize() {
-	    canvas.width = window.innerWidth;
-	    canvas.height = window.innerHeight;
-	  };
-	
-	  var distance = canvas.width;
-	
-	  var mainLoopAnimation = (0, _animejs2.default)({
-	    duration: Infinity,
-	    update: function update() {
-	      ctx.clearRect(0, 0, canvas.width, canvas.height);
-	      animations.forEach(function (anim) {
-	        anim.animatables.forEach(function (animatable) {
-	          animatable.target.draw(ctx);
-	        });
-	      });
-	    }
-	  });
-	
-	  var removeAnimation = function removeAnimation(animation) {
-	    var index = animations.indexOf(animation);
-	    if (index > -1) {
-	      animations.splice(index, 1);
-	    }
-	  };
-	
-	  // Circle
-	  var createCircles = function createCircles(x, y, options) {
-	    var circles = [];
-	    for (var i = 0; i < options.numCircles; i++) {
-	      var cir = new _circle2.default(x, y, options);
-	      circles.push(cir);
-	    }
-	    return circles;
-	  };
-	
-	  var animateCircle = function animateCircle(options) {
-	    setCanvasSize();
-	    var x = Math.random() * canvas.width;
-	    var y = Math.random() * canvas.height;
-	    var circles = createCircles(x, y, options);
-	
-	    var circlesAnimation = (0, _animejs2.default)({
-	      targets: circles,
-	      x: function x(cir) {
-	        return cir.x + _animejs2.default.random(-distance, distance);
-	      },
-	      y: function y(cir) {
-	        return cir.y + _animejs2.default.random(-distance, distance);
-	      },
-	      radius: options.endRadius,
-	      duration: function duration() {
-	        return _animejs2.default.random.apply(_animejs2.default, _toConsumableArray(options.duration));
-	      },
-	      easing: 'easeOutExpo',
-	      complete: removeAnimation
-	    });
-	
-	    animations.push(circlesAnimation);
-	  };
-	
-	  var animateExplosions = function animateExplosions(options) {
-	    setCanvasSize();
-	    var x = Math.random() * canvas.width;
-	    var y = Math.random() * canvas.height;
-	    var circles = createCircles(x, y, options);
-	    var ripple = new _ripple2.default(x, y);
-	
-	    var circlesAnimation = (0, _animejs2.default)({
-	      targets: circles,
-	      x: function x(cir) {
-	        return cir.x + _animejs2.default.random(-distance, distance);
-	      },
-	      y: function y(cir) {
-	        return cir.y + _animejs2.default.random(-distance, distance);
-	      },
-	      radius: options.endRadius,
-	      duration: function duration() {
-	        return _animejs2.default.random.apply(_animejs2.default, _toConsumableArray(options.duration));
-	      },
-	      easing: 'easeOutExpo',
-	      complete: removeAnimation
-	    });
-	
-	    // Ripple - circle that is only stroked
-	    var rippleAnimation = (0, _animejs2.default)({
-	      targets: ripple,
-	      radius: function radius() {
-	        return canvas.width + 200;
-	      },
-	      lineWidth: 0,
-	      // alpha: {
-	      //   value: 0,
-	      //   easing: 'linear',
-	      //   duration: function () { return 80000; },
-	      // },
-	      duration: function duration() {
-	        return _animejs2.default.random(5000, 7000);
-	      },
-	      easing: 'easeOutExpo',
-	      complete: removeAnimation
-	    });
-	
-	    animations.push(circlesAnimation);
-	    animations.push(rippleAnimation);
-	  };
-	
-	  var animateDisappearCircle = function animateDisappearCircle(options) {
-	    setCanvasSize();
-	    var x = canvas.width * (1 / 2),
-	        y = canvas.height * (1 / 2);
-	    var randIdx = Math.floor(Math.random() * options.x.length);
-	    var x2 = x + options.x[randIdx],
-	        y2 = y + options.y[randIdx];
-	    var radius1 = options.radius[0],
-	        radius2 = options.radius[1];
-	    var color1 = options.color[0],
-	        color2 = options.color[1];
-	    var circle1 = new _disappearing_circle2.default(x, y, radius1, color1);
-	    var circle2 = new _disappearing_circle2.default(x2, y2, radius2, color2);
-	    var circle1Animation = (0, _animejs2.default)({
-	      targets: circle1,
-	      duration: options.duration,
-	      easing: 'easeOutExpo',
-	      complete: removeAnimation
-	    });
-	    var circle2Animation = (0, _animejs2.default)({
-	      targets: circle2,
-	      x: x,
-	      y: y,
-	      delay: 200,
-	      duration: options.duration,
-	      easing: 'easeOutExpo',
-	      complete: removeAnimation
-	    });
-	    animations.push(circle1Animation);
-	    animations.push(circle2Animation);
-	  };
-	
-	  var animateHalfCircles = function animateHalfCircles(options) {
-	    setCanvasSize();
-	    var x = canvas.width * (1 / 2),
-	        y = canvas.height * (1 / 2);
-	    var topHalf = new _half_circle2.default(x, y, true, options);
-	    var bottomHalf = new _half_circle2.default(x, y, false, options);
-	    var topHalfAnimation = (0, _animejs2.default)({
-	      targets: topHalf,
-	      x: x + 250,
-	      // y: y + 50,
-	      color: '#fff',
-	      duration: options.duration,
-	      easing: 'easeOutExpo',
-	      complete: removeAnimation
-	    });
-	    var bottomHalfAnimation = (0, _animejs2.default)({
-	      targets: bottomHalf,
-	      x: x - 250,
-	      // y: y - 50,
-	      duration: options.duration,
-	      easing: 'easeOutExpo',
-	      complete: removeAnimation
-	    });
-	    animations.push(topHalfAnimation);
-	    animations.push(bottomHalfAnimation);
-	  };
-	
-	  var createHundredCircles = function createHundredCircles(options) {
-	    var circles = [];
-	    var xArr = xLineBoxes(options);
-	    var yArr = yLineBoxes(options);
-	    for (var i = 0; i < options.numCircles; i++) {
-	      for (var j = 0; j < options.numCircles; j++) {
-	        var x = xArr[i];
-	        var y = yArr[j];
-	        var circle = new _circle2.default(x, y, options);
-	        circles.push(circle);
-	      }
-	    }
-	    return circles;
-	  };
-	
-	  var animateHundredCircles = function animateHundredCircles(options) {
-	    setCanvasSize();
-	    var circles = createHundredCircles(options);
-	    var hundredCirclesAnimation = (0, _animejs2.default)({
-	      targets: circles,
-	      x: function x() {
-	        return _animejs2.default.random(canvas.width * (1 / 7), canvas.width * (6 / 7));
-	      },
-	      y: function y() {
-	        return _animejs2.default.random(canvas.height * (1 / 7), canvas.height * (6 / 7));
-	      },
-	      radius: options.endRadius,
-	      // delay: function (el, index) { return index * 10; },
-	      duration: options.duration,
-	      easing: 'easeOutExpo',
-	      complete: removeAnimation
-	    });
-	    animations.push(hundredCirclesAnimation);
-	  };
-	
-	  // Box
-	  var createBoxes = function createBoxes(x, yArr, options) {
-	    var boxes = [];
-	    for (var i = 0; i < options.numBoxes; i++) {
-	      var y = yArr[i];
-	      var box = new _box2.default(x, y, options);
-	      boxes.push(box);
-	    }
-	    return boxes;
-	  };
-	
-	  var animateBox = function animateBox(options) {
-	    setCanvasSize();
-	    // let x = canvas.width * (1/8) - (options.width/2);
-	    var x = canvas.width * (1 / 8);
-	    var yArr = [canvas.height * (1 / 4) - 50, canvas.height * (1 / 2) - 50, canvas.height * (3 / 4) - 50];
-	    var boxes = createBoxes(x, yArr, options);
-	
-	    var boxAnimation = (0, _animejs2.default)({
-	      targets: boxes,
-	      x: function x() {
-	        return canvas.width * (7 / 8) - options.endWidth / 2;
-	      },
-	      width: options.endWidth,
-	      delay: options.delay,
-	      duration: function duration() {
-	        return _animejs2.default.random.apply(_animejs2.default, _toConsumableArray(options.duration));
-	      },
-	      easing: 'easeOutExpo',
-	      complete: removeAnimation
-	    });
-	
-	    animations.push(boxAnimation);
-	  };
-	
-	  var xLineBoxes = function xLineBoxes(options) {
-	    var xArr = [canvas.width * (1 / 11) - options.width / 2, canvas.width * (2 / 11) - options.width / 2, canvas.width * (3 / 11) - options.width / 2, canvas.width * (4 / 11) - options.width / 2, canvas.width * (5 / 11) - options.width / 2, canvas.width * (6 / 11) - options.width / 2, canvas.width * (7 / 11) - options.width / 2, canvas.width * (8 / 11) - options.width / 2, canvas.width * (9 / 11) - options.width / 2, canvas.width * (10 / 11) - options.width / 2];
-	    return xArr;
-	  };
-	
-	  var yLineBoxes = function yLineBoxes(options) {
-	    var yArr = [canvas.height * (1 / 11) - options.width / 2, canvas.height * (2 / 11) - options.width / 2, canvas.height * (3 / 11) - options.width / 2, canvas.height * (4 / 11) - options.width / 2, canvas.height * (5 / 11) - options.width / 2, canvas.height * (6 / 11) - options.width / 2, canvas.height * (7 / 11) - options.width / 2, canvas.height * (8 / 11) - options.width / 2, canvas.height * (9 / 11) - options.width / 2, canvas.height * (10 / 11) - options.width / 2];
-	    return yArr;
-	  };
-	
-	  var animateLineBoxLR = function animateLineBoxLR(direction, options) {
-	    setCanvasSize();
-	    var yArr = yLineBoxes(options);
-	
-	    if (direction === "left") {
-	      var x = canvas.width * (9 / 10);
-	      var boxes = createBoxes(x, yArr, options);
-	      var lineBoxAnimation = (0, _animejs2.default)({
-	        targets: boxes,
-	        x: function x() {
-	          return canvas.width * (1 / 10);
-	        },
-	        delay: function delay(el, index) {
-	          return index * 100;
-	        },
-	        duration: function duration() {
-	          return _animejs2.default.random.apply(_animejs2.default, _toConsumableArray(options.duration));
-	        },
-	        width: options.endWidth,
-	        height: options.endHeight,
-	        easing: 'easeOutExpo',
-	        complete: removeAnimation
-	      });
-	
-	      animations.push(lineBoxAnimation);
-	    } else if (direction === "right") {
-	      var _x = canvas.width * (1 / 10);
-	      var _boxes = createBoxes(_x, yArr, options);
-	      var lineBoxRightAnimation = (0, _animejs2.default)({
-	        targets: _boxes,
-	        x: function x() {
-	          return canvas.width * (9 / 10);
-	        },
-	        delay: function delay(el, index) {
-	          return index * 100;
-	        },
-	        duration: function duration() {
-	          return _animejs2.default.random.apply(_animejs2.default, _toConsumableArray(options.duration));
-	        },
-	        width: options.endWidth,
-	        height: options.endHeight,
-	        easing: 'easeOutExpo',
-	        complete: removeAnimation
-	      });
-	
-	      animations.push(lineBoxRightAnimation);
-	    }
-	  };
-	
-	  var createLineBoxUD = function createLineBoxUD(xArr, y, options) {
-	    var boxes = [];
-	    for (var i = 0; i < options.numBoxes; i++) {
-	      var x = xArr[i];
-	      var box = new _box2.default(x, y, options);
-	      boxes.push(box);
-	    }
-	    return boxes;
-	  };
-	
-	  var animateLineBoxUD = function animateLineBoxUD(direction, options) {
-	    setCanvasSize();
-	    var xArr = xLineBoxes(options);
-	    if (direction === "up") {
-	      var y = canvas.height * (1 / 10);
-	      var boxes = createLineBoxUD(xArr, y, options);
-	      var lineBoxUpAnimation = (0, _animejs2.default)({
-	        targets: boxes,
-	        y: function y() {
-	          return canvas.height * (9 / 10);
-	        },
-	        delay: function delay(el, index) {
-	          return index * 100;
-	        },
-	        duration: function duration() {
-	          return _animejs2.default.random.apply(_animejs2.default, _toConsumableArray(options.duration));
-	        },
-	        width: options.endWidth,
-	        height: options.endHeight,
-	        easing: 'easeOutExpo',
-	        complete: removeAnimation
-	      });
-	
-	      animations.push(lineBoxUpAnimation);
-	    } else if (direction === "down") {
-	      var _y = canvas.height * (9 / 10);
-	      var _boxes2 = createLineBoxUD(xArr, _y, options);
-	      var lineBoxDownAnimation = (0, _animejs2.default)({
-	        targets: _boxes2,
-	        y: function y() {
-	          return canvas.height * (1 / 10);
-	        },
-	        delay: function delay(el, index) {
-	          return index * 100;
-	        },
-	        duration: function duration() {
-	          return _animejs2.default.random.apply(_animejs2.default, _toConsumableArray(options.duration));
-	        },
-	        width: options.endWidth,
-	        height: options.endHeight,
-	        easing: 'easeOutExpo',
-	        complete: removeAnimation
-	      });
-	
-	      animations.push(lineBoxDownAnimation);
-	    }
-	  };
-	  // have boxes that say in the same place but mapped across the whole canvas, grow or shrink in place
-	  var createHundredBoxes = function createHundredBoxes(options) {
-	    var boxes = [];
-	    var xArr = xLineBoxes(options);
-	    var yArr = yLineBoxes(options);
-	    for (var i = 0; i < options.numBoxes; i++) {
-	      for (var j = 0; j < options.numBoxes; j++) {
-	        var x = xArr[i];
-	        var y = yArr[j];
-	        var box = new _box2.default(x, y, options);
-	        boxes.push(box);
-	      }
-	    }
-	    return boxes;
-	  };
-	
-	  var animateHundredBoxes = function animateHundredBoxes(options) {
-	    setCanvasSize();
-	    var boxes = createHundredBoxes(options);
-	    var hundredBoxesAnimation = (0, _animejs2.default)({
-	      targets: boxes,
-	      width: options.endWidth,
-	      height: options.endHeight,
-	      // delay: function (el, index) { return index * 10; },
-	      duration: options.duration,
-	      easing: 'easeOutExpo',
-	      complete: removeAnimation
-	    });
-	    animations.push(hundredBoxesAnimation);
-	  };
-	
-	  var animateBigBox = function animateBigBox(options) {
-	    setCanvasSize();
-	    var xIdx = Math.floor(Math.random() * options.startX.length);
-	    var yIdx = Math.floor(Math.random() * options.startY.length);
-	    var x = options.startX[xIdx] * canvas.width - options.width / 2;
-	    var yArr = [canvas.height * yIdx + options.startY[yIdx]];
-	    var bigBox = createBoxes(x, yArr, options);
-	
-	    var bigBoxAnimation = (0, _animejs2.default)({
-	      targets: bigBox,
-	      y: canvas.height * (1 / 2) - options.height / 2,
-	      duration: options.duration,
-	      easing: 'easeOutExpo',
-	      complete: removeAnimation
-	    });
-	
-	    animations.push(bigBoxAnimation);
-	  };
-	
-	  // Full screen animations
-	  var animateScreenFlash = function animateScreenFlash(options) {
-	    setCanvasSize();
-	    var x = 0;
-	    var y = 0;
-	    var width = canvas.width;
-	    var height = canvas.height;
-	    var screenFlash = new _screen2.default(x, y, width, height, options);
-	
-	    var screenFlashAnimation = (0, _animejs2.default)({
-	      targets: screenFlash,
-	      duration: options.duration,
-	      easing: 'easeOutExpo',
-	      complete: removeAnimation
-	    });
-	    animations.push(screenFlashAnimation);
-	  };
-	
-	  var animateScreenSwipeLR = function animateScreenSwipeLR(direction, options) {
-	    setCanvasSize();
-	    var x = 0,
-	        y = 0,
-	        width = canvas.width,
-	        height = canvas.height;
-	    var screen = new _screen2.default(x, y, width, height, options);
-	
-	    if (direction === 0) {
-	      var screenSwipeLeftAnimation = (0, _animejs2.default)({
-	        targets: screen,
-	        x: canvas.width,
-	        delay: options.delay,
-	        duration: options.duration,
-	        easing: 'easeOutExpo',
-	        complete: removeAnimation
-	      });
-	      animations.push(screenSwipeLeftAnimation);
-	    } else {
-	      //right
-	      var _screenSwipeLeftAnimation = (0, _animejs2.default)({
-	        targets: screen,
-	        width: 0,
-	        delay: options.delay,
-	        duration: options.duration,
-	        easing: 'easeOutExpo',
-	        complete: removeAnimation
-	      });
-	      animations.push(_screenSwipeLeftAnimation);
-	    }
-	  };
-	
-	  var animateScreenSwipeUD = function animateScreenSwipeUD(direction, options) {
-	    setCanvasSize();
-	    var x = 0,
-	        y = 0,
-	        width = canvas.width,
-	        height = canvas.height;
-	    var screen = new _screen2.default(x, y, width, height, options);
-	
-	    if (direction === 0) {
-	      var screenSwipeLeftAnimation = (0, _animejs2.default)({
-	        targets: screen,
-	        y: canvas.height,
-	        delay: options.delay,
-	        duration: options.duration,
-	        easing: 'easeOutExpo',
-	        complete: removeAnimation
-	      });
-	      animations.push(screenSwipeLeftAnimation);
-	    } else {
-	      //right
-	      var _screenSwipeLeftAnimation2 = (0, _animejs2.default)({
-	        targets: screen,
-	        height: 0,
-	        delay: options.delay,
-	        duration: options.duration,
-	        easing: 'easeOutExpo',
-	        complete: removeAnimation
-	      });
-	      animations.push(_screenSwipeLeftAnimation2);
-	    }
-	  };
-	
-	  var createRipples = function createRipples(x, y, options) {
-	    var ripples = [];
-	    for (var i = 0; i < options.numRipples; i++) {
-	      var ripple = new _ripple2.default(x, y, options);
-	      ripples.push(ripple);
-	    }
-	    return ripples;
-	  };
-	
-	  var animateRipple = function animateRipple(options) {
-	    setCanvasSize();
-	    var x = canvas.width * (1 / 2);
-	    var y = canvas.height * (1 / 2);
-	    var ripples = createRipples(x, y, options);
-	    var ripplesAnimation = (0, _animejs2.default)({
-	      targets: ripples,
-	      radius: options.endRadius,
-	      delay: function delay(el, index) {
-	        return index * 100;
-	      },
-	      duration: options.duration,
-	      easing: 'easeOutExpo',
-	      complete: removeAnimation
-	    });
-	    animations.push(ripplesAnimation);
-	  };
-	
-	  var createConfidedRipples = function createConfidedRipples(options) {
-	    var ripples = [];
-	    for (var i = 0; i < options.numRipples; i++) {
-	      var x = _animejs2.default.random(canvas.width * (1 / 4), canvas.width * (3 / 4));
-	      var y = _animejs2.default.random(canvas.height * (1 / 4), canvas.height * (3 / 4));
-	      var ripple = new _ripple2.default(x, y, options);
-	      ripples.push(ripple);
-	    }
-	    return ripples;
-	  };
-	
-	  var animateFiveFingerRipple = function animateFiveFingerRipple(options) {
-	    setCanvasSize();
-	    var ripples = createConfidedRipples(options);
-	    var fiveFingerRippleAnimation = (0, _animejs2.default)({
-	      targets: ripples,
-	      radius: canvas.width + 200,
-	      delay: function delay(el, index) {
-	        return index * 150;
-	      },
-	      duration: options.duration,
-	      easing: 'easeOutExpo',
-	      complete: removeAnimation
-	    });
-	    animations.push(fiveFingerRippleAnimation);
-	  };
-	
-	  // Rectangle
-	  var animateTriRectangle = function animateTriRectangle(options) {
-	    setCanvasSize();
-	    var x = canvas.width * (1 / 4) - 25;
-	    var y = canvas.height * (1 / 3) - 25;
-	    var triRects = new _tri_rectangle2.default(x, y, options);
-	    var triRectsAnimation = (0, _animejs2.default)({
-	      targets: triRects,
-	      x: function x() {
-	        return canvas.width * (3 / 4) - 25;
-	      },
-	      y: function y() {
-	        return canvas.height * (2 / 3) - 25;
-	      },
-	      duration: options.duration,
-	      easing: 'easeOutExpo',
-	      complete: removeAnimation
-	    });
-	
-	    var x2 = canvas.width * (3 / 4) + 25;
-	    var y2 = canvas.height * (1 / 3) - 25;
-	    var triRects2 = new _tri_rectangle2.default(x2, y2, options);
-	    var triRectsAnimation2 = (0, _animejs2.default)({
-	      targets: triRects2,
-	      x: function x() {
-	        return canvas.width * (1 / 4) - 25;
-	      },
-	      y: function y() {
-	        return canvas.height * (2 / 3) - 25;
-	      },
-	      duration: options.duration,
-	      easing: 'easeOutExpo',
-	      complete: removeAnimation
-	    });
-	
-	    animations.push(triRectsAnimation);
-	    animations.push(triRectsAnimation2);
-	  };
-	
-	  var createYes = function createYes(options) {
-	    var words = [];
-	    for (var i = 0; i < options.numWords; i++) {
-	      var x = _animejs2.default.random(canvas.width * (1 / 4), canvas.width * (3 / 4));
-	      var y = _animejs2.default.random(canvas.height * (1 / 4), canvas.height * (3 / 4));
-	      var word = new _word2.default(x, y, options);
-	      words.push(word);
-	    }
-	    return words;
-	  };
-	
-	  // note: use a callback if you want each el to have a different end X and end Y
-	  var animateYes = function animateYes(options) {
-	    setCanvasSize();
-	    var words = createYes(options);
-	    var wordAnimation = (0, _animejs2.default)({
-	      targets: words,
-	      font: function font() {
-	        var endFontIdx = Math.floor(Math.random() * options.endFont.length);
-	        return options.endFont[endFontIdx];
-	      },
-	      x: function x() {
-	        return _animejs2.default.random(canvas.width * (1 / 7), canvas.width * (6 / 7));
-	      },
-	      y: function y() {
-	        return _animejs2.default.random(canvas.height * (1 / 7), canvas.height * (6 / 7));
-	      },
-	      delay: function delay(el, index) {
-	        return index * 100;
-	      },
-	      duration: options.duration,
-	      easing: 'easeOutExpo',
-	      complete: removeAnimation
-	    });
-	    animations.push(wordAnimation);
-	  };
-	
-	  var createLines = function createLines(x, y, options) {
-	    var lines = [];
-	    for (var i = 0; i < options.numLines; i++) {
-	      var line = new _line2.default(x, y, options);
-	      lines.push(line);
-	    }
-	    return lines;
-	  };
-	
-	  var animateLine = function animateLine(options) {
-	    setCanvasSize();
-	    var x = 0,
-	        y = 0;
-	    var lines = createLines(x, y, options);
-	    var lineAnimation = (0, _animejs2.default)({
-	      targets: lines,
-	      duration: options.duration,
-	      easing: 'easeOutExpo',
-	      complete: removeAnimation
-	    });
-	  };
-	
-	  // https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object/keys
-	  document.addEventListener('keydown', function (e) {
-	    var key = e.key.toLowerCase(); //handles accidental caps lock
-	    if (key === "i") {
-	      animateBox(_util2.default[key]);
-	    } else if (key === "u") {
-	      animateTriRectangle(_util2.default[key]);
-	    } else if (key === "t") {
-	      animateBigBox(_util2.default[key]);
-	    } else if (key === "v") {
-	      animateLineBoxLR("left", _util2.default[key]);
-	    } else if (key === "r") {
-	      animateLineBoxLR("right", _util2.default[key]);
-	    } else if (key === "z") {
-	      animateLineBoxUD("up", _util2.default[key]);
-	    } else if (key === "c") {
-	      animateLineBoxUD("down", _util2.default[key]);
-	    } else if (key === "q") {
-	      animateScreenFlash(_util2.default[key]);
-	    } else if (key === "o") {
-	      var direction = Math.floor(Math.random() * 2);
-	      animateScreenSwipeLR(direction, _util2.default[key]);
-	    } else if (key === "p") {
-	      var _direction = Math.floor(Math.random() * 2);
-	      animateScreenSwipeUD(_direction, _util2.default[key]);
-	    } else if (key === "m") {
-	      animateRipple(_util2.default[key]);
-	    } else if (key === "f") {
-	      animateFiveFingerRipple(_util2.default[key]);
-	    } else if (key === "g") {
-	      animateDisappearCircle(_util2.default[key]);
-	    } else if (key === "j") {
-	      animateHalfCircles(_util2.default[key]);
-	    } else if (key === "s") {
-	      animateHundredBoxes(_util2.default[key]);
-	    } else if (key === "d") {
-	      animateHundredCircles(_util2.default[key]);
-	    } else if (key === "h" || key === "k" || key === "l") {
-	      animateExplosions(_util2.default[key]);
-	    } else if (key === "y") {
-	      animateYes(_util2.default[key]);
-	    } else if (Object.keys(_util2.default).indexOf(key) > -1) {
-	      animateCircle(_util2.default[key]);
-	    }
-	  }, false);
-	
-	  window.addEventListener('resize', setCanvasSize, false);
-	};
-	
-	exports.default = GameAnimation;
-
-/***/ },
 /* 12 */
 /***/ function(module, exports) {
 
@@ -1975,103 +2122,31 @@
 	
 	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
 	
-	var DisappearingCircle = function () {
-	  function DisappearingCircle(x, y, radius, color) {
-	    _classCallCheck(this, DisappearingCircle);
+	var Line = function () {
+	  function Line(x1, y1, x2, y2, options) {
+	    _classCallCheck(this, Line);
 	
-	    this.x = x;
-	    this.y = y;
-	    this.radius = radius;
-	    this.color = color;
-	  }
+	    this.x1 = x1;
+	    this.y1 = y1;
+	    this.x2 = x2;
+	    this.y2 = y2;
 	
-	  _createClass(DisappearingCircle, [{
-	    key: "draw",
-	    value: function draw(ctx) {
-	      ctx.beginPath();
-	      ctx.arc(this.x, this.y, this.radius, 0, 2 * Math.PI, true);
-	      ctx.fillStyle = this.color;
-	      ctx.fill();
-	    }
-	  }]);
-	
-	  return DisappearingCircle;
-	}();
-	
-	exports.default = DisappearingCircle;
-
-/***/ },
-/* 13 */
-/***/ function(module, exports) {
-
-	"use strict";
-	
-	Object.defineProperty(exports, "__esModule", {
-	  value: true
-	});
-	
-	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
-	
-	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
-	
-	var HalfCircle = function () {
-	  function HalfCircle(x, y, topdown, options) {
-	    _classCallCheck(this, HalfCircle);
-	
-	    this.x = x;
-	    this.y = y;
-	    this.topdown = topdown; //boolean
-	    this.radius = options.radius;
+	    var widthIndex = Math.floor(Math.random() * options.lineWidth.length);
+	    this.lineWidth = options.lineWidth[widthIndex];
 	
 	    var colorIndex = Math.floor(Math.random() * options.color.length);
 	    this.color = options.color[colorIndex];
 	  }
 	
-	  _createClass(HalfCircle, [{
+	  _createClass(Line, [{
 	    key: "draw",
 	    value: function draw(ctx) {
 	      ctx.beginPath();
-	      ctx.arc(this.x, this.y, this.radius, 0, Math.PI, this.topdown);
-	      ctx.closePath();
-	      ctx.fillStyle = this.color;
-	      ctx.fill();
-	    }
-	  }]);
-	
-	  return HalfCircle;
-	}();
-	
-	exports.default = HalfCircle;
-
-/***/ },
-/* 14 */,
-/* 15 */
-/***/ function(module, exports) {
-
-	'use strict';
-	
-	Object.defineProperty(exports, "__esModule", {
-	  value: true
-	});
-	
-	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
-	
-	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
-	
-	var Line = function () {
-	  function Line(x, y, options) {
-	    _classCallCheck(this, Line);
-	
-	    this.x = x;
-	    this.y = y;
-	  }
-	
-	  _createClass(Line, [{
-	    key: 'draw',
-	    value: function draw(ctx) {
-	      ctx.font = '40px Montserrat';
-	      ctx.fillStyle = 'red';
-	      ctx.fillText('Hello World!', this.x, this.y);
+	      ctx.moveTo(this.x1, this.y1);
+	      ctx.lineTo(this.x2, this.y2);
+	      // ctx.lineWidth = this.lineWidth;
+	      // ctx.strokestyle = this.color;
+	      ctx.stroke();
 	    }
 	  }]);
 	
@@ -2081,7 +2156,7 @@
 	exports.default = Line;
 
 /***/ },
-/* 16 */
+/* 13 */
 /***/ function(module, exports) {
 
 	"use strict";
@@ -2124,6 +2199,98 @@
 	}();
 	
 	exports.default = Word;
+
+/***/ },
+/* 14 */
+/***/ function(module, exports) {
+
+	// removed by extract-text-webpack-plugin
+
+/***/ },
+/* 15 */
+/***/ function(module, exports) {
+
+	"use strict";
+	
+	Object.defineProperty(exports, "__esModule", {
+	  value: true
+	});
+	
+	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+	
+	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+	
+	// this class doesn't work yet
+	// TODO fix this, to implement revolving circle
+	
+	var Utils = function () {
+	  function Utils() {
+	    _classCallCheck(this, Utils);
+	  }
+	
+	  _createClass(Utils, null, [{
+	    key: "canvas",
+	    value: function canvas() {
+	      var canvas = document.getElementById("my-canvas");
+	      return canvas;
+	    }
+	  }, {
+	    key: "isEven",
+	    value: function isEven(n) {
+	      return n % 2 === 0;
+	    }
+	  }, {
+	    key: "isOdd",
+	    value: function isOdd(n) {
+	      return Math.abs(n % 2) === 1;
+	    }
+	  }, {
+	    key: "randomVec",
+	    value: function randomVec(length) {
+	      var minimum = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : 1;
+	
+	      var x = Math.floor(Math.random() * (length - minimum)) + minimum;
+	      var y = Math.floor(Math.random() * (length - minimum)) + minimum;
+	
+	      if (x === 0 && y === 0) {
+	        x = 1;
+	      }
+	
+	      return [x, y];
+	    }
+	  }, {
+	    key: "radians",
+	    value: function radians(angle) {
+	      return Math.PI / 180 * angle;
+	    }
+	  }, {
+	    key: "rotate",
+	    value: function rotate(cx, cy, x, y, angle) {
+	      var radians = this.radians(angle);
+	      var cos = Math.cos(radians);
+	      var sin = Math.sin(radians);
+	
+	      var nx = cos * (x - cx) + sin * (y - cy) + cx;
+	      var ny = cos * (y - cy) - sin * (x - cx) + cy;
+	      return [nx, ny];
+	    }
+	  }, {
+	    key: "findNewPoint",
+	    value: function findNewPoint(x, y, angle, distance) {
+	      var result = [];
+	      var radians = this.radians(angle);
+	
+	      result.push(Math.round(Math.cos(radians) * distance + x));
+	      result.push(Math.round(Math.sin(radians) * distance + y));
+	
+	      return result;
+	    }
+	  }]);
+	
+	  return Utils;
+	}();
+	
+	exports.default = Utils;
 
 /***/ }
 /******/ ]);

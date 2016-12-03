@@ -1,21 +1,29 @@
-const objOptions = {
+// this would help DRY up my code
+// testing to get canvas into this file
+// const canvas = document.getElementById("my-canvas");
+// import Utils from './utils.js';
+
+export const objOptions = {
+  // line
+  b: {
+    color: ['#f4de70'],
+    width: 40,
+    height: 40,
+    endWidth: 0,
+    delay: 100,
+    duration: 500,
+    numBoxes: 22,
+  },
   // big
   x: {
-    color: ['#ed6e2f', '#baecf0'],
+    color: ['#ed6e2f', '#baecf0', '#fbfbf4'],
     radius: [175, 200],
     endRadius: 200,
     duration: [500, 1000],
     numCircles: 1,
   },
   n: {
-    color: ['#f4de70', '#f6c7df'],
-    radius: [175, 200],
-    endRadius: 200,
-    duration: [500, 1000],
-    numCircles: 1,
-  },
-  b: {
-    color: ['#fbfbf4', '#baecf0'],
+    color: ['#f4de70', '#f6c7df', '#fbfbf4'],
     radius: [175, 200],
     endRadius: 200,
     duration: [500, 1000],
@@ -55,14 +63,14 @@ const objOptions = {
   w: {
     color: ['#B2FF4C', '#EA86FF'],
     radius: [125, 150],
-    duration: [8000, 10000],
+    duration: [5000, 7000],
     endRadius: 0,
     numCircles: 8,
   },
   e: {
     color: ['#FF9268', '#4CFFE1'],
     radius: [100, 120],
-    duration: [6000, 8000],
+    duration: [4000, 6000],
     endRadius: 0,
     numCircles: 8,
   },
@@ -107,6 +115,17 @@ const objOptions = {
     delay: 100,
     duration: [400, 500],
     numBoxes: 3,
+  },
+  // seven lines
+  u: {
+    color: ['#ffffff'],
+    // width: Utils.canvassx() * (6/8),
+    width: 1260,
+    height: 60,
+    endWidth: 0,
+    delay: 100,
+    duration: 500,
+    numBoxes: 7,
   },
   // Line boxes
   v: {
@@ -155,12 +174,6 @@ const objOptions = {
     endHeight: 25,
     numBoxes: 10,
   },
-  // triRectangle
-  u: {
-    rotate: 180,
-    borderRadius: '8px',
-    duration: 800,
-  },
   // BigBox
   // anime.random(50, 100); // Will set a random value from 50 to 100
   t: {
@@ -204,5 +217,3 @@ const objOptions = {
     numRipples: 5,
   },
 };
-
-export default objOptions;

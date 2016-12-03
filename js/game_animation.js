@@ -1,9 +1,11 @@
 import anime from 'animejs';
+import { objOptions } from './options.js';
+import Utils from './utils.js';
+
 import Ripple from './ripple.js';
 import Circle from './circle.js';
 import DisappearingCircle from './disappearing_circle.js';
 import HalfCircle from './half_circle.js';
-import objOptions from './util.js';
 import Box from './box.js';
 import TriRectangle from './tri_rectangle.js';
 import Rectangle from './rectangle.js';
@@ -208,10 +210,81 @@ const GameAnimation = (function (canvas, ctx) {
 
     const boxAnimation = anime({
       targets: boxes,
-      x: function() { return canvas.width * (7/8) - (options.endWidth/2); },
+      x: function() { return canvas.width * (7/8) - (options.endWidth); },
       width: options.endWidth,
       delay: options.delay,
       duration: function () { return anime.random(...options.duration); },
+      easing: 'easeOutExpo',
+      complete: removeAnimation,
+    });
+
+    animations.push(boxAnimation);
+  };
+
+  const animateSevenBoxes = function(options) {
+    setCanvasSize();
+    let x = canvas.width * (1/8);
+    let yArr = [canvas.height * (2/10) - (options.height/2),
+                canvas.height * (3/10) - (options.height/2),
+                canvas.height * (4/10) - (options.height/2),
+                canvas.height * (5/10) - (options.height/2),
+                canvas.height * (6/10) - (options.height/2),
+                canvas.height * (7/10) - (options.height/2),
+                canvas.height * (8/10) - (options.height/2)];
+    const sevenBoxes = createBoxes(x, yArr, options);
+
+    const boxAnimation = anime({
+      targets: sevenBoxes,
+      x: function() { return canvas.width * (7/8); },
+      width: options.endWidth,
+      delay: options.delay,
+      duration: options.duration,
+      easing: 'easeOutExpo',
+      complete: removeAnimation,
+    });
+
+    animations.push(boxAnimation);
+  };
+
+  const animateSpine = function(options) {
+    setCanvasSize();
+    let x = (canvas.width * (1/2)) - (options.width/2);
+    let yArr = [canvas.height * (1/12) - (options.height/2),
+                canvas.height * (2/12) - (options.height/2),
+                canvas.height * (3/12) - (options.height/2),
+                canvas.height * (4/12) - (options.height/2),
+                canvas.height * (5/12) - (options.height/2),
+                canvas.height * (6/12) - (options.height/2),
+                canvas.height * (7/12) - (options.height/2),
+                canvas.height * (8/12) - (options.height/2),
+                canvas.height * (9/12) - (options.height/2),
+                canvas.height * (10/12) - (options.height/2),
+                canvas.height * (11/12) - (options.height/2),
+                canvas.height * (11/12) - (options.height/2),
+                canvas.height * (10/12) - (options.height/2),
+                canvas.height * (9/12) - (options.height/2),
+                canvas.height * (8/12) - (options.height/2),
+                canvas.height * (7/12) - (options.height/2),
+                canvas.height * (6/12) - (options.height/2),
+                canvas.height * (5/12) - (options.height/2),
+                canvas.height * (4/12) - (options.height/2),
+                canvas.height * (3/12) - (options.height/2),
+                canvas.height * (2/12) - (options.height/2),
+                canvas.height * (1/12) - (options.height/2)];
+    const boxes = createBoxes(x, yArr, options);
+
+    const boxAnimation = anime({
+      targets: boxes,
+      x: function(el, index) {
+        if (Utils.isEven(index)) {
+          return canvas.width * (7/8);
+        } else {
+          return canvas.width * (1/8);
+        }
+      },
+      width: options.endWidth,
+      delay: function (el, index) { return index * 40; },
+      duration: options.duration,
       easing: 'easeOutExpo',
       complete: removeAnimation,
     });
@@ -338,8 +411,8 @@ const GameAnimation = (function (canvas, ctx) {
     let yArr = yLineBoxes(options);
     for (let i = 0; i < options.numBoxes; i++) {
       for (let j = 0; j < options.numBoxes; j++) {
-        let x = xArr[i];
-        let y = yArr[j];
+        let x = xArr[i] - (options.endWidth/2);
+        let y = yArr[j] - (options.endHeight/2);
         const box = new Box(x, y, options);
         boxes.push(box);
       }
@@ -567,10 +640,10 @@ const GameAnimation = (function (canvas, ctx) {
     animations.push(wordAnimation);
   };
 
-  const createLines = function(x, y, options) {
+  const createLines = function(x1, y1, x2, y2, options) {
     const lines = [];
     for (let i = 0; i < options.numLines; i++) {
-      const line = new Line(x, y, options);
+      const line = new Line(x1, y1, x2, y2, options);
       lines.push(line);
     }
     return lines;
@@ -578,8 +651,9 @@ const GameAnimation = (function (canvas, ctx) {
 
   const animateLine = function(options) {
     setCanvasSize();
-    let x = 0, y = 0;
-    const lines = createLines(x, y, options);
+    let x1 = 100, y1 = 100;
+    let x2 = 300, y2 = 300;
+    const lines = createLines(x1, y1, x2, y2, options);
     const lineAnimation = anime({
       targets: lines,
       duration: options.duration,
@@ -595,7 +669,7 @@ const GameAnimation = (function (canvas, ctx) {
       animateBox(objOptions[key]);
     }
     else if (key === "u") {
-      animateTriRectangle(objOptions[key]);
+      animateSevenBoxes(objOptions[key]);
     }
     else if (key === "t") {
       animateBigBox(objOptions[key]);
@@ -646,6 +720,9 @@ const GameAnimation = (function (canvas, ctx) {
     }
     else if (key === "y") {
       animateYes(objOptions[key]);
+    }
+    else if (key === "b") {
+      animateSpine(objOptions[key]);
     }
     else if (Object.keys(objOptions).indexOf(key) > -1) {
       animateCircle(objOptions[key]);

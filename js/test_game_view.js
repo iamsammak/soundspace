@@ -1,7 +1,7 @@
 import anime from 'animejs';
 import Ripple from './ripple.js';
 import Circle from './circle.js';
-import objOptions from './util.js';
+import { objOptions } from './options.js';
 
 class GameAnimation {
   constructor(canvas, ctx) {
