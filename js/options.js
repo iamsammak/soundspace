@@ -6,7 +6,7 @@
 export const objOptions = {
   // line
   b: {
-    color: ['#f4de70'],
+    color: ['#00FFC1'],
     width: 40,
     height: 40,
     endWidth: 0,
