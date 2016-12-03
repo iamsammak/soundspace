@@ -1525,7 +1525,7 @@
 	var objOptions = exports.objOptions = {
 	  // line
 	  b: {
-	    color: ['#00FFC1'],
+	    color: ['#f4de70'],
 	    width: 40,
 	    height: 40,
 	    endWidth: 0,
@@ -1542,7 +1542,7 @@
 	    numCircles: 1
 	  },
 	  n: {
-	    color: ['#f4de70', '#f6c7df', '#fbfbf4'],
+	    color: ['#00FFC1', '#f6c7df', '#fbfbf4'],
 	    radius: [175, 200],
 	    endRadius: 200,
 	    duration: [500, 1000],
