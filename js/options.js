@@ -1,9 +1,14 @@
 // this would help DRY up my code
 // testing to get canvas into this file
-// const canvas = document.getElementById("my-canvas");
+// var canvas = document.getElementById("my-canvas");
 // import Utils from './utils.js';
+// make objOptions a function that receives canvas and object[key] as parameters
+// its output would be the the objects below with the correct info, allowing manipulation of the canvas
 
 export const objOptions = {
+  // canvas: function() {
+  //   return document.getElementById("my-canvas");
+  // },
   // line
   b: {
     color: ['#f4de70'],
@@ -11,6 +16,7 @@ export const objOptions = {
     height: 40,
     endWidth: 0,
     delay: 100,
+    // something: this.canvas().width,
     duration: 500,
     numBoxes: 22,
   },

@@ -52,7 +52,7 @@
 	
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 	
-	__webpack_require__(14);
+	__webpack_require__(15);
 	
 	// import GameAnimation from './test_game_view.js';
 	
@@ -80,47 +80,47 @@
 	
 	var _options = __webpack_require__(3);
 	
-	var _utils = __webpack_require__(15);
+	var _utils = __webpack_require__(4);
 	
 	var _utils2 = _interopRequireDefault(_utils);
 	
-	var _ripple = __webpack_require__(4);
+	var _ripple = __webpack_require__(5);
 	
 	var _ripple2 = _interopRequireDefault(_ripple);
 	
-	var _circle = __webpack_require__(5);
+	var _circle = __webpack_require__(6);
 	
 	var _circle2 = _interopRequireDefault(_circle);
 	
-	var _disappearing_circle = __webpack_require__(6);
+	var _disappearing_circle = __webpack_require__(7);
 	
 	var _disappearing_circle2 = _interopRequireDefault(_disappearing_circle);
 	
-	var _half_circle = __webpack_require__(7);
+	var _half_circle = __webpack_require__(8);
 	
 	var _half_circle2 = _interopRequireDefault(_half_circle);
 	
-	var _box = __webpack_require__(8);
+	var _box = __webpack_require__(9);
 	
 	var _box2 = _interopRequireDefault(_box);
 	
-	var _tri_rectangle = __webpack_require__(9);
+	var _tri_rectangle = __webpack_require__(10);
 	
 	var _tri_rectangle2 = _interopRequireDefault(_tri_rectangle);
 	
-	var _rectangle = __webpack_require__(10);
+	var _rectangle = __webpack_require__(11);
 	
 	var _rectangle2 = _interopRequireDefault(_rectangle);
 	
-	var _screen = __webpack_require__(11);
+	var _screen = __webpack_require__(12);
 	
 	var _screen2 = _interopRequireDefault(_screen);
 	
-	var _line = __webpack_require__(12);
+	var _line = __webpack_require__(13);
 	
 	var _line2 = _interopRequireDefault(_line);
 	
-	var _word = __webpack_require__(13);
+	var _word = __webpack_require__(14);
 	
 	var _word2 = _interopRequireDefault(_word);
 	
@@ -1519,10 +1519,15 @@
 	});
 	// this would help DRY up my code
 	// testing to get canvas into this file
-	// const canvas = document.getElementById("my-canvas");
+	// var canvas = document.getElementById("my-canvas");
 	// import Utils from './utils.js';
+	// make objOptions a function that receives canvas and object[key] as parameters
+	// its output would be the the objects below with the correct info, allowing manipulation of the canvas
 	
 	var objOptions = exports.objOptions = {
+	  // canvas: function() {
+	  //   return document.getElementById("my-canvas");
+	  // },
 	  // line
 	  b: {
 	    color: ['#f4de70'],
@@ -1530,6 +1535,7 @@
 	    height: 40,
 	    endWidth: 0,
 	    delay: 100,
+	    // something: this.canvas().width,
 	    duration: 500,
 	    numBoxes: 22
 	  },
@@ -1741,475 +1747,6 @@
 /* 4 */
 /***/ function(module, exports) {
 
-	'use strict';
-	
-	Object.defineProperty(exports, "__esModule", {
-	  value: true
-	});
-	
-	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
-	
-	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
-	
-	var Ripple = function () {
-	  function Ripple(x, y) {
-	    var options = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : null;
-	
-	    _classCallCheck(this, Ripple);
-	
-	    this.x = x;
-	    this.y = y;
-	    this.alpha = 1;
-	    this.lineWidth = 6;
-	
-	    if (options === null) {
-	      this.radius = 0;
-	      this.color = '#FFF';
-	    } else {
-	      this.radius = options.radius;
-	      var colorIndex = Math.floor(Math.random() * options.color.length);
-	      this.color = options.color[colorIndex] || '#FFF';
-	    }
-	  }
-	
-	  _createClass(Ripple, [{
-	    key: 'draw',
-	    value: function draw(ctx) {
-	      ctx.globalAlpha = this.alpha;
-	      ctx.beginPath();
-	      ctx.arc(this.x, this.y, this.radius, 0, 2 * Math.PI, true);
-	      ctx.lineWidth = this.lineWidth;
-	      ctx.strokeStyle = this.color;
-	      ctx.stroke();
-	    }
-	  }]);
-	
-	  return Ripple;
-	}();
-	
-	exports.default = Ripple;
-
-/***/ },
-/* 5 */
-/***/ function(module, exports, __webpack_require__) {
-
-	'use strict';
-	
-	Object.defineProperty(exports, "__esModule", {
-	  value: true
-	});
-	
-	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
-	
-	var _animejs = __webpack_require__(2);
-	
-	var _animejs2 = _interopRequireDefault(_animejs);
-	
-	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-	
-	function _toConsumableArray(arr) { if (Array.isArray(arr)) { for (var i = 0, arr2 = Array(arr.length); i < arr.length; i++) { arr2[i] = arr[i]; } return arr2; } else { return Array.from(arr); } }
-	
-	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
-	
-	var Circle = function () {
-	  function Circle(x, y, options) {
-	    _classCallCheck(this, Circle);
-	
-	    this.x = x;
-	    this.y = y;
-	    this.radius = _animejs2.default.random.apply(_animejs2.default, _toConsumableArray(options.radius));
-	
-	    var colorIndex = Math.floor(Math.random() * options.color.length);
-	    this.color = options.color[colorIndex];
-	  }
-	
-	  _createClass(Circle, [{
-	    key: 'draw',
-	    value: function draw(ctx) {
-	      ctx.beginPath();
-	      ctx.arc(this.x, this.y, this.radius, 0, 2 * Math.PI, true);
-	      ctx.fillStyle = this.color;
-	      ctx.fill();
-	    }
-	  }]);
-	
-	  return Circle;
-	}();
-	
-	exports.default = Circle;
-
-/***/ },
-/* 6 */
-/***/ function(module, exports) {
-
-	"use strict";
-	
-	Object.defineProperty(exports, "__esModule", {
-	  value: true
-	});
-	
-	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
-	
-	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
-	
-	var DisappearingCircle = function () {
-	  function DisappearingCircle(x, y, radius, color) {
-	    _classCallCheck(this, DisappearingCircle);
-	
-	    this.x = x;
-	    this.y = y;
-	    this.radius = radius;
-	    this.color = color;
-	  }
-	
-	  _createClass(DisappearingCircle, [{
-	    key: "draw",
-	    value: function draw(ctx) {
-	      ctx.beginPath();
-	      ctx.arc(this.x, this.y, this.radius, 0, 2 * Math.PI, true);
-	      ctx.fillStyle = this.color;
-	      ctx.fill();
-	    }
-	  }]);
-	
-	  return DisappearingCircle;
-	}();
-	
-	exports.default = DisappearingCircle;
-
-/***/ },
-/* 7 */
-/***/ function(module, exports) {
-
-	"use strict";
-	
-	Object.defineProperty(exports, "__esModule", {
-	  value: true
-	});
-	
-	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
-	
-	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
-	
-	var HalfCircle = function () {
-	  function HalfCircle(x, y, topdown, options) {
-	    _classCallCheck(this, HalfCircle);
-	
-	    this.x = x;
-	    this.y = y;
-	    this.topdown = topdown; //boolean
-	    this.radius = options.radius;
-	
-	    var colorIndex = Math.floor(Math.random() * options.color.length);
-	    this.color = options.color[colorIndex];
-	  }
-	
-	  _createClass(HalfCircle, [{
-	    key: "draw",
-	    value: function draw(ctx) {
-	      ctx.beginPath();
-	      ctx.arc(this.x, this.y, this.radius, 0, Math.PI, this.topdown);
-	      ctx.closePath();
-	      ctx.fillStyle = this.color;
-	      ctx.fill();
-	    }
-	  }]);
-	
-	  return HalfCircle;
-	}();
-	
-	exports.default = HalfCircle;
-
-/***/ },
-/* 8 */
-/***/ function(module, exports) {
-
-	"use strict";
-	
-	Object.defineProperty(exports, "__esModule", {
-	  value: true
-	});
-	
-	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
-	
-	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
-	
-	var Box = function () {
-	  function Box(x, y, options) {
-	    _classCallCheck(this, Box);
-	
-	    this.x = x;
-	    this.y = y;
-	    this.width = options.width;
-	    this.height = options.height;
-	
-	    var colorIndex = Math.floor(Math.random() * options.color.length);
-	    this.color = options.color[colorIndex];
-	  }
-	
-	  _createClass(Box, [{
-	    key: "draw",
-	    value: function draw(ctx) {
-	      ctx.beginPath();
-	      ctx.fillStyle = this.color;
-	      ctx.rect(this.x, this.y, this.width, this.height);
-	      ctx.fill();
-	    }
-	  }]);
-	
-	  return Box;
-	}();
-	
-	exports.default = Box;
-
-/***/ },
-/* 9 */
-/***/ function(module, exports) {
-
-	"use strict";
-	
-	Object.defineProperty(exports, "__esModule", {
-	  value: true
-	});
-	
-	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
-	
-	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
-	
-	// import Utils from './utils.js';
-	
-	var TriRectangle = function () {
-	  function TriRectangle(x, y, options) {
-	    _classCallCheck(this, TriRectangle);
-	
-	    this.x = x;
-	    this.y = y;
-	
-	    // this.rotate = Utils.radians(options.rotate);
-	  }
-	
-	  _createClass(TriRectangle, [{
-	    key: "draw",
-	    value: function draw(ctx) {
-	      // Red rectangle
-	      ctx.beginPath();
-	      ctx.lineWidth = "6";
-	      ctx.strokeStyle = "#C7A1CC";
-	      ctx.rect(this.x - 45, this.y - 45, 140, 140);
-	      // ctx.rotate(this.rotate);
-	      ctx.stroke();
-	
-	      // Green rectangle
-	      ctx.beginPath();
-	      ctx.lineWidth = "4";
-	      ctx.strokeStyle = "#AEFFE9";
-	      ctx.rect(this.x, this.y, 50, 50);
-	      // ctx.rotate(this.rotate);
-	      ctx.stroke();
-	
-	      // Blue rectangle
-	      ctx.beginPath();
-	      ctx.lineWidth = "8";
-	      ctx.strokeStyle = "#FFE686";
-	      ctx.rect(this.x - 15, this.y - 15, 80, 80);
-	      // ctx.rotate(this.rotate);
-	      ctx.stroke();
-	    }
-	  }]);
-	
-	  return TriRectangle;
-	}();
-	
-	exports.default = TriRectangle;
-
-/***/ },
-/* 10 */
-/***/ function(module, exports) {
-
-	"use strict";
-	
-	Object.defineProperty(exports, "__esModule", {
-	  value: true
-	});
-	
-	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
-	
-	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
-	
-	var Rectangle = function () {
-	  function Rectangle(x, y, options) {
-	    _classCallCheck(this, Rectangle);
-	
-	    this.x = x;
-	    this.y = y;
-	    // this.color = options.color;
-	    this.width = options.width;
-	    this.height = options.height;
-	
-	    var colorIndex = Math.floor(Math.random() * options.color.length);
-	    this.color = options.color[colorIndex];
-	  }
-	
-	  _createClass(Rectangle, [{
-	    key: "draw",
-	    value: function draw(ctx) {
-	      ctx.beginPath();
-	      ctx.lineWidth = "6";
-	      ctx.strokeStyle = "red";
-	      ctx.rect(this.x, this.y, this.width, this.height);
-	      ctx.stroke();
-	    }
-	  }]);
-	
-	  return Rectangle;
-	}();
-	
-	exports.default = Rectangle;
-
-/***/ },
-/* 11 */
-/***/ function(module, exports) {
-
-	"use strict";
-	
-	Object.defineProperty(exports, "__esModule", {
-	  value: true
-	});
-	
-	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
-	
-	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
-	
-	var Screen = function () {
-	  function Screen(x, y, width, height, options) {
-	    _classCallCheck(this, Screen);
-	
-	    this.x = x;
-	    this.y = y;
-	    this.width = width;
-	    this.height = height;
-	
-	    var colorIndex = Math.floor(Math.random() * options.color.length);
-	    this.color = options.color[colorIndex];
-	  }
-	
-	  _createClass(Screen, [{
-	    key: "draw",
-	    value: function draw(ctx) {
-	      ctx.beginPath();
-	      ctx.fillStyle = this.color;
-	      ctx.rect(this.x, this.y, this.width, this.height);
-	      ctx.fill();
-	    }
-	  }]);
-	
-	  return Screen;
-	}();
-	
-	exports.default = Screen;
-
-/***/ },
-/* 12 */
-/***/ function(module, exports) {
-
-	"use strict";
-	
-	Object.defineProperty(exports, "__esModule", {
-	  value: true
-	});
-	
-	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
-	
-	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
-	
-	var Line = function () {
-	  function Line(x1, y1, x2, y2, options) {
-	    _classCallCheck(this, Line);
-	
-	    this.x1 = x1;
-	    this.y1 = y1;
-	    this.x2 = x2;
-	    this.y2 = y2;
-	
-	    var widthIndex = Math.floor(Math.random() * options.lineWidth.length);
-	    this.lineWidth = options.lineWidth[widthIndex];
-	
-	    var colorIndex = Math.floor(Math.random() * options.color.length);
-	    this.color = options.color[colorIndex];
-	  }
-	
-	  _createClass(Line, [{
-	    key: "draw",
-	    value: function draw(ctx) {
-	      ctx.beginPath();
-	      ctx.moveTo(this.x1, this.y1);
-	      ctx.lineTo(this.x2, this.y2);
-	      // ctx.lineWidth = this.lineWidth;
-	      // ctx.strokestyle = this.color;
-	      ctx.stroke();
-	    }
-	  }]);
-	
-	  return Line;
-	}();
-	
-	exports.default = Line;
-
-/***/ },
-/* 13 */
-/***/ function(module, exports) {
-
-	"use strict";
-	
-	Object.defineProperty(exports, "__esModule", {
-	  value: true
-	});
-	
-	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
-	
-	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
-	
-	var Word = function () {
-	  function Word(x, y, options) {
-	    _classCallCheck(this, Word);
-	
-	    this.x = x;
-	    this.y = y;
-	
-	    var fontIndex = Math.floor(Math.random() * options.font.length);
-	    this.font = options.font[fontIndex];
-	
-	    var textIndex = Math.floor(Math.random() * options.text.length);
-	    this.text = options.text[textIndex];
-	
-	    var colorIndex = Math.floor(Math.random() * options.color.length);
-	    this.color = options.color[colorIndex];
-	  }
-	
-	  _createClass(Word, [{
-	    key: "draw",
-	    value: function draw(ctx) {
-	      ctx.font = this.font;
-	      ctx.fillStyle = this.color;
-	      ctx.fillText(this.text, this.x, this.y);
-	    }
-	  }]);
-	
-	  return Word;
-	}();
-	
-	exports.default = Word;
-
-/***/ },
-/* 14 */
-/***/ function(module, exports) {
-
-	// removed by extract-text-webpack-plugin
-
-/***/ },
-/* 15 */
-/***/ function(module, exports) {
-
 	"use strict";
 	
 	Object.defineProperty(exports, "__esModule", {
@@ -2291,6 +1828,475 @@
 	}();
 	
 	exports.default = Utils;
+
+/***/ },
+/* 5 */
+/***/ function(module, exports) {
+
+	'use strict';
+	
+	Object.defineProperty(exports, "__esModule", {
+	  value: true
+	});
+	
+	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+	
+	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+	
+	var Ripple = function () {
+	  function Ripple(x, y) {
+	    var options = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : null;
+	
+	    _classCallCheck(this, Ripple);
+	
+	    this.x = x;
+	    this.y = y;
+	    this.alpha = 1;
+	    this.lineWidth = 6;
+	
+	    if (options === null) {
+	      this.radius = 0;
+	      this.color = '#FFF';
+	    } else {
+	      this.radius = options.radius;
+	      var colorIndex = Math.floor(Math.random() * options.color.length);
+	      this.color = options.color[colorIndex] || '#FFF';
+	    }
+	  }
+	
+	  _createClass(Ripple, [{
+	    key: 'draw',
+	    value: function draw(ctx) {
+	      ctx.globalAlpha = this.alpha;
+	      ctx.beginPath();
+	      ctx.arc(this.x, this.y, this.radius, 0, 2 * Math.PI, true);
+	      ctx.lineWidth = this.lineWidth;
+	      ctx.strokeStyle = this.color;
+	      ctx.stroke();
+	    }
+	  }]);
+	
+	  return Ripple;
+	}();
+	
+	exports.default = Ripple;
+
+/***/ },
+/* 6 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+	
+	Object.defineProperty(exports, "__esModule", {
+	  value: true
+	});
+	
+	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+	
+	var _animejs = __webpack_require__(2);
+	
+	var _animejs2 = _interopRequireDefault(_animejs);
+	
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+	
+	function _toConsumableArray(arr) { if (Array.isArray(arr)) { for (var i = 0, arr2 = Array(arr.length); i < arr.length; i++) { arr2[i] = arr[i]; } return arr2; } else { return Array.from(arr); } }
+	
+	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+	
+	var Circle = function () {
+	  function Circle(x, y, options) {
+	    _classCallCheck(this, Circle);
+	
+	    this.x = x;
+	    this.y = y;
+	    this.radius = _animejs2.default.random.apply(_animejs2.default, _toConsumableArray(options.radius));
+	
+	    var colorIndex = Math.floor(Math.random() * options.color.length);
+	    this.color = options.color[colorIndex];
+	  }
+	
+	  _createClass(Circle, [{
+	    key: 'draw',
+	    value: function draw(ctx) {
+	      ctx.beginPath();
+	      ctx.arc(this.x, this.y, this.radius, 0, 2 * Math.PI, true);
+	      ctx.fillStyle = this.color;
+	      ctx.fill();
+	    }
+	  }]);
+	
+	  return Circle;
+	}();
+	
+	exports.default = Circle;
+
+/***/ },
+/* 7 */
+/***/ function(module, exports) {
+
+	"use strict";
+	
+	Object.defineProperty(exports, "__esModule", {
+	  value: true
+	});
+	
+	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+	
+	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+	
+	var DisappearingCircle = function () {
+	  function DisappearingCircle(x, y, radius, color) {
+	    _classCallCheck(this, DisappearingCircle);
+	
+	    this.x = x;
+	    this.y = y;
+	    this.radius = radius;
+	    this.color = color;
+	  }
+	
+	  _createClass(DisappearingCircle, [{
+	    key: "draw",
+	    value: function draw(ctx) {
+	      ctx.beginPath();
+	      ctx.arc(this.x, this.y, this.radius, 0, 2 * Math.PI, true);
+	      ctx.fillStyle = this.color;
+	      ctx.fill();
+	    }
+	  }]);
+	
+	  return DisappearingCircle;
+	}();
+	
+	exports.default = DisappearingCircle;
+
+/***/ },
+/* 8 */
+/***/ function(module, exports) {
+
+	"use strict";
+	
+	Object.defineProperty(exports, "__esModule", {
+	  value: true
+	});
+	
+	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+	
+	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+	
+	var HalfCircle = function () {
+	  function HalfCircle(x, y, topdown, options) {
+	    _classCallCheck(this, HalfCircle);
+	
+	    this.x = x;
+	    this.y = y;
+	    this.topdown = topdown; //boolean
+	    this.radius = options.radius;
+	
+	    var colorIndex = Math.floor(Math.random() * options.color.length);
+	    this.color = options.color[colorIndex];
+	  }
+	
+	  _createClass(HalfCircle, [{
+	    key: "draw",
+	    value: function draw(ctx) {
+	      ctx.beginPath();
+	      ctx.arc(this.x, this.y, this.radius, 0, Math.PI, this.topdown);
+	      ctx.closePath();
+	      ctx.fillStyle = this.color;
+	      ctx.fill();
+	    }
+	  }]);
+	
+	  return HalfCircle;
+	}();
+	
+	exports.default = HalfCircle;
+
+/***/ },
+/* 9 */
+/***/ function(module, exports) {
+
+	"use strict";
+	
+	Object.defineProperty(exports, "__esModule", {
+	  value: true
+	});
+	
+	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+	
+	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+	
+	var Box = function () {
+	  function Box(x, y, options) {
+	    _classCallCheck(this, Box);
+	
+	    this.x = x;
+	    this.y = y;
+	    this.width = options.width;
+	    this.height = options.height;
+	
+	    var colorIndex = Math.floor(Math.random() * options.color.length);
+	    this.color = options.color[colorIndex];
+	  }
+	
+	  _createClass(Box, [{
+	    key: "draw",
+	    value: function draw(ctx) {
+	      ctx.beginPath();
+	      ctx.fillStyle = this.color;
+	      ctx.rect(this.x, this.y, this.width, this.height);
+	      ctx.fill();
+	    }
+	  }]);
+	
+	  return Box;
+	}();
+	
+	exports.default = Box;
+
+/***/ },
+/* 10 */
+/***/ function(module, exports) {
+
+	"use strict";
+	
+	Object.defineProperty(exports, "__esModule", {
+	  value: true
+	});
+	
+	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+	
+	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+	
+	// import Utils from './utils.js';
+	
+	var TriRectangle = function () {
+	  function TriRectangle(x, y, options) {
+	    _classCallCheck(this, TriRectangle);
+	
+	    this.x = x;
+	    this.y = y;
+	
+	    // this.rotate = Utils.radians(options.rotate);
+	  }
+	
+	  _createClass(TriRectangle, [{
+	    key: "draw",
+	    value: function draw(ctx) {
+	      // Red rectangle
+	      ctx.beginPath();
+	      ctx.lineWidth = "6";
+	      ctx.strokeStyle = "#C7A1CC";
+	      ctx.rect(this.x - 45, this.y - 45, 140, 140);
+	      // ctx.rotate(this.rotate);
+	      ctx.stroke();
+	
+	      // Green rectangle
+	      ctx.beginPath();
+	      ctx.lineWidth = "4";
+	      ctx.strokeStyle = "#AEFFE9";
+	      ctx.rect(this.x, this.y, 50, 50);
+	      // ctx.rotate(this.rotate);
+	      ctx.stroke();
+	
+	      // Blue rectangle
+	      ctx.beginPath();
+	      ctx.lineWidth = "8";
+	      ctx.strokeStyle = "#FFE686";
+	      ctx.rect(this.x - 15, this.y - 15, 80, 80);
+	      // ctx.rotate(this.rotate);
+	      ctx.stroke();
+	    }
+	  }]);
+	
+	  return TriRectangle;
+	}();
+	
+	exports.default = TriRectangle;
+
+/***/ },
+/* 11 */
+/***/ function(module, exports) {
+
+	"use strict";
+	
+	Object.defineProperty(exports, "__esModule", {
+	  value: true
+	});
+	
+	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+	
+	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+	
+	var Rectangle = function () {
+	  function Rectangle(x, y, options) {
+	    _classCallCheck(this, Rectangle);
+	
+	    this.x = x;
+	    this.y = y;
+	    // this.color = options.color;
+	    this.width = options.width;
+	    this.height = options.height;
+	
+	    var colorIndex = Math.floor(Math.random() * options.color.length);
+	    this.color = options.color[colorIndex];
+	  }
+	
+	  _createClass(Rectangle, [{
+	    key: "draw",
+	    value: function draw(ctx) {
+	      ctx.beginPath();
+	      ctx.lineWidth = "6";
+	      ctx.strokeStyle = "red";
+	      ctx.rect(this.x, this.y, this.width, this.height);
+	      ctx.stroke();
+	    }
+	  }]);
+	
+	  return Rectangle;
+	}();
+	
+	exports.default = Rectangle;
+
+/***/ },
+/* 12 */
+/***/ function(module, exports) {
+
+	"use strict";
+	
+	Object.defineProperty(exports, "__esModule", {
+	  value: true
+	});
+	
+	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+	
+	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+	
+	var Screen = function () {
+	  function Screen(x, y, width, height, options) {
+	    _classCallCheck(this, Screen);
+	
+	    this.x = x;
+	    this.y = y;
+	    this.width = width;
+	    this.height = height;
+	
+	    var colorIndex = Math.floor(Math.random() * options.color.length);
+	    this.color = options.color[colorIndex];
+	  }
+	
+	  _createClass(Screen, [{
+	    key: "draw",
+	    value: function draw(ctx) {
+	      ctx.beginPath();
+	      ctx.fillStyle = this.color;
+	      ctx.rect(this.x, this.y, this.width, this.height);
+	      ctx.fill();
+	    }
+	  }]);
+	
+	  return Screen;
+	}();
+	
+	exports.default = Screen;
+
+/***/ },
+/* 13 */
+/***/ function(module, exports) {
+
+	"use strict";
+	
+	Object.defineProperty(exports, "__esModule", {
+	  value: true
+	});
+	
+	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+	
+	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+	
+	var Line = function () {
+	  function Line(x1, y1, x2, y2, options) {
+	    _classCallCheck(this, Line);
+	
+	    this.x1 = x1;
+	    this.y1 = y1;
+	    this.x2 = x2;
+	    this.y2 = y2;
+	
+	    var widthIndex = Math.floor(Math.random() * options.lineWidth.length);
+	    this.lineWidth = options.lineWidth[widthIndex];
+	
+	    var colorIndex = Math.floor(Math.random() * options.color.length);
+	    this.color = options.color[colorIndex];
+	  }
+	
+	  _createClass(Line, [{
+	    key: "draw",
+	    value: function draw(ctx) {
+	      ctx.beginPath();
+	      ctx.moveTo(this.x1, this.y1);
+	      ctx.lineTo(this.x2, this.y2);
+	      // ctx.lineWidth = this.lineWidth;
+	      // ctx.strokestyle = this.color;
+	      ctx.stroke();
+	    }
+	  }]);
+	
+	  return Line;
+	}();
+	
+	exports.default = Line;
+
+/***/ },
+/* 14 */
+/***/ function(module, exports) {
+
+	"use strict";
+	
+	Object.defineProperty(exports, "__esModule", {
+	  value: true
+	});
+	
+	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+	
+	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+	
+	var Word = function () {
+	  function Word(x, y, options) {
+	    _classCallCheck(this, Word);
+	
+	    this.x = x;
+	    this.y = y;
+	
+	    var fontIndex = Math.floor(Math.random() * options.font.length);
+	    this.font = options.font[fontIndex];
+	
+	    var textIndex = Math.floor(Math.random() * options.text.length);
+	    this.text = options.text[textIndex];
+	
+	    var colorIndex = Math.floor(Math.random() * options.color.length);
+	    this.color = options.color[colorIndex];
+	  }
+	
+	  _createClass(Word, [{
+	    key: "draw",
+	    value: function draw(ctx) {
+	      ctx.font = this.font;
+	      ctx.fillStyle = this.color;
+	      ctx.fillText(this.text, this.x, this.y);
+	    }
+	  }]);
+	
+	  return Word;
+	}();
+	
+	exports.default = Word;
+
+/***/ },
+/* 15 */
+/***/ function(module, exports) {
+
+	// removed by extract-text-webpack-plugin
 
 /***/ }
 /******/ ]);

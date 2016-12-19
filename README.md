@@ -10,6 +10,11 @@
 
 ### Background
 
+<!-- A visual exploration of the human perception to sounds and moving objects
+https://www.sitepoint.com/animating-the-dom-with-anime-js/ -->
+
+### Hook
+
 Press a key. Any alphabet key. I dare you. Triple dog dare you.
 
 What. ya. gonna. do?
