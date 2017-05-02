@@ -84,14 +84,9 @@ Silence before the awesomeness.
 ![homepage](./assets/images/homepage.png)
 
 #### Play view
-![gameplay]
-![gameplay2]
-![gameplay3]
-
-
-[gameplay]: ./assets/images/gameplay1.gif
-[gameplay2]: ./assets/images/gameplay2.gif
-[gameplay3]: ./assets/images/gameplay3.gif
+![gameplay](./assets/images/gameplay1.gif)
+![gameplay2](./assets/images/gameplay2.gif)
+![gameplay3](./assets/images/gameplay3.gif)
 
 ### Future Implementations
 
