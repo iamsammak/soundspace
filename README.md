@@ -1,11 +1,9 @@
 # Sound Space
-####Live Site
+#### Live Site
 [Click to Play](https://iamsammak.github.io/soundspace/)
 
-![header]
-[header]: ./assets/images/header.png
-![gameplay4]
-[gameplay4]: ./assets/images/gameplay4.gif
+![header](./assets/images/header.png)
+![gameplay4](./assets/images/gameplay4.gif)
 
 
 ### Background
@@ -81,16 +79,16 @@ const animateHalfCircles = function(options) {
 
 ### Game views
 
-####Home Screen
+#### Home Screen
 Silence before the awesomeness.
-![homepage]
+![homepage](./assets/images/homepage.png)
 
-####Play view
+#### Play view
 ![gameplay]
 ![gameplay2]
 ![gameplay3]
 
-[homepage]: ./assets/images/homepage.png
+
 [gameplay]: ./assets/images/gameplay1.gif
 [gameplay2]: ./assets/images/gameplay2.gif
 [gameplay3]: ./assets/images/gameplay3.gif
